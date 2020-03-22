@@ -64,14 +64,6 @@ const filters = props => {
               <option value="mango">Mango</option>
             </select>
           </li>
-          <li>
-            <select>
-              <option value="grapefruit">Grapefruit</option>
-              <option value="lime">Lime</option>
-              <option selected value="coconut">Coconut</option>
-              <option value="mango">Mango</option>
-            </select>
-          </li>
         </ul>
         <ul class="StatusList">
           <li>
