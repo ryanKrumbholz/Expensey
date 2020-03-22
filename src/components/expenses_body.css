@@ -1,0 +1,12 @@
+.ExpensesBody {
+    background-color: 	#E8E8E8;
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+}
+
+.Filters, .Header {
+    border-bottom: rgba(128, 128, 128, 0.274);
+    border-width: .1vh;
+    border-bottom-style: solid;
+}
