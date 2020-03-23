@@ -2,19 +2,25 @@ import React from 'react';
 import './filters.css';
 
 const filters = props => {
+  var cardList = [];
+  var tagList = [];
+  var policyList = [];
+  var categoriesList = [];
+  var typesList = [];
+
   return (
       <div className="Filters">
         <ul class="DatesFiltersList">
           <li>
             <form action="">
-              <label for="from">From:</label>
+              <label for="From">From:</label>
               <input type="date" id="" name=""/>
               <input type="submit"/>
             </form>
           </li>
           <li>
             <form action="">
-              <label for="from">From:</label>
+              <label for="To">To:</label>
               <input type="date" id="" name=""/>
               <input type="submit"/>
             </form>

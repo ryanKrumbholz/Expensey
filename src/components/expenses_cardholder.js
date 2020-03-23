@@ -6,7 +6,7 @@ const expenses_cardholder = props => {
   return (
       <div className="ExpensesCardholder">
         <p>CardHolder</p>
-        <ExpenseCard />
+        <ExpenseCard/>
       </div>
   )
 }

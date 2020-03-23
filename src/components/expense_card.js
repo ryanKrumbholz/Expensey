@@ -70,6 +70,10 @@ const expense_card = props => {
     };
   }();
 
+  function expense_card() {
+
+  }
+
   if (cardData.getReceiptImgLink() != null) {
     cardData.setReceiptImg(cardData.getReceiptImgLink());
   } else {
