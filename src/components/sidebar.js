@@ -2,6 +2,9 @@ import React from 'react';
 import './sidebar.css';
 
 const sidebar = props => {
+  //TODO tie into the  backend
+
+  //function to encapsulate data with getters and setters
   var userData = function(){
     var userImg = null;
     var username = null;
@@ -33,14 +36,17 @@ const sidebar = props => {
     }
   }();
 
+  //if statements to set userImg to default for testing
   if (userData.getUserImg() == null) {
     userData.setUserImg(userData.getDefaultImg());
   }
 
+  //if statement to set userImg to default for testing
   if (userData.getUsername() == null) {
     userData.setUsername("User Name");
   }
 
+  //if statement to set uid to default for testing
   if (userData.getUid() == null) {
     userData.setUid("000000");
   }

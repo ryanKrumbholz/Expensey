@@ -2,6 +2,8 @@ import React from 'react';
 import './expense_card.css';
 
 const expense_card = props => {
+  //TODO add constructor and figure our how to pass
+  
   //function encapsulates card data
   var cardData = function () {
     var date = "null";

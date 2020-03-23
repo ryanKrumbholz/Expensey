@@ -2,6 +2,7 @@ import React from 'react';
 import './filters.css';
 
 const filters = props => {
+  //TODO create filters list and tie them into the elements
   var cardList = [];
   var tagList = [];
   var policyList = [];
