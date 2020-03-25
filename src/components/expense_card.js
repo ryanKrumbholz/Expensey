@@ -2,17 +2,27 @@ import React from 'react';
 import './expense_card.css';
 
 const expense_card = props => {
-  //TODO add constructor and figure our how to pass
-  
+  var test = 0;
+  //constructor
+  const assign = function() {
+    cardData.setDate(props.date);
+    cardData.setDescrip(props.description);
+    cardData.setAmount(props.amount);
+    cardData.setReceiptImgLink(props.receiptImgLink);
+    cardData.setCategory(props.category);
+    cardData.setTag(props.tag);
+    cardData.setComments(props.comments);
+  };
+
   //function encapsulates card data
   var cardData = function () {
-    var date = "null";
-    var description = "null";
-    var amount = "null";
+    var date = null;
+    var description = null;
+    var amount = null;
     var receiptImgLink = null;
-    var category = "null";
-    var tag = "null";
-    var comments = "null";
+    var category = null;
+    var tag = null;
+    var comments = null;
     const receiptIcon = "https://png.pngtree.com/png-vector/20190411/ourlarge/pngtree-vector-receipt-icon-png-image_927096.jpg";
     var receiptImg;
 
@@ -72,9 +82,7 @@ const expense_card = props => {
     };
   }();
 
-  function expense_card() {
-
-  }
+  assign();
 
   if (cardData.getReceiptImgLink() != null) {
     cardData.setReceiptImg(cardData.getReceiptImgLink());

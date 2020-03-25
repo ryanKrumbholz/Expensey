@@ -10,6 +10,7 @@ const filters = props => {
   var typesList = [];
 
   return (
+    cardList,
       <div className="Filters">
         <ul class="DatesFiltersList">
           <li>
