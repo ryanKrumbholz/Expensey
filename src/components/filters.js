@@ -2,6 +2,30 @@ import React from 'react';
 import './filters.css';
 
 const filters = props => {
+  //TODO connect database and table and finish writing appropriate functions
+  function fetchListData(databaseVar /* temp var name for whatever I end up passing here */) {
+    function fetchCatList(databaseListItems) {
+      for (var i = 0; i <= databaseListItems.length(); i++) {
+        listData.setCatList(databaseListItems[i]);
+      }
+    }
+    function fetchCcList(databaseListItems) {
+      for (var i = 0; i <= databaseListItems.length(); i++) {
+        listData.setCctList(databaseListItems[i]);
+      }
+    }
+    function fetchTagList(databaseListItems) {
+      for (var i = 0; i <= databaseListItems.length(); i++) {
+        listData.setTagList(databaseListItems[i]);
+      }
+    }
+    function fetchAllList() {
+      fetchCatList(); 
+      fetchCcList(); 
+      fetchTagList();
+    }
+    fetchAllList();
+  }
 
   function listData (){
     var tagList = [];
