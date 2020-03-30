@@ -1,0 +1,15 @@
+.Card {
+    display: flex;
+    background-color: white ;
+    border-bottom: rgba(87, 87, 87, 0.74);
+    border-width: .1vh;
+    border-bottom-style: solid;
+}
+
+.Card img {
+    width: 5vh;
+}
+
+.Card p {
+    margin: auto;
+}

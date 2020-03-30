@@ -1,0 +1,9 @@
+.Header {
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.Header button {
+    max-height: 4vh;
+}
