@@ -54,7 +54,6 @@ const filters = props => {
     };
   }
   
-
   return (
       <div className="Filters">
         <ul class="DatesFiltersList">
