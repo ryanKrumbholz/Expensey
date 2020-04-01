@@ -1,0 +1,28 @@
+body {
+    background-image: linear-gradient(75deg, #7474BF,#348AC7);
+    margin: 0;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    background: gray;
+    margin: auto;
+    text-align: center;
+}
+
+.login button {
+    margin: auto;
+    width: 20%;
+}
+
+.login input {
+    margin: auto;
+    width: 80%;
+}
+
+.login  a {
+    margin: auto;
+}
+    
