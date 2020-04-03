@@ -1,18 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './expense_card.css';
 
-const expense_card = props => {
-  var test = 0;
-  //constructor
-  const assign = function() {
-    cardData.setDate(props.date);
-    cardData.setDescrip(props.description);
-    cardData.setAmount(props.amount);
-    cardData.setReceiptImgLink(props.receiptImgLink);
-    cardData.setCategory(props.category);
-    cardData.setTag(props.tag);
-    cardData.setComments(props.comments);
-  };
+const expenses_card = props => {
 
   //function encapsulates card data
   var cardData = function () {
@@ -82,7 +71,16 @@ const expense_card = props => {
     };
   }();
 
-  assign();
+  function expense_card () {
+    cardData.setDate(props.date);
+    cardData.setDescrip(props.description);
+    cardData.setAmount(props.amount);
+    cardData.setReceiptImgLink(props.receiptImgLink);
+    cardData.setCategory(props.category);
+    cardData.setTag(props.tag);
+    cardData.setComments(props.comments);
+  };
+
 
   if (cardData.getReceiptImgLink() != null) {
     cardData.setReceiptImg(cardData.getReceiptImgLink());
