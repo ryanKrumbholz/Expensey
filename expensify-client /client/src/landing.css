@@ -1,15 +1,15 @@
 body {
     background-image: linear-gradient(75deg, #7474BF,#348AC7);
-    margin: 0;
+    margin: auto;
 }
 
 .login {
     display: flex;
     flex-direction: column;
     width: 40%;
-    background: gray;
     margin: auto;
     text-align: center;
+    background-color:rgb(233, 233, 233);
 }
 
 .login button {
@@ -25,4 +25,15 @@ body {
 .login  a {
     margin: auto;
 }
-    
+
+.login p {
+    color: red;
+    visibility: hidden;
+    height: 0;
+}
+
+.createAccount{
+    visibility: hidden;
+    height: 0;
+}
+

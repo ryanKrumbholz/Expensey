@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Sidebar from './components/sidebar'
 import ExpensesBody from './components/expenses_body'
 import Landing from './landing'
+import { BrowserRouter as Router, Route} from  "react-router-dom";
 import './App.css';
 
  class App extends Component {
@@ -21,16 +22,21 @@ import './App.css';
   }
 
   loggedIn() {
+    //Create a t/f state to check if user is logged in or not
     return true;
   }
 
   render () {
     if(this.loggedIn()){return(
-      <div class="App">
-        <Sidebar/>
-        <ExpensesBody /> {/* will add function to switch between reports and this */}
-        <p className="App-intro">;{this.state.apiResponse}</p>
-      </div>
+      // <Router>
+        <div class="App">
+          <Sidebar/>
+          {/* <Route path="/" exact component={ExpensesBody}/> */}
+          {/* will add function to switch between reports and this */}
+          <ExpensesBody /> 
+          <p className="App-intro">;{this.state.apiResponse}</p>
+        </div>
+      // </Router>
     );}
     else{
       return(
