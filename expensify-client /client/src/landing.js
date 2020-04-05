@@ -78,28 +78,28 @@ const Landing = () => {
     return (
         <div class="login">
           <p class="errorMessage"></p> 
-            <h1>Email Address</h1>
+            <h2>Email Address</h2>
             <form onSubmit="">
               <label>
                 <input class="emailAddress" type="text" onChange="" />
               </label>
             </form>
             <div class="createAccount">
-              <h1>Confirm Email Address</h1>
+              <h2>Confirm Email Address</h2>
               <form onSubmit="">
                 <label>
                   <input class="emailAddressConf" type="text" onChange="" />
                 </label>
               </form>
             </div>
-            <h1>Password</h1>
+            <h2>Password</h2>
             <form onSubmit="">
               <label>
                 <input class="pword" type="text" onChange="" />
               </label>
             </form>
             <div class="createAccount">
-              <h1>Confirm Password</h1>
+              <h2>Confirm Password</h2>
               <form onSubmit="">
                 <label>
                   <input class="pwordConf" type="text" onChange="" />

@@ -1,43 +1,122 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require("cors");
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var testAPIRouter = require("./routes/testAPI");
-var app = express();
+const express = require('express')
+const app = express()
+const port = 9000
+const mongoose = require('mongoose');
+const dbConnection = "mongodb+srv://RAK100598:l6CJKwngRzUw6Jcw@expenseycluster-prt5l.mongodb.net/userData?retryWrites=true&w=majority";
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cors());
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use("/testAPI", testAPIRouter);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+var userSchema = new mongoose.Schema({
+  id: String,
+  username: String,
+  email: String,
+  password: String
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+var expenseSchema = new mongoose.Schema({
+  id: String,
+  date: String,
+  merchant: String,
+  amount: Number,
+  category: String,
+  description: String,
+  tag: String,
+  receiptImgLink: String
 });
 
-module.exports = app;
+var User = mongoose.model("User", userSchema);
+var Expense = mongoose.model("Expense",  expenseSchema);
+
+function estDB() {
+  //establishes connection to db
+  mongoose.connect(dbConnection,{useNewUrlParser: true});
+  var db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'connection error:'));
+  db.once('open', function() {
+    // we're connected!
+  });
+}
+
+function saveUser(user) {
+  user.save( (err, user) => {
+    if (err) return console.error(err);
+  });
+}
+
+function createUser(username, email, password) {
+  var id = Date.now();
+  saveUser(new User({
+    id: id,
+    username: username,
+    email: email,
+    password: password
+  }));
+}
+
+function getUser(email) {
+  //TODO get user from DB by email or ID  and turn back into user object
+  const  doc = User.findOne({email: email});
+  return (doc.toObject());
+}
+
+function updateUser(email) {
+  //TODO write function to update user in DB
+}
+
+function delUser(email) {
+  //TODO write function to delete user from DB
+}
+
+function authUser(email, pword) {
+  var user  = getUser(email);
+  if (user.password ==  pword) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+function saveExpense(expense) {
+  expense.save( (err, user) => {
+    if (err) return console.error(err);
+  });
+}
+
+function createExpense(username, date, merchant, amount, category, description, tag, link) {
+  var id = username  +  date.now().toString();
+  saveExpense(new Expense({
+    id: id,
+    date: date,
+    merchant: merchant,
+    amount: amount,
+    category: category,
+    description: description,
+    tag: tag,
+    receiptImgLink: link
+  }));
+}
+
+function getExpense(id) {
+  //TODO get Expense from DB by ID  and turn back into object
+  const  doc = Expense.findOne({id: id});
+  return (doc.toObject());
+}
+
+function updateExpense(id) {
+  //TODO write function to update Expense in DB
+}
+
+function delExpense(id) {
+  //TODO write function to delete Expense from DB
+}
+
+estDB();
+
+app.get('/api/user', (req,res) => {
+  res.send();
+});
+
+app.get('/', (req,res) => {
+  res.send();
+});
+
+app.listen(port, () => console.log("Server started on port ${port}"));
