@@ -8,7 +8,8 @@ var userSchema = new mongoose.Schema({
   id: String,
   username: String,
   email: String,
-  password: String
+  password: String,
+  imageLink: String
 });
 
 var expenseSchema = new mongoose.Schema({
@@ -41,13 +42,14 @@ function saveUser(user) {
   });
 }
 
-function createUser(username, email, password) {
+function createUser(username, email, password, imageLink) {
   var id = Date.now();
   saveUser(new User({
     id: id,
     username: username,
     email: email,
-    password: password
+    password: password,
+    imageLink: imageLink
   }));
 }
 
