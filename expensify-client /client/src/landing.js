@@ -92,6 +92,22 @@ const Landing = () => {
                 </label>
               </form>
             </div>
+            <div class="createAccount">
+              <h2>Username</h2>
+              <form onSubmit="">
+                <label>
+                  <input class="username" type="text" onChange="" />
+                </label>
+              </form>
+            </div>
+            <div class="createAccount">
+              <h2>Confirm Username</h2>
+              <form onSubmit="">
+                <label>
+                  <input class="usernameConf" type="text" onChange="" />
+                </label>
+              </form>
+            </div>
             <h2>Password</h2>
             <form onSubmit="">
               <label>
