@@ -4,6 +4,15 @@
     flex-direction: row;
 }
 
+.Header h2 {
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-left: 2.5vw
+}
+
 .Header button {
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-left: 65%;
     max-height: 4vh;
 }

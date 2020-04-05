@@ -1,7 +1,8 @@
 import React from 'react';
+import ExpenseCard  from './expense_card';
 import './table.css';
 
-const table = props => {
+const Table = props => {
   //TODO connect database and table and finish writing appropriate functions
   function fetchListData(databaseVar /* temp var name for whatever I end up passing here */) {
     function fetchCatList(databaseListItems) {
@@ -151,16 +152,32 @@ const table = props => {
     )
   }
 
+  function populateExpenseCards () {
+    //TODO after figuring out database schema, rewrite this algo to get card info
+    var expenseCardList =  []
+    var numCards = 10; //TODO  get number of cards from user account 
+    for (var i = 0; i < numCards; i++) {
+      expenseCardList.push(<ExpenseCard data = {["1/20/20", "Uber", "$100", "Transp","add comment", "tag", "img link"]}/>)
+    }
+    return(
+      expenseCardList
+    );
+  }
+
   function table (){
     return(
-    <table>
-      <thead>
-        <tr></tr>
-      </thead>
-      <tbody>
-        <tr></tr>
-      </tbody>
-    </table>
+      <div class="table">
+        <ul class="theader">
+          <li>Date</li>
+          <li>Merchant</li>
+          <li>Amount</li>
+          <li>Category</li>
+          <li>Description</li>
+        </ul>
+        <div class="tbody">
+        {populateExpenseCards()}
+        </div>
+      </div>
     );
   }
   
@@ -172,4 +189,4 @@ const table = props => {
   )
 }
 
-export default table;
+export default Table;

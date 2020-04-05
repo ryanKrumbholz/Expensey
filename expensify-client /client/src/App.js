@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Sidebar from './components/sidebar'
-import ExpensesBody from './components/expenses_body'
-import Landing from './landing'
+import Sidebar from './components/sidebar';
+import ExpensesBody from './components/expenses_body';
+import Landing from './landing';
 import { BrowserRouter as Router, Route} from  "react-router-dom";
 import './App.css';
 
