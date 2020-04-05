@@ -6,7 +6,7 @@ body {
 .login {
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 50%;
     margin: auto;
     text-align: center;
     background-color:rgb(233, 233, 233);
