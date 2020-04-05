@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './expense_card.css';
 
-const expenses_card = props => {
+const Expense_card   = props => {
 
   //function encapsulates card data
   var cardData = function () {
@@ -71,14 +71,14 @@ const expenses_card = props => {
     };
   }();
 
-  function expense_card () {
-    cardData.setDate(props.date);
-    cardData.setDescrip(props.description);
-    cardData.setAmount(props.amount);
-    cardData.setReceiptImgLink(props.receiptImgLink);
-    cardData.setCategory(props.category);
-    cardData.setTag(props.tag);
-    cardData.setComments(props.comments);
+  function setExpense_card () {
+    cardData.setDate(props.data[0]);
+    cardData.setDescrip(props.data[1]);
+    cardData.setAmount(props.data[2]);
+    cardData.setReceiptImgLink(props.data[6]);
+    cardData.setCategory(props.data[3]);
+    cardData.setTag(props.data[5]);
+    cardData.setComments(props.data[4]);
   };
 
 
@@ -88,17 +88,22 @@ const expenses_card = props => {
     cardData.setReceiptImg(cardData.getReceiptIcon());
   }
 
+  setExpense_card();
+
   return (
       <div className="Card">
         <p>{cardData.getDate()}</p>
         <p>{cardData.getDescrip()}</p>
-        <p>{cardData.getAmount()}</p>
-        <img src={cardData.getReceiptImg()}></img>
+        <div class="amount">
+          <p>{cardData.getAmount()}</p>
+          <img src={cardData.getReceiptImg()}></img>
+        </div>
         <p>{cardData.getCategory()}</p>
-        <p>{cardData.getTag()}</p>
         <p>{cardData.getComments()}</p>
       </div>
   )
 }
 
-export default expense_card;
+
+
+export default Expense_card;
