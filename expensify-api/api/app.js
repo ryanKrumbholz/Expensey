@@ -1,8 +1,9 @@
-const express = require('express')
-const app = express()
-const port = 9000
+const express = require('express');
+require('dotenv').config();
 const mongoose = require('mongoose');
-const dbConnection = "mongodb+srv://RAK100598:l6CJKwngRzUw6Jcw@expenseycluster-prt5l.mongodb.net/userData?retryWrites=true&w=majority";
+const app = express();
+const port = 9000;
+const dbCon = process.env.DB_CONNECT;
 
 var userSchema = new mongoose.Schema({
   id: String,
@@ -28,7 +29,7 @@ var Expense = mongoose.model("Expense",  expenseSchema);
 
 function estDB() {
   //establishes connection to db
-  mongoose.connect(dbConnection,{useNewUrlParser: true});
+  mongoose.connect(dbCon,{useNewUrlParser: true});
   var db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function() {
@@ -114,7 +115,7 @@ function delExpense(id) {
 estDB();
 
 app.get('/api/user', (req,res) => {
-  res.send();
+  res.json();
 });
 
 app.get('/', (req,res) => {
