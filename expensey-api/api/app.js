@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 9000;
 const dbCon = process.env.DB_CONNECT;
+var bodyParser = require('body-parser')
+var test = null;
 
 var userSchema = new mongoose.Schema({
   id: String,
@@ -37,6 +39,23 @@ function estDB() {
   });
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function getAllUsers() {
+  var userList = [];
+  (User.find({})
+  .exec((err, users) => {
+   if (err) return handleError(err);
+   else {
+    userList = users;
+   }
+   }));
+   await sleep(500);
+   return await userList;
+}
+
 function saveUser(user) {
   user.save( (err, user) => {
     if (err) return console.error(err);
@@ -54,22 +73,32 @@ function createUser(username, email, password, imageLink) {
   }));
 }
 
-function getUser(email) {
-  //TODO get user from DB by email or ID  and turn back into user object
-  const  doc = User.findOne({email: email});
-  return (doc.toObject());
+async function getUser(email) {
+  var userObj = {};
+  (User.findOne({email : email})
+  .exec((err, user) => {
+   if (err) return handleError(err);
+   else {
+    userObj = user;
+   }
+   }));
+   await sleep(500);
+   return await userObj;
 }
 
 function updateUser(email) {
-  //TODO write function to update user in DB
+  //TODO write remaining needed code and test function
+  User.findByIdAndUpdate({email : email});
+  
 }
 
 function delUser(email) {
-  //TODO write function to delete user from DB
+  //TODO test function
+  User.findByIdAndDelete({email : email});
 }
 
-function authUser(email, pword) {
-  var user  = getUser(email);
+async function authUser(email, pword) {
+  var user  = await getUser(email);
   if (user.password ==  pword) {
     return true;
   }
@@ -98,10 +127,13 @@ function createExpense(username, date, merchant, amount, category, description, 
   }));
 }
 
-function getExpense(id) {
+function getExpense(res, id) {
   //TODO get Expense from DB by ID  and turn back into object
-  const  doc = Expense.findOne({id: id});
-  return (doc.toObject());
+  Expenses.findOne({id : id})
+  .exec(function (err, expense) {
+   if (err) return handleError(err);
+   res.json(expense.toObject());
+   });
 }
 
 function updateExpense(id) {
@@ -114,12 +146,21 @@ function delExpense(id) {
 
 estDB();
 
-app.get('/api/user', (req,res) => {
-  res.json();
+
+authUser('krumbholz98@gmail.com', '123456').then(x =>{
+  console.log(x);
 });
+
+
+app.get('/api/users', async (req,res) => {
+  users = await getAllUsers();
+  res.send(users);
+});
+
+// authUser('krumbholz98@gmail.com', '123456');
 
 app.get('/', (req,res) => {
   res.send();
 });
 
-app.listen(port, () => console.log("Server started on port ${port}"));
+app.listen(port, () => console.log("Server started on port " + port));
