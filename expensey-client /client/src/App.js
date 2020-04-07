@@ -8,8 +8,9 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = { apiResponse: "" };
   }
-  
+
   loggedIn() {
     //Create a t/f state to check if user is logged in or not
     return true;
@@ -17,11 +18,8 @@ class App extends Component {
 
   render () {
     if(this.loggedIn()){return(
-      // <Router>
         <div class="App">
           <Sidebar/>
-          {/* <Route path="/" exact component={ExpensesBody}/> */}
-          {/* will add function to switch between reports and this */}
           <ExpensesBody /> 
         </div>
       // </Router>
