@@ -8,16 +8,18 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { apiResponse: "" };
-  }
-
-  loggedIn() {
-    //Create a t/f state to check if user is logged in or not
-    return false;
+    this.state = { loggedIn: Boolean };
+    console.log(localStorage.getItem('status'));
+    if (!localStorage.getItem('stats')) {
+      this.state.loggedIn = false;
+    }
+    else {
+      this.state.loggedIn = true;
+    }
   }
 
   render () {
-    if(this.loggedIn()){return(
+    if(this.state.loggedIn == true){return(
         <div class="App">
           <Sidebar/>
           <ExpensesBody /> 
@@ -26,7 +28,7 @@ class App extends Component {
     );}
     else{
       return(
-        <Landing/>
+        <Landing appState = {this.state.loggedIn}/>
       );
     }
   }

@@ -3,21 +3,16 @@ import ReactDOM from 'react-dom';
 import './landing.css';
 import * as serviceWorker from './serviceWorker';
 
-const Landing = () => {
+const Landing = (props) => {
 
-  var errorMessages = ["Either the email address or password are incorrect. Please retry.",
-    "Account already exist with this email address.",
-    "Please check to make sure the email addresses and passwords match!",
-    "One or more fields are empty."];
-
-  var login = login => {
+  var login = () => {
     //Getting the email and pword that user entered into the field
     var email = document.getElementsByClassName("emailAddress")[0].value
     var pword = document.getElementsByClassName("pword")[0].value
     validateLogin(email,pword);
   };
 
-  var createAccountExpand = createAccountExpand => {
+  var createAccountExpand = () => {
     //revealing create account elements
     var elems = document.getElementsByClassName("createAccount");
     for (var i = 0; i < elems.length;  i++)  {
@@ -32,46 +27,78 @@ const Landing = () => {
     }
   };
 
-  var createAccount = createAccount => {
-    //TODO fix POST ERROR 
+  var createAccount = () => {
+    //Getting data from form
     var username = document.getElementsByClassName("username")[0].value
     var email = document.getElementsByClassName("emailAddress")[0].value
     var emailConf = document.getElementsByClassName("emailAddressConf")[0].value
     var pword = document.getElementsByClassName("pword")[0].value
     var pwordConf = document.getElementsByClassName("pwordConf")[0].value
 
-    fetch('http://localhost:9000/users/createuser', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      id: Date.now(),
-      username: username,
-      email : email,
-      password: pword
-    })}).then(res => {
-      return res.json()
-    }).then (data => console.log(data))
-    .catch(error => console.log('ERROR'));
+    const requestOptions =
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: Date.now(),
+        username: username,
+        email : email,
+        password: pword
+      })};
 
-    newAccountValidation(email, emailConf, pword,  pwordConf);
+      if (newAccountValidation(email, emailConf,  pword, pwordConf)) {
+        fetch('http://localhost:9000/users/adduser',requestOptions) 
+          .then(res => res.json())
+          .then (data => 
+            {
+              if (data == "Account created successfully") {
+                //reloads window to login screen
+                window.location.reload();
+              }
+            })
+          .catch(error => console.log(error));
+      }
   };
 
   function validateLogin(email, pword) {
-    //Checking if either field is blank
-    if (email == "" || pword == "") {
-      displayErrMsg(0);
-    }
-    else {
-      //TODO contact API to check whether password matches user email address 
-      console.log(email)
-      console.log(pword)
-    }
+    const requestOptions =
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email : email,
+        password: pword
+      })};
+
+    fetch('http://localhost:9000/users/login',requestOptions) 
+          .then(res => res.json())
+          .then (data => 
+            {
+              if (data == "Account authorization successful!") {
+                localStorage.setItem('status', true);
+                //reloads window to app
+                // window.location.reload();
+              }
+              else {
+                console.log(data);
+              }
+            })
+          .catch(error => console.log(error));
   }
 
   function displayErrMsg(i) {
-    var elem = document.getElementsByClassName("errorMessage")[0]
+    var errorMessages = [
+      "Either the email address or password are incorrect. Please retry.",
+      "Account already exist with this email address.",
+      "Please check to make sure the email addresses and passwords match!",
+     "One or more fields are empty."
+    ];
+    var elem = document.getElementsByClassName("errorMessage")[0];
+
     elem.innerHTML = errorMessages[i];
     elem.style.visibility = "visible";
     elem.style.height = "auto";
@@ -80,17 +107,19 @@ const Landing = () => {
   function newAccountValidation(email, emailConf,  pword, pwordconf) {
     if (email  != emailConf  || pword != pwordconf){
       displayErrMsg(2);
+      return false;
     }
     else if (email == "" || pword == "") {
       displayErrMsg(3);
+      return false;
     }
-    else if (/* call to see if account with email address already exist*/  1==1){
+    else if (/* call to see if account with email address already exist*/  1==2){
       //uncomment when elseif works
-      // displayErrMsg(1);
+      displayErrMsg(1);
+      return false;
     }
     else{
-      //TODO  Contact api and create new db entry
-      window.location.reload();
+      return true;
     }
   }
     return (

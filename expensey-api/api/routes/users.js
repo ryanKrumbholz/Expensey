@@ -38,14 +38,14 @@ function saveUser(user) {
   }
   
 function createUser(username, email, password, imageLink) {
-    var id = Date.now();
-    saveUser(new User({
-      id: id,
-      username: username,
-      email: email,
-      password: password,
-      imageLink: imageLink
-    }));
+      var id = Date.now();
+      saveUser(new User({
+        id: id,
+        username: username,
+        email: email,
+        password: password,
+        imageLink: imageLink
+      }));
   }
   
 async function getUser(email) {
@@ -117,11 +117,64 @@ router.get('/user', function(req, res, next, email) {
 });
 
 //TODO create user from post request from react
-router.get('/createuser', function(req, res, next) {
-  res.json('x')
-  // authUser(email, pword).then(x => {
-  //   res.json(x);
-  // });
+
+router.post('/adduser', async function(req, res, next) {
+  //Messages to respond and console log
+  var resMessages = [
+    "Account created successfully",
+    "Account creation failed",
+    "Account already exist"
+  ];
+
+  var newUser = new User(req.body);
+
+  //checking if user already exist in db
+  getUser(newUser.email).then(x => {
+    if (x) {
+      console.log(resMessages[2]);
+      res.json(resMessages[2]);
+    }
+    else  {
+      saveUser(newUser);
+    }
+  });
+
+  //sleeping because of network delay
+  await sleep(2000);
+
+  //Checking if account creation was successful
+  getUser(newUser.email).then(x => {
+    if (x) {
+      console.log(resMessages[0]);
+      res.json(resMessages[0]);
+    }
+    else  {
+      console.log(resMessages[1]);
+      res.json(resMessages[1]);
+    }
+  });
 });
+
+  router.post('/login', function(req, res, next) {
+    //Login response messages
+    var resMessages = [
+      "Account authorization successful!",
+      "Account authorization failed!"
+    ];
+    
+    var user = req.body;
+
+    authUser(user.email, user.password).then(x => {
+      if (x) {
+        res.json(resMessages[0]);
+      }
+      else {
+        res.json(resMessages[1]);
+      }
+    });
+
+});
+  
+
 
 module.exports = router;
