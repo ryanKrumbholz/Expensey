@@ -10,7 +10,7 @@ class App extends Component {
     super(props);
     this.state = { loggedIn: Boolean };
     console.log(localStorage.getItem('status'));
-    if (!localStorage.getItem('stats')) {
+    if (!localStorage.getItem('status')) {
       this.state.loggedIn = false;
     }
     else {
@@ -28,7 +28,7 @@ class App extends Component {
     );}
     else{
       return(
-        <Landing appState = {this.state.loggedIn}/>
+        <Landing/>
       );
     }
   }

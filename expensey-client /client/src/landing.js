@@ -80,8 +80,9 @@ const Landing = (props) => {
             {
               if (data == "Account authorization successful!") {
                 localStorage.setItem('status', true);
+                // localStorage.setItem('username', username);
                 //reloads window to app
-                // window.location.reload();
+                window.location.reload();
               }
               else {
                 console.log(data);
