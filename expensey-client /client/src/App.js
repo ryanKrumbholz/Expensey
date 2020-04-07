@@ -13,7 +13,7 @@ class App extends Component {
 
   loggedIn() {
     //Create a t/f state to check if user is logged in or not
-    return true;
+    return false;
   }
 
   render () {

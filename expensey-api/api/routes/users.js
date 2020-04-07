@@ -88,10 +88,11 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.get('/user', function(req, res, next, email) {
-  getUser(email).then(x => {
-    res.json(x);
-  });
+router.get('/user', function(req, res, next) {
+  res.json('');
+  // getUser(email).then(x => {
+  //   res.json(x);
+  // });
 });
 
 //TODO get email and pword from post request from react
@@ -116,10 +117,11 @@ router.get('/user', function(req, res, next, email) {
 });
 
 //TODO create user from post request from react
-router.get('/createuser', function(req, res, next, email) {
-  authUser(email, pword).then(x => {
-    res.json(x);
-  });
+router.get('/createuser', function(req, res, next) {
+  res.json('x')
+  // authUser(email, pword).then(x => {
+  //   res.json(x);
+  // });
 });
 
 module.exports = router;
