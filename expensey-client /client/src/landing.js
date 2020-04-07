@@ -33,10 +33,27 @@ const Landing = () => {
   };
 
   var createAccount = createAccount => {
+    //TODO fix POST ERROR 
+    var username = document.getElementsByClassName("username")[0].value
     var email = document.getElementsByClassName("emailAddress")[0].value
     var emailConf = document.getElementsByClassName("emailAddressConf")[0].value
     var pword = document.getElementsByClassName("pword")[0].value
     var pwordConf = document.getElementsByClassName("pwordConf")[0].value
+
+    fetch('http://localhost:9000/users/createuser', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id: Date.now(),
+      username: username,
+      email : email,
+      password: pword
+    })}).then(res => {
+      return res.json()
+    }).then (data => console.log(data))
+    .catch(error => console.log('ERROR'));
 
     newAccountValidation(email, emailConf, pword,  pwordConf);
   };
@@ -68,7 +85,8 @@ const Landing = () => {
       displayErrMsg(3);
     }
     else if (/* call to see if account with email address already exist*/  1==1){
-      displayErrMsg(1);
+      //uncomment when elseif works
+      // displayErrMsg(1);
     }
     else{
       //TODO  Contact api and create new db entry
