@@ -164,9 +164,12 @@ router.post('/adduser', async function(req, res, next) {
     
     var user = req.body;
 
-    authUser(user.email, user.password).then(x => {
-      if (x) {
-        res.json(resMessages[0]);
+    authUser(user.email, user.password).then( auth => {
+      if (auth) {
+        getUser(user.email)
+        .then(user  =>{
+          res.json([resMessages[0],[user.id, user.username, user.email]]
+          )});
       }
       else {
         res.json(resMessages[1]);

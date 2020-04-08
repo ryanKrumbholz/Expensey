@@ -8,18 +8,10 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { loggedIn: Boolean };
-    console.log(localStorage.getItem('status'));
-    if (!localStorage.getItem('status')) {
-      this.state.loggedIn = false;
-    }
-    else {
-      this.state.loggedIn = true;
-    }
   }
 
   render () {
-    if(this.state.loggedIn == true){return(
+    if(sessionStorage.getItem('status')){return(
         <div class="App">
           <Sidebar/>
           <ExpensesBody /> 

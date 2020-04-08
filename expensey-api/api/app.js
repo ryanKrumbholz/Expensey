@@ -11,7 +11,7 @@ var expensesApiRoute = require("./routes/expenses");
 
 function estDB() {
   //establishes connection to db
-  mongoose.connect(dbCon,{useNewUrlParser: true});
+  mongoose.connect(dbCon,{useNewUrlParser: true, useUnifiedTopology: true});
   var db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function() {

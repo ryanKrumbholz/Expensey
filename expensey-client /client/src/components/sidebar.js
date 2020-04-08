@@ -38,17 +38,24 @@ const sidebar = props => {
 
   //if statements to set userImg to default for testing
   if (userData.getUserImg() == null) {
-    userData.setUserImg(userData.getDefaultImg());
+    var uimg = sessionStorage.getItem('uimg');
+    if (uimg){
+      userData.setUserImg(sessionStorage.getItem('uimg'));
+    }
+    else {
+      userData.setUserImg(userData.getDefaultImg());
+    }
+    
   }
 
   //if statement to set userImg to default for testing
   if (userData.getUsername() == null) {
-    userData.setUsername("User Name");
+    userData.setUsername(sessionStorage.getItem('uname'));
   }
 
   //if statement to set uid to default for testing
   if (userData.getUid() == null) {
-    userData.setUid("000000");
+    userData.setUid(sessionStorage.getItem('uid'));
   }
 
   return (
