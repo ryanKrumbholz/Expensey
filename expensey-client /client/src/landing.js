@@ -78,11 +78,17 @@ const Landing = (props) => {
           .then(res => res.json())
           .then (data => 
             {
-              if (data == "Account authorization successful!") {
-                localStorage.setItem('status', true);
-                // localStorage.setItem('username', username);
+              if (data[0] == "Account authorization successful!") {
+                //Allows user to access their account
+                sessionStorage.setItem('status', true);
+
                 //reloads window to app
                 window.location.reload();
+
+                console.log(data[0]);
+                sessionStorage.setItem('uid', data[1][0]);
+                sessionStorage.setItem('uname', data[1][1]);
+                sessionStorage.setItem('email', data[1][2]);
               }
               else {
                 console.log(data);
