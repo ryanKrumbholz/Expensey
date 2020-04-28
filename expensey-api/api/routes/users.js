@@ -1,6 +1,7 @@
 const express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
+var password = require('password-hash-and-salt');
 
 var userSchema = new mongoose.Schema({
     id: String,
@@ -10,7 +11,6 @@ var userSchema = new mongoose.Schema({
     imageLink: String
   });
 
-  
 var User = mongoose.model("User", userSchema);
 
 function sleep(ms) {
@@ -37,15 +37,21 @@ function saveUser(user) {
     });
   }
   
-function createUser(username, email, password, imageLink) {
+function createUser(user) {
       var id = Date.now();
+      
+      password(user.password).hash(function(error, hash) {
+        if(error)
+            throw new Error('Something went wrong!');
+     
       saveUser(new User({
         id: id,
-        username: username,
-        email: email,
-        password: password,
-        imageLink: imageLink
+        username: user.username,
+        email: user.email,
+        password: hash,
+        imageLink: ''
       }));
+    });
   }
   
 async function getUser(email) {
@@ -72,13 +78,30 @@ function delUser(email) {
     User.findByIdAndDelete({email : email});
   }
   
-async function authUser(email, pword) {
+async function authUser(email, pword, res) {
     var user  = await getUser(email);
-    if (user.password ==  pword) {
-      return true;
+    var resMessages = [
+      "Account authorization successful!",
+      "Account authorization failed!",
+      "Account does not exist"
+    ];
+
+    if (user) {
+      password(pword).verifyAgainst(user.password, function(error, verified) {
+        if(error)
+            throw new Error('Something went wrong!');
+        if(!verified) {
+          res.json(resMessages[1]);
+          console.log(resMessages[1]);
+        } else {
+            res.json([resMessages[0],[user.id, user.username, user.email]]);
+            console.log(resMessages[0]);
+        }
+      });
     }
     else {
-      return false;
+      res.json(resMessages[2]);
+      console.log(resMessages[2]);
     }
   }
 
@@ -135,7 +158,7 @@ router.post('/adduser', async function(req, res, next) {
       res.json(resMessages[2]);
     }
     else  {
-      saveUser(newUser);
+      createUser(newUser);
     }
   });
 
@@ -156,26 +179,8 @@ router.post('/adduser', async function(req, res, next) {
 });
 
   router.post('/login', function(req, res, next) {
-    //Login response messages
-    var resMessages = [
-      "Account authorization successful!",
-      "Account authorization failed!"
-    ];
-    
     var user = req.body;
-
-    authUser(user.email, user.password).then( auth => {
-      if (auth) {
-        getUser(user.email)
-        .then(user  =>{
-          res.json([resMessages[0],[user.id, user.username, user.email]]
-          )});
-      }
-      else {
-        res.json(resMessages[1]);
-      }
-    });
-
+    authUser(user.email, user.password, res);
 });
   
 
