@@ -29,11 +29,12 @@ const Landing = (props) => {
 
   var createAccount = () => {
     //Getting data from form
-    var username = document.getElementsByClassName("username")[0].value
-    var email = document.getElementsByClassName("emailAddress")[0].value
-    var emailConf = document.getElementsByClassName("emailAddressConf")[0].value
-    var pword = document.getElementsByClassName("pword")[0].value
-    var pwordConf = document.getElementsByClassName("pwordConf")[0].value
+    var firstName = document.getElementsByClassName("firstName")[0].value;
+    var lastName = document.getElementsByClassName("lastName")[0].value;
+    var email = document.getElementsByClassName("emailAddress")[0].value;
+    var emailConf = document.getElementsByClassName("emailAddressConf")[0].value;
+    var pword = document.getElementsByClassName("pword")[0].value;
+    var pwordConf = document.getElementsByClassName("pwordConf")[0].value;
 
     const requestOptions =
     {
@@ -43,7 +44,8 @@ const Landing = (props) => {
       },
       body: JSON.stringify({
         id: Date.now(),
-        username: username,
+        first_name : firstName,
+        last_name : lastName,
         email : email,
         password: pword
       })};
@@ -87,7 +89,7 @@ const Landing = (props) => {
 
                 console.log(data[0]);
                 sessionStorage.setItem('uid', data[1][0]);
-                sessionStorage.setItem('uname', data[1][1]);
+                sessionStorage.setItem('name', data[1][1]);
                 sessionStorage.setItem('email', data[1][2]);
               }
               else {
@@ -147,18 +149,18 @@ const Landing = (props) => {
               </form>
             </div>
             <div class="createAccount">
-              <h2>Username</h2>
+              <h2>First Name</h2>
               <form onSubmit="">
                 <label>
-                  <input class="username" type="text" onChange="" />
+                  <input class="firstName" type="text" onChange="" />
                 </label>
               </form>
             </div>
             <div class="createAccount">
-              <h2>Confirm Username</h2>
+              <h2>Last Name</h2>
               <form onSubmit="">
                 <label>
-                  <input class="usernameConf" type="text" onChange="" />
+                  <input class="lastName" type="text" onChange="" />
                 </label>
               </form>
             </div>

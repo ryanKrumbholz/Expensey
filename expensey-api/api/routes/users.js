@@ -5,7 +5,8 @@ var password = require('password-hash-and-salt');
 
 var userSchema = new mongoose.Schema({
     id: String,
-    username: String,
+    first_name: String,
+    last_name : String,
     email: String,
     password: String,
     imageLink: String
@@ -46,7 +47,8 @@ function createUser(user) {
      
       saveUser(new User({
         id: id,
-        username: user.username,
+        first_name: user.first_name,
+        last_name: user.last_name,
         email: user.email,
         password: hash,
         imageLink: ''
@@ -94,7 +96,7 @@ async function authUser(email, pword, res) {
           res.json(resMessages[1]);
           console.log(resMessages[1]);
         } else {
-            res.json([resMessages[0],[user.id, user.username, user.email]]);
+            res.json([resMessages[0],[user.id, user.first_name + " " + user.last_name, user.email]]);
             console.log(resMessages[0]);
         }
       });
