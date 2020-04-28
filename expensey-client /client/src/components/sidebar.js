@@ -7,7 +7,7 @@ const sidebar = props => {
   //function to encapsulate data with getters and setters
   var userData = function(){
     var userImg = null;
-    var username = null;
+    var name = null;
     var uid = null;
     var defaultUserImg = "https://st3.depositphotos.com/13159112/17145/v/450/depositphotos_171453724-stock-illustration-default-avatar-profile-icon-grey.jpg";
     
@@ -15,8 +15,8 @@ const sidebar = props => {
       getUserImg : function () {
         return userImg;
       },
-      getUsername : function () {
-        return username;
+      getName : function () {
+        return name;
       },
       getDefaultImg : function () {
         return defaultUserImg;
@@ -27,8 +27,8 @@ const sidebar = props => {
       setUserImg : function (newImg) {
         userImg = newImg;
       },
-      setUsername : function (newUsername) {
-        username = newUsername;
+      setName : function (newName) {
+        name = newName;
       },
       setUid : function (newUid) {
         uid = newUid;
@@ -49,8 +49,8 @@ const sidebar = props => {
   }
 
   //if statement to set userImg to default for testing
-  if (userData.getUsername() == null) {
-    userData.setUsername(sessionStorage.getItem('uname'));
+  if (userData.getName() == null) {
+    userData.setName(sessionStorage.getItem('name'));
   }
 
   //if statement to set uid to default for testing
@@ -61,7 +61,7 @@ const sidebar = props => {
   return (
       <div className="Sidebar">
         <img src={userData.getUserImg()}></img>
-        <a href="expensey.app/account+">{userData.getUsername()}</a>
+        <a href="expensey.app/account+">{userData.getName()}</a>
         <ul>
           <li><a href="expensey.app/expenses+">Expenses</a></li>
           <li><a href="expensey.app/reports+">Reports</a></li>
