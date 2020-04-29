@@ -1,25 +1,45 @@
 body {
     background-image: linear-gradient(75deg, #7474BF,#348AC7);
-    margin: auto;
 }
 
 .login {
     display: flex;
     flex-direction: column;
-    width: 50%;
-    margin: auto;
+    width: 30%;
+    margin-top: 15vh;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
-    background-color:rgb(233, 233, 233);
+    background-color:white;
+    border-radius: 1%;
+
 }
 
 .login button {
     margin: auto;
-    width: 20%;
+    width: 70%;
+    height: 3vh;
+    background-image: linear-gradient(75deg, #7474BF,#348AC7);
+    border-radius: 20px;
 }
 
 .login input {
     margin: auto;
     width: 80%;
+    height: 3vh;
+    border-color: black;
+    border-top:none;
+    border-left: none;
+    border-right: none;
+    border-width: .1vh;
+}
+
+.login button { 
+    margin-top: 4vh;
+    margin-bottom: 0vh;
+    font-size: large;
+    color: white;
 }
 
 .login  a {
@@ -36,4 +56,3 @@ body {
     visibility: hidden;
     height: 0;
 }
-

@@ -16,9 +16,16 @@ const Landing = (props) => {
     //revealing create account elements
     var elems = document.getElementsByClassName("createAccount");
     for (var i = 0; i < elems.length;  i++)  {
+      if (i == elems.length - 1) {
+        elems[i].style.height = "3vh";
+      }
+      else {
+        elems[i].style.height = "auto";
+      }
       elems[i].style.visibility = "visible";
-      elems[i].style.height = "auto";
     }
+
+
     //Hiding login elements
     var elems = document.getElementsByClassName("preCreate");
     for (var i = 0; i < elems.length;  i++)  {
@@ -137,14 +144,14 @@ const Landing = (props) => {
             <h2>Email Address</h2>
             <form onSubmit="">
               <label>
-                <input class="emailAddress" type="text" onChange="" />
+                <input class="emailAddress" type="text" onChange="" placeholder="Type your email address" />
               </label>
             </form>
             <div class="createAccount">
               <h2>Confirm Email Address</h2>
               <form onSubmit="">
                 <label>
-                  <input class="emailAddressConf" type="text" onChange="" />
+                  <input class="emailAddressConf" type="text" onChange="" placeholder="Type your email address" />
                 </label>
               </form>
             </div>
@@ -152,7 +159,7 @@ const Landing = (props) => {
               <h2>First Name</h2>
               <form onSubmit="">
                 <label>
-                  <input class="firstName" type="text" onChange="" />
+                  <input class="firstName" type="text" onChange="" placeholder="Type your first name"/>
                 </label>
               </form>
             </div>
@@ -160,21 +167,21 @@ const Landing = (props) => {
               <h2>Last Name</h2>
               <form onSubmit="">
                 <label>
-                  <input class="lastName" type="text" onChange="" />
+                  <input class="lastName" type="text" onChange="" placeholder="Type your last name" />
                 </label>
               </form>
             </div>
             <h2>Password</h2>
             <form onSubmit="">
               <label>
-                <input class="pword" type="text" onChange="" />
+                <input class="pword" type="text" onChange="" placeholder="Type your password"/>
               </label>
             </form>
             <div class="createAccount">
               <h2>Confirm Password</h2>
               <form onSubmit="">
                 <label>
-                  <input class="pwordConf" type="text" onChange="" />
+                  <input class="pwordConf" type="text" onChange="" placeholder="Type your password"/>
                 </label>
               </form>
             </div>
