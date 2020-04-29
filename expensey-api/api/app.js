@@ -6,8 +6,7 @@ const port = 9000;
 const dbCon = process.env.DB_CONNECT;
 var bodyParser = require('body-parser');
 var cors = require("cors");
-var usersApiRoute = require("./routes/users");
-var expensesApiRoute = require("./routes/expenses");
+var usersApiRoute = require("./routes/userManagement");
 
 function estDB() {
   //establishes connection to db
@@ -25,7 +24,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/users", usersApiRoute);
-app.use("/expenses", expensesApiRoute);
 app.use(express.json());
 app.get('/api', (req,res) => {
   res.send();

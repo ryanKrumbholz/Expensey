@@ -1,18 +1,7 @@
 const express = require('express');
 var router = express.Router();
-const mongoose = require('mongoose');
 var password = require('password-hash-and-salt');
-
-var userSchema = new mongoose.Schema({
-    id: String,
-    first_name: String,
-    last_name : String,
-    email: String,
-    password: String,
-    imageLink: String
-  });
-
-var User = mongoose.model("User", userSchema);
+const User = require('../models/user');
 
 function sleep(ms) {
     //Need to  use async await for this  to  work
