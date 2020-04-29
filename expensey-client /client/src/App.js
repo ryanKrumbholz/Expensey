@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Sidebar from './components/sidebar';
 import ExpensesBody from './components/expenses_body';
-import Landing from './landing';
+import Login from './login';
 import { BrowserRouter as Router, Route} from  "react-router-dom";
 import './App.css';
 
@@ -20,7 +20,7 @@ class App extends Component {
     );}
     else{
       return(
-        <Landing/>
+        <Login/>
       );
     }
   }

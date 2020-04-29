@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './landing.css';
+import './login.css';
 import * as serviceWorker from './serviceWorker';
 
-const Landing = (props) => {
+const Login = (props) => {
 
   var login = () => {
     //Getting the email and pword that user entered into the field
@@ -17,7 +17,7 @@ const Landing = (props) => {
     var elems = document.getElementsByClassName("createAccount");
     for (var i = 0; i < elems.length;  i++)  {
       if (i == elems.length - 1) {
-        elems[i].style.height = "3vh";
+        elems[i].style.height = "4vh";
       }
       else {
         elems[i].style.height = "auto";
@@ -139,59 +139,62 @@ const Landing = (props) => {
     }
   }
     return (
-        <div class="login">
-          <p class="errorMessage"></p> 
-            <h2>Email Address</h2>
-            <form onSubmit="">
-              <label>
-                <input class="emailAddress" type="text" onChange="" placeholder="Type your email address" />
-              </label>
-            </form>
-            <div class="createAccount">
-              <h2>Confirm Email Address</h2>
+      <div class="body">
+        <h1 class="title">Expensey</h1>
+          <div class="login">
+            <p class="errorMessage"></p> 
+              <h2>Email Address</h2>
               <form onSubmit="">
                 <label>
-                  <input class="emailAddressConf" type="text" onChange="" placeholder="Type your email address" />
+                  <input class="emailAddress" type="text" onChange="" placeholder="Type your email address" />
                 </label>
               </form>
-            </div>
-            <div class="createAccount">
-              <h2>First Name</h2>
+              <div class="createAccount">
+                <h2>Confirm Email Address</h2>
+                <form onSubmit="">
+                  <label>
+                    <input class="emailAddressConf" type="text" onChange="" placeholder="Type your email address" />
+                  </label>
+                </form>
+              </div>
+              <div class="createAccount">
+                <h2>First Name</h2>
+                <form onSubmit="">
+                  <label>
+                    <input class="firstName" type="text" onChange="" placeholder="Type your first name"/>
+                  </label>
+                </form>
+              </div>
+              <div class="createAccount">
+                <h2>Last Name</h2>
+                <form onSubmit="">
+                  <label>
+                    <input class="lastName" type="text" onChange="" placeholder="Type your last name" />
+                  </label>
+                </form>
+              </div>
+              <h2>Password</h2>
               <form onSubmit="">
                 <label>
-                  <input class="firstName" type="text" onChange="" placeholder="Type your first name"/>
+                  <input class="pword" type="text" onChange="" placeholder="Type your password"/>
                 </label>
               </form>
-            </div>
-            <div class="createAccount">
-              <h2>Last Name</h2>
-              <form onSubmit="">
-                <label>
-                  <input class="lastName" type="text" onChange="" placeholder="Type your last name" />
-                </label>
-              </form>
-            </div>
-            <h2>Password</h2>
-            <form onSubmit="">
-              <label>
-                <input class="pword" type="text" onChange="" placeholder="Type your password"/>
-              </label>
-            </form>
-            <div class="createAccount">
-              <h2>Confirm Password</h2>
-              <form onSubmit="">
-                <label>
-                  <input class="pwordConf" type="text" onChange="" placeholder="Type your password"/>
-                </label>
-              </form>
-            </div>
-            <button onClick={login} class="preCreate">Login</button>
-            <button onClick={createAccountExpand} class="preCreate">Sign up</button>
-            <button onClick={createAccount} class="createAccount">Create</button>
+              <div class="createAccount">
+                <h2>Confirm Password</h2>
+                <form onSubmit="">
+                  <label>
+                    <input class="pwordConf" type="text" onChange="" placeholder="Type your password"/>
+                  </label>
+                </form>
+              </div>
+              <button onClick={login} class="preCreate">Login</button>
+              <button onClick={createAccountExpand} class="preCreate">Sign up</button>
+              <button onClick={createAccount} class="createAccount">Create</button>
+          </div>
         </div>
     );
 }
 
-export default Landing;
+export default Login;
 
 
