@@ -62,11 +62,11 @@ const sidebar = props => {
       <div className="Sidebar">
         <img src={userData.getUserImg()}></img>
         <a href="expensey.app/account+">{userData.getName()}</a>
-        <ul>
-          <li><a href="expensey.app/expenses+">Expenses</a></li>
-          <li><a href="expensey.app/reports+">Reports</a></li>
-          <li><a href="expensey.app/settings+">Settings</a></li>
-        </ul>
+        <div class="links">
+          <a href="expensey.app/expenses+">Expenses</a>
+          <a href="expensey.app/reports+">Reports</a>
+          <a href="expensey.app/settings+">Settings</a>
+        </div>
       </div>
   )
 }
