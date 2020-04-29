@@ -57,8 +57,8 @@ const Table = props => {
 
   function filters () {
     return(
-          <div className="Filters">
-            <ul class="DatesFiltersList">
+          <div className="filters">
+            <ul class="datesFiltersList">
             <li>
               <form action="">
                 <label for="From">From:</label>
@@ -74,7 +74,7 @@ const Table = props => {
               </form>
             </li>
           </ul>
-          <ul class="TypeFiltersList">
+          <ul class="typeFiltersList">
             <li>
               <form onSubmit="">
                 <label>
@@ -87,7 +87,7 @@ const Table = props => {
               <button>idk rn</button>
             </li>
           </ul>
-          <ul class="CategoryTagList">
+          <ul class="categoryTagList">
             <li>
               <select>
                 {listData.getCategoriesList}
@@ -104,47 +104,54 @@ const Table = props => {
               </select>
             </li>
           </ul>
-          <ul class="StatusList">
+          <ul class="statusList">
             <li>
-              <label class="container">Unreported
+                <label class="c1">
+                  <input type="checkbox" checked="checked"/>
+                  <span class="checkmark"></span>
+                  Unreported
+                </label>
+            </li>
+            <li>
+              <label class="c2">
                 <input type="checkbox" checked="checked"/>
                 <span class="checkmark"></span>
+                Open
               </label>
             </li>
             <li>
-              <label class="container">Open
+              <label class="c3">
                 <input type="checkbox" checked="checked"/>
                 <span class="checkmark"></span>
+                Processing
               </label>
             </li>
             <li>
-              <label class="container">Processing
+              <label class="c4">
                 <input type="checkbox" checked="checked"/>
                 <span class="checkmark"></span>
+                Approved
               </label>
             </li>
             <li>
-              <label class="container">Approved
+              <label class="c5">
                 <input type="checkbox" checked="checked"/>
                 <span class="checkmark"></span>
+                Reimbursed
               </label>
             </li>
             <li>
-              <label class="container">Reimbursed
+              <label class="c6">
                 <input type="checkbox" checked="checked"/>
                 <span class="checkmark"></span>
+                Closed
               </label>
             </li>
             <li>
-              <label class="container">Closed
-                <input type="checkbox" checked="checked"/>
+              <label class="c7">
+                <input type="checkbox"/>
                 <span class="checkmark"></span>
-              </label>
-            </li>
-            <li>
-              <label class="container">Deleted
-                <input type="checkbox" checked=""/>
-                <span class="checkmark"></span>
+                Deleted
               </label>
             </li> 
           </ul>

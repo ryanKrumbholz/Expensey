@@ -1,12 +1,52 @@
-.Filters {
+.filters {
     display: flex;
     flex-direction: column;
     height: 25vh;
+    width: 80%;
+    margin-bottom: 2vh;
 }
 
-.Filters li, form {
+.filters li, form {
     display: inline;  
     margin-left: 1vw;
+}
+
+.c1, .c2, .c3, .c4, .c5, .c6, .c7 {
+    border-radius: 20px;
+    border-style: hidden;
+    padding: .7vh;
+    text-align: left;
+    margin: auto;
+    color: white;
+    width: 100px;
+    user-select: none;
+    display: inline-block;
+    width: 120px;
+    margin-bottom: 2vh;
+}
+
+.c1 {
+    background-color: white;
+    color: black;
+}
+.c2 {
+    background-color: lightskyblue;
+}
+.c3 {
+    background-color: lightseagreen;
+}
+.c4 {
+    background-color: green;
+}
+.c5 {
+    background-color: yellow;
+    color: black;
+}
+.c6 {
+    background-color: lightgray;
+}
+.c7 {
+    background-color: lightcoral;
 }
 
 
