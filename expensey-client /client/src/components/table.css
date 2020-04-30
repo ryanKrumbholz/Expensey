@@ -3,12 +3,31 @@
     flex-direction: column;
     height: 25vh;
     width: 80%;
-    margin-bottom: 2vh;
+    margin-bottom: 4vh;
+    margin-left: -1.5vw;
 }
 
 .filters li, form {
     display: inline;  
     margin-left: 1vw;
+}
+
+.datesFiltersList input, .typeFiltersList input, .categoryTagList select {
+    width: 15vw;
+    height: 3vh;
+}
+
+.categoryTagList {
+    margin-left: 1vw;
+}
+
+.statusList {
+    margin-left: 1vw;
+}
+
+.submit {
+    width: 2vw;
+    height: 3vh;
 }
 
 .c1, .c2, .c3, .c4, .c5, .c6, .c7 {
@@ -22,7 +41,6 @@
     user-select: none;
     display: inline-block;
     width: 120px;
-    margin-bottom: 2vh;
 }
 
 .c1 {

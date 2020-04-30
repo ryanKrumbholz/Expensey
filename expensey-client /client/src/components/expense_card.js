@@ -14,6 +14,7 @@ const Expense_card   = props => {
     var comments = null;
     const receiptIcon = "https://png.pngtree.com/png-vector/20190411/ourlarge/pngtree-vector-receipt-icon-png-image_927096.jpg";
     var receiptImg;
+    var status = null;
 
     return{ 
       //getters & setters

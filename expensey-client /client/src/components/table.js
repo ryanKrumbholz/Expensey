@@ -61,13 +61,13 @@ const Table = props => {
             <ul class="datesFiltersList">
             <li>
               <form action="">
-                <label for="From">From:</label>
+                <label for="From">From: </label>
                 <input type="date" id="" name=""/>
               </form>
             </li>
             <li>
               <form action="">
-                <label for="To">To:</label>
+                <label for="To">To: </label>
                 <input type="date" id="" name=""/>
               </form>
             </li>
@@ -78,7 +78,7 @@ const Table = props => {
                 <label>
                   <input type="text" placeholder="Merchant" onChange="" />
                 </label>
-                <input type="submit" value="submit" />
+                <button class="submit" type="submit">🔍</button>
             </form>
           </li>
             <li>
