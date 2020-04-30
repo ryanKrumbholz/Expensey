@@ -22,7 +22,7 @@ async function getAllUsers() {
   }
   
 function saveUser(user) {
-    user.save( (err, user) => {
+    user.save((err, user) => {
       if (err) return console.error(err);
     });
   }
@@ -96,35 +96,29 @@ async function authUser(email, pword, res) {
     }
   }
 
-router.get('/', function(req, res, next) {
+router.post('/', function(req, res, next) {
     getAllUsers().then(x => {
       res.json(x);
     });
 });
 
-router.get('/user', function(req, res, next) {
+router.post('/user', function(req, res, next) {
   res.json('');
-  // getUser(email).then(x => {
-  //   res.json(x);
-  // });
-});
-
-//TODO get email and pword from post request from react
-router.get('/authuser', function(req, res, next, email, pword) {
-  authUser(email, pword).then(x => {
+  var user = req.body;
+  getUser(user.email).then(x => {
     res.json(x);
   });
 });
 
 //TODO get email from post request from react
-router.get('/deluser', function(req, res, next, email) {
+router.post('/deluser', function(req, res, next, email) {
   delUser(email).then(x => {
     res.json(x);
   });
 });
 
 //TODO get email from post request from react
-router.get('/user', function(req, res, next, email) {
+router.post('/user', function(req, res, next, email) {
   updateUser(email).then(x => {
     res.json(x);
   });
@@ -174,6 +168,4 @@ router.post('/adduser', async function(req, res, next) {
     authUser(user.email, user.password, res);
 });
   
-
-
 module.exports = router;

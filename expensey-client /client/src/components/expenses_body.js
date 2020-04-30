@@ -5,9 +5,10 @@ import Table from './table';
 import './expenses_body.css';
 
 const expenses_body = props => {
+
   return (
       <div className="ExpensesBody">
-        <Header />
+        <Header toggleWindow = {props.toggleWindow}/>
         <Table />
         <Footer />
       </div>

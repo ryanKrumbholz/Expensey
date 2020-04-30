@@ -63,14 +63,12 @@ const Table = props => {
               <form action="">
                 <label for="From">From:</label>
                 <input type="date" id="" name=""/>
-                <input type="submit"/>
               </form>
             </li>
             <li>
               <form action="">
                 <label for="To">To:</label>
                 <input type="date" id="" name=""/>
-                <input type="submit"/>
               </form>
             </li>
           </ul>
@@ -78,9 +76,9 @@ const Table = props => {
             <li>
               <form onSubmit="">
                 <label>
-                  <input type="text" value="Merchant" onChange="" />
+                  <input type="text" placeholder="Merchant" onChange="" />
                 </label>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="submit" />
             </form>
           </li>
             <li>
