@@ -3,8 +3,8 @@ import './construction.css';
 
 const construction = props => {
   return (
-      <div className="Footer">
-        <h1>Site currently under construction. Please checkback at a later date :)</h1>
+      <div className="construction">
+        <h1>Site currently under construction. Please check back at a later date!</h1>
       </div>
   )
 }

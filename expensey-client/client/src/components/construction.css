@@ -3,5 +3,12 @@ body {
 }
 
 .construction h1 {
+    margin: auto;
+    text-align: center;
     color: white;
+}
+
+.construction {
+    margin: auto;
+    display: flex;
 }
