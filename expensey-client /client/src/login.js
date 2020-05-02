@@ -58,7 +58,7 @@ const Login = (props) => {
       })};
 
       if (newAccountValidation(email, emailConf,  pword, pwordConf)) {
-        fetch('http://localhost:9000/users/adduser',requestOptions) 
+        fetch('http://ec2-52-14-88-124.us-east-2.compute.amazonaws.com/users/adduser',requestOptions) 
           .then(res => res.json())
           .then (data => 
             {
@@ -83,7 +83,7 @@ const Login = (props) => {
         password: pword
       })};
 
-    fetch('http://localhost:9000/users/login',requestOptions) 
+    fetch('http://ec2-52-14-88-124.us-east-2.compute.amazonaws.com/users/login',requestOptions) 
           .then(res => res.json())
           .then (data => 
             {
