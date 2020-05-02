@@ -1,0 +1,30 @@
+.Card {
+    display: flex;
+    background-color: white ;
+    border-bottom: rgba(87, 87, 87, 0.74);
+    border-width: .1vh;
+    border-bottom-style: solid;
+    height: 10vh;
+    margin: auto;
+    border-radius: 5px;
+    box-shadow: 3px 3px rgba(0, 0, 0, 0.144);
+    margin-bottom: 10px;
+}
+
+.Card img {
+    margin-top: auto;
+    margin-left: 1vw;
+    margin-bottom: auto;
+    width: 5vh;
+    height: 5vh;
+}
+
+.Card p {
+    margin: auto;
+}
+
+.amount {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+}

@@ -1,0 +1,32 @@
+.Header {
+    height: 10vh;
+    display: flex;
+}
+
+.Header h2 {
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-left: 2.5vw
+}
+
+.Header button {
+    background-image: linear-gradient(75deg, #7474BF,#348AC7);
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-left: .5vw;
+    height: max-content;
+    border-radius: 5px;
+    cursor: pointer;
+    border-color: transparent;
+    color: white;
+}
+
+.btn {
+    font-size: small;
+    display: flex;
+    margin-bottom: auto;
+    margin-top: auto;
+    flex-direction: row;
+    margin-left: 63%;
+    cursor: pointer;
+}

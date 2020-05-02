@@ -1,0 +1,10 @@
+.App {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
