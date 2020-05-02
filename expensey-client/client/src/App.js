@@ -5,6 +5,7 @@ import Login from './login';
 import NewExpense from './components/new_expense';
 import { BrowserRouter as Router, Route} from  "react-router-dom";
 import './App.css';
+import Construction from './components/construction';
 
 class App extends Component {
 
@@ -22,9 +23,11 @@ toggleWindow = () => {
   render () {
     if(sessionStorage.getItem('status')){return(
         <div class="App">
-          <Sidebar/>
+          <Construction/>
+          {/* commented out for production version*/}
+          {/* <Sidebar/>
           <ExpensesBody toggleWindow = {this.toggleWindow} currSeenState = {this.state.seen}/> 
-          {this.state.seen ? <NewExpense toggleWindow = {this.toggleWindow}/> : null}
+          {this.state.seen ? <NewExpense toggleWindow = {this.toggleWindow}/> : null} */}
         </div>
       // </Router>
     );}
