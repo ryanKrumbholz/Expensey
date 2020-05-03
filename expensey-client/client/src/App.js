@@ -23,11 +23,11 @@ toggleWindow = () => {
   render () {
     if(sessionStorage.getItem('status')){return(
         <div class="App">
-          <Construction/>
-          {/* commented out for production version*/}
-          {/* <Sidebar/>
+          {/* Construction is temp for production*/}
+          {/* <Construction/> */}
+          <Sidebar/>
           <ExpensesBody toggleWindow = {this.toggleWindow} currSeenState = {this.state.seen}/> 
-          {this.state.seen ? <NewExpense toggleWindow = {this.toggleWindow}/> : null} */}
+          {this.state.seen ? <NewExpense toggleWindow = {this.toggleWindow}/> : null}
         </div>
       // </Router>
     );}
