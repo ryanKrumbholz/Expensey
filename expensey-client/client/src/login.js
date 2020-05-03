@@ -144,48 +144,24 @@ const Login = (props) => {
           <div class="login">
             <p class="errorMessage"></p> 
               <h2>Email Address</h2>
-              <form onSubmit="">
-                <label>
-                  <input class="emailAddress" type="text" onChange="" placeholder="Type your email address" />
-                </label>
-              </form>
+                  <input class="emailAddress" type="text" onChange="" placeholder="Type your email address"/>
               <div class="createAccount">
                 <h2>Confirm Email Address</h2>
-                <form onSubmit="">
-                  <label>
                     <input class="emailAddressConf" type="text" onChange="" placeholder="Type your email address" />
-                  </label>
-                </form>
               </div>
               <div class="createAccount">
                 <h2>First Name</h2>
-                <form onSubmit="">
-                  <label>
                     <input class="firstName" type="text" onChange="" placeholder="Type your first name"/>
-                  </label>
-                </form>
               </div>
               <div class="createAccount">
                 <h2>Last Name</h2>
-                <form onSubmit="">
-                  <label>
                     <input class="lastName" type="text" onChange="" placeholder="Type your last name" />
-                  </label>
-                </form>
               </div>
               <h2>Password</h2>
-              <form onSubmit="">
-                <label>
                   <input class="pword" type="text" onChange="" placeholder="Type your password"/>
-                </label>
-              </form>
               <div class="createAccount">
                 <h2>Confirm Password</h2>
-                <form onSubmit="">
-                  <label>
                     <input class="pwordConf" type="text" onChange="" placeholder="Type your password"/>
-                  </label>
-                </form>
               </div>
               <button onClick={login} class="preCreate">Login</button>
               <button onClick={createAccountExpand} class="preCreate">Sign up</button>
