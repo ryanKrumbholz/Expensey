@@ -1,8 +1,14 @@
 import React from 'react';
 import ExpenseCard  from './expense_card';
+import App from '../App';
 import './table.css';
 
 const Table = props => {
+  var expenseCardList =  [];
+  var emptyCardLsContent = <div class="emptyCardList" onClick={props.toggleWindow}>
+                            <h3>Create new expense</h3>
+                          </div>
+
   //TODO connect database and table and finish writing appropriate functions
   function fetchListData(databaseVar /* temp var name for whatever I end up passing here */) {
     function fetchCatList(databaseListItems) {
@@ -157,8 +163,24 @@ const Table = props => {
     )
   }
 
-  function fetchExpenses() {
-    var userEmail = sessionStorage.getItem('email');
+  var getCookie = cname => {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  async function fetchExpenses() {
+    var userEmail = getCookie("email");
     const requestOptions =
     {
       method: 'POST',
@@ -169,27 +191,27 @@ const Table = props => {
         email : userEmail
       })};
 
-      fetch('https://api.expensey.app/expenses',requestOptions) 
+      var data = await fetch('http://localhost:9000/users/expenses',requestOptions) 
           .then(res => res.json())
           .then (data => 
             {
-              populateExpenseCards(data);
+              return data
             })
           .catch(error => console.log(error));
+
+      populateExpenseCards(data);
       }
 
-  function populateExpenseCards (expenses) {
-    //TODO after figuring out database schema, rewrite this algo to get card info
-    var expenseCardList =  []
-    console.log(expenses)
-    // var numCards = expenses.length; //TODO  get number of cards from user account 
-    // for (var i = 0; i < numCards; i++) {
-    //   expenseCardList.push(<ExpenseCard data = {[expenses[i].date, expenses[i].merchant, expenses[i].amount, expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink]}/>)
-    // }
-    return(
-      expenseCardList
-    );
+function populateExpenseCards (expenses) {
+  if (expenses) {
+    var numCards = expenses.length;
+    for (var i = 0; i < numCards; i++) {
+      expenseCardList.push(<ExpenseCard data = {[expenses[i].date, expenses[i].merchant, expenses[i].amount, expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink]}/>)
+    }
+    props.setCardLs(expenseCardList);
   }
+  }
+  
 
   function table (){
     return(
@@ -202,12 +224,13 @@ const Table = props => {
           <li>Description</li>
         </ul>
         <div class="tbody">
-        {fetchExpenses()}
+        {(props.currCardLs != 0) ? props.currCardLs : emptyCardLsContent }
         </div>
       </div>
     );
   }
-  
+
+  fetchExpenses();
   return (
     <div>
       {filters()}

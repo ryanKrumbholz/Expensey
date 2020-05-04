@@ -3,27 +3,65 @@ import './new_expense.css';
 
 const new_expense = props => {
 
-    var  createExpense = () => {
-
-        const requestOptions =
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-      })};
-
-      fetch('https://api.expensey.app/users/adduser',requestOptions) 
-          .then(res => res.json())
-          .then (data => 
-            {
-            })
-          .catch(error => console.log(error));
-
-          props.toggleWindow();
+    var getCookie = cname => {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
       }
 
+    var  createExpense = () => {
+
+        var userEmail = getCookie('email');
+        var eid = Date.now();
+        var date = document.getElementsByClassName("date")[0].value;
+        var merchant = document.getElementsByClassName("merchant")[0].value;
+        var amt = parseInt(document.getElementsByClassName("amt")[0].value);
+        var cat = document.getElementsByClassName("cat")[0].value;
+        var desc = document.getElementsByClassName("desc")[0].value;
+        var tag = "";
+        var link = "";
+        
+        const requestOptions =
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email : userEmail,
+            id: eid,
+            date: date,
+            merchant: merchant,
+            amount: amt,
+            category: cat,
+            description: desc,
+            tag: tag,
+            receiptImgLink: link
+            })};
+    
+          fetch('http://localhost:9000/users/expenses/add_expense',requestOptions) 
+              .then(res => res.json())
+              .then (data => 
+                {
+                    console.log(data);
+                    if (data == 'Expense saved successfully.'){
+                        props.toggleWindow();
+                        window.location.reload();
+                    }
+                    
+                })
+              .catch(error => console.log(error));
+          }
        
 
     return (
@@ -35,30 +73,30 @@ const new_expense = props => {
                         <h3>Date</h3>
                         <form action="">
                         <label for="From"></label>
-                        <input type="date" id="" name=""/>
+                        <input class="date" type="date" id="" name=""/>
                     </form>
                         <h3>Merchant</h3>
                         <form onSubmit="">
                             <label>
-                            <input class="emailAddress" type="text" onChange="" placeholder="Type your email address" />
+                            <input class="merchant" type="text" onChange="" placeholder="Type your email address" />
                             </label>
                         </form>
                         <h3>Amount</h3>
                         <form onSubmit="">
                             <label>
-                            <input class="emailAddress" type="text" onChange="" placeholder="Type your email address" />
+                            <input class="amt" type="text" onChange="" placeholder="Type your email address" />
                             </label>
                         </form>
                         <h3>Category</h3>
                         <form onSubmit="">
                             <label>
-                            <input class="emailAddress" type="text" onChange="" placeholder="Type your email address" />
+                            <input class="cat" type="text" onChange="" placeholder="Type your email address" />
                             </label>
                         </form>
                         <h3>Description</h3>
                         <form onSubmit="">
                             <label>
-                            <input class="emailAddress" type="text" onChange="" placeholder="Type your email address" />
+                            <input class="desc" type="text" onChange="" placeholder="Type your email address" />
                             </label>
                         </form>
                     </div>

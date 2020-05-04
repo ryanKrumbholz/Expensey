@@ -9,7 +9,7 @@ const expenses_body = props => {
   return (
       <div className="ExpensesBody">
         <Header toggleWindow = {props.toggleWindow}/>
-        <Table />
+        <Table toggleWindow = {props.toggleWindow} currCardLs = {props.currCardLs} setCardLs = {props.setCardLs}/>
         <Footer />
       </div>
   )

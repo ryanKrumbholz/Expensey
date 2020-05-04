@@ -58,12 +58,6 @@ async function getUser(email) {
      return await userObj;
   }
   
-function updateUser(email) {
-    //TODO write remaining needed code and test function
-    User.findByIdAndUpdate({email : email});
-    
-  }
-  
 function delUser(email) {
     //TODO test function
     User.findByIdAndDelete({email : email});
@@ -96,8 +90,40 @@ async function authUser(email, pword, res) {
     }
   }
 
-function getExpenses(user, res) {
-  res.json(user.expenses);
+async function getExpenses(user, res) {
+  var currUser = await user;
+  res.json(currUser.expenses);
+}
+
+async function addExpense(info, res) {
+  var currUser = await getUser(info.email);
+  console.log(info);
+  var query = currUser._id;
+  var newExpense = 
+    {
+      id: info.id,
+      date: info.date,
+      merchant: info.merchant,
+      amount: info.amount,
+      category: info.category,
+      description: info.description,
+      tag: info.tag,
+      receiptImgLink: info.link
+    };
+
+  currUser.expenses.push(newExpense);
+
+  User.findByIdAndUpdate(query, currUser, function(err, doc) {
+    if (err){
+      console.log(err);
+      res.json('Expense failed to save.');
+    } 
+    else{
+      res.json('Expense saved successfully.');
+    }
+    
+  });
+
 }
 
 router.post('/', function(req, res, next) {
@@ -173,14 +199,14 @@ router.post('/adduser', async function(req, res, next) {
 });
 
 router.post('/expenses', function(req, res, next) {
-  var email = req.body;
+  var email = req.body.email;
   var user = getUser(email);
   getExpenses(user, res);
 });
 
 router.post('/expenses/add_expense', function(req, res, next) {
-  var email = req.body;
-  res.json([]);
+  var expenseInfo = req.body;
+  addExpense(expenseInfo, res);
 });
 
 
