@@ -158,10 +158,10 @@ const Login = (props) => {
                     <input class="lastName" type="text" onChange="" placeholder="Type your last name" />
               </div>
               <h2>Password</h2>
-                  <input class="pword" type="text" onChange="" placeholder="Type your password"/>
+                  <input class="pword" type="password" onChange="" placeholder="Type your password"/>
               <div class="createAccount">
                 <h2>Confirm Password</h2>
-                    <input class="pwordConf" type="text" onChange="" placeholder="Type your password"/>
+                    <input class="pwordConf" type="password" onChange="" placeholder="Type your password"/>
               </div>
               <button onClick={login} class="preCreate">Login</button>
               <button onClick={createAccountExpand} class="preCreate">Sign up</button>
