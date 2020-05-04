@@ -59,10 +59,6 @@ const Login = (props) => {
 
       if (newAccountValidation(email, emailConf,  pword, pwordConf)) {
         fetch('https://api.expensey.app/users/adduser',requestOptions) 
-<<<<<<< HEAD
-
-=======
->>>>>>> b3acf5c0382eda11a150431a061c4a3d28be097f
           .then(res => res.json())
           .then (data => 
             {
@@ -87,10 +83,6 @@ const Login = (props) => {
         password: pword
       })};
 
-<<<<<<< HEAD
-=======
-
->>>>>>> b3acf5c0382eda11a150431a061c4a3d28be097f
     fetch('https://api.expensey.app/users/login',requestOptions) 
 
           .then(res => res.json())
