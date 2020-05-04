@@ -2,9 +2,17 @@ const express = require('express');
 require('dotenv').config();
 const mongoose = require('mongoose');
 const app = express();
+<<<<<<< HEAD
+<<<<<<< HEAD
+const port = 9000;
+=======
+const port = 3000;
+>>>>>>> master
+=======
 
 const port = 3000;
 
+>>>>>>> b3acf5c0382eda11a150431a061c4a3d28be097f
 const dbCon = process.env.DB_CONNECT;
 var bodyParser = require('body-parser');
 var cors = require("cors");
