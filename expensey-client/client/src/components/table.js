@@ -157,13 +157,35 @@ const Table = props => {
     )
   }
 
-  function populateExpenseCards () {
+  function fetchExpenses() {
+    var userEmail = sessionStorage.getItem('email');
+    const requestOptions =
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email : userEmail
+      })};
+
+      fetch('https://api.expensey.app/expenses',requestOptions) 
+          .then(res => res.json())
+          .then (data => 
+            {
+              populateExpenseCards(data);
+            })
+          .catch(error => console.log(error));
+      }
+
+  function populateExpenseCards (expenses) {
     //TODO after figuring out database schema, rewrite this algo to get card info
     var expenseCardList =  []
-    var numCards = 10; //TODO  get number of cards from user account 
-    for (var i = 0; i < numCards; i++) {
-      expenseCardList.push(<ExpenseCard data = {["1/20/20", "Uber", "$100", "Transp","add comment", "tag", "img link"]}/>)
-    }
+    console.log(expenses)
+    // var numCards = expenses.length; //TODO  get number of cards from user account 
+    // for (var i = 0; i < numCards; i++) {
+    //   expenseCardList.push(<ExpenseCard data = {[expenses[i].date, expenses[i].merchant, expenses[i].amount, expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink]}/>)
+    // }
     return(
       expenseCardList
     );
@@ -180,7 +202,7 @@ const Table = props => {
           <li>Description</li>
         </ul>
         <div class="tbody">
-        {populateExpenseCards()}
+        {fetchExpenses()}
         </div>
       </div>
     );

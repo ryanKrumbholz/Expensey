@@ -3,6 +3,29 @@ import './new_expense.css';
 
 const new_expense = props => {
 
+    var  createExpense = () => {
+
+        const requestOptions =
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+      })};
+
+      fetch('https://api.expensey.app/users/adduser',requestOptions) 
+          .then(res => res.json())
+          .then (data => 
+            {
+            })
+          .catch(error => console.log(error));
+
+          props.toggleWindow();
+      }
+
+       
+
     return (
         <div className="bg">
             <div className="window">
@@ -54,7 +77,7 @@ const new_expense = props => {
                         </form>
                     </div>
                 </div>
-                <button onClick={props.toggleWindow}>Save</button>
+                <button onClick={createExpense}>Save</button>
             </div>
         </div>
     )
