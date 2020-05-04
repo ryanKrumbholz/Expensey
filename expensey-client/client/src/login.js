@@ -87,17 +87,20 @@ const Login = (props) => {
           .then(res => res.json())
           .then (data => 
             {
+              var d = new Date();
+              d.setTime(d.getTime() + (24*60*60*1000));
+
               if (data[0] == "Account authorization successful!") {
                 //Allows user to access their account
-                sessionStorage.setItem('status', true);
+                document.cookie = "status=true; expires=" + d.toUTCString() + ";";
 
                 //reloads window to app
                 window.location.reload();
 
                 console.log(data[0]);
-                sessionStorage.setItem('uid', data[1][0]);
-                sessionStorage.setItem('name', data[1][1]);
-                sessionStorage.setItem('email', data[1][2]);
+                document.cookie = "uid="+data[1][0]+"; expires=" + d.toUTCString() + ";";
+                document.cookie = "name="+data[1][1]+"; expires=" + d.toUTCString() + ";";
+                document.cookie = "email="+data[1][2]+"; expires=" + d.toUTCString() + ";";
               }
               else {
                 console.log(data);
@@ -158,10 +161,10 @@ const Login = (props) => {
                     <input class="lastName" type="text" onChange="" placeholder="Type your last name" />
               </div>
               <h2>Password</h2>
-                  <input class="pword" type="text" onChange="" placeholder="Type your password"/>
+                  <input class="pword" type="password" onChange="" placeholder="Type your password"/>
               <div class="createAccount">
                 <h2>Confirm Password</h2>
-                    <input class="pwordConf" type="text" onChange="" placeholder="Type your password"/>
+                    <input class="pwordConf" type="password" onChange="" placeholder="Type your password"/>
               </div>
               <button onClick={login} class="preCreate">Login</button>
               <button onClick={createAccountExpand} class="preCreate">Sign up</button>

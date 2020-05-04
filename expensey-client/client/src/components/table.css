@@ -71,7 +71,6 @@
     display: flex;
     flex-direction: row;
     list-style: none;
-    margin-left: -2vw;
 }
 
 .theader li {
@@ -87,4 +86,18 @@
 .tbody {
     max-height: 55.5vh;
     overflow-y: scroll;
+}
+
+.emptyCardList {
+    background-color: white;
+    border-radius: 5px;
+    width: 80vw;
+    height: 55vh;
+    display: flex;
+}
+
+.emptyCardList h3 {
+    margin: auto;
+    color: rgb(189, 189, 189);
+
 }
