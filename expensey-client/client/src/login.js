@@ -59,6 +59,7 @@ const Login = (props) => {
 
       if (newAccountValidation(email, emailConf,  pword, pwordConf)) {
         fetch('https://api.expensey.app/users/adduser',requestOptions) 
+
           .then(res => res.json())
           .then (data => 
             {
@@ -84,6 +85,7 @@ const Login = (props) => {
       })};
 
     fetch('https://api.expensey.app/users/login',requestOptions) 
+
           .then(res => res.json())
           .then (data => 
             {
