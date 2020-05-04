@@ -191,7 +191,7 @@ const Table = props => {
         email : userEmail
       })};
 
-      var data = await fetch('http://api.expnesey.api/users/expenses',requestOptions) 
+      var data = await fetch('https://api.expensey.app/users/expenses',requestOptions) 
           .then(res => res.json())
           .then (data => 
             {
@@ -209,7 +209,6 @@ function populateExpenseCards (expenses) {
       expenseCardList.push(<ExpenseCard data = {[expenses[i].date, expenses[i].merchant, expenses[i].amount, expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink]}/>)
     }
     props.setCardLs(expenseCardList);
-    console.log(props.currCardLs)
   }
   }
   
