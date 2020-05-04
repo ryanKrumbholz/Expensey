@@ -96,6 +96,10 @@ async function authUser(email, pword, res) {
     }
   }
 
+function getExpenses(user, res) {
+  res.json(user.expenses);
+}
+
 router.post('/', function(req, res, next) {
     getAllUsers().then(x => {
       res.json(x);
@@ -111,7 +115,7 @@ router.post('/user', function(req, res, next) {
 });
 
 //TODO get email from post request from react
-router.post('/deluser', function(req, res, next, email) {
+router.post('/del_user', function(req, res, next, email) {
   delUser(email).then(x => {
     res.json(x);
   });
@@ -167,5 +171,19 @@ router.post('/adduser', async function(req, res, next) {
     var user = req.body;
     authUser(user.email, user.password, res);
 });
+
+router.post('/expenses', function(req, res, next) {
+  var email = req.body;
+  var user = getUser(email);
+  getExpenses(user, res);
+});
+
+router.post('/expenses/add_expense', function(req, res, next) {
+  var email = req.body;
+  res.json([]);
+});
+
+
+
   
 module.exports = router;
