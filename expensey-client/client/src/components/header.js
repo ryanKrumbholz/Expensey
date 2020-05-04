@@ -9,8 +9,8 @@ const header = props => {
       <div className="Header">
         <h2>Expenses</h2>
         <div class="btn" onClick={props.toggleWindow}>
-        <p>Create new expense</p>
-        <button>+</button>
+          <p>Create new expense</p>
+          <button>+</button>
         </div>
       </div>
   )

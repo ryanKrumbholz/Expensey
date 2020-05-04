@@ -35,7 +35,6 @@
     border-style: hidden;
     padding: .7vh;
     text-align: left;
-    margin: auto;
     color: white;
     width: 100px;
     user-select: none;
@@ -75,7 +74,8 @@
 }
 
 .theader li {
-    margin: auto;   
+    margin: auto;
+    text-align: left;   
 }
 
 .table {
@@ -86,4 +86,18 @@
 .tbody {
     max-height: 55.5vh;
     overflow-y: scroll;
+}
+
+.emptyCardList {
+    background-color: white;
+    border-radius: 5px;
+    width: 80vw;
+    height: 55vh;
+    display: flex;
+}
+
+.emptyCardList h3 {
+    margin: auto;
+    color: rgb(189, 189, 189);
+
 }
