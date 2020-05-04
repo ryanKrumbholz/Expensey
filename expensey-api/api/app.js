@@ -2,11 +2,15 @@ const express = require('express');
 require('dotenv').config();
 const mongoose = require('mongoose');
 const app = express();
-const port = 9000;
+
+const port = 3000;
+
 const dbCon = process.env.DB_CONNECT;
 var bodyParser = require('body-parser');
 var cors = require("cors");
 var usersApiRoute = require("./routes/userManagement");
+var fs = require('fs');
+var https = require('https');
 
 function estDB() {
   //establishes connection to db
@@ -29,4 +33,9 @@ app.get('/api', (req,res) => {
   res.send();
 });
 
-app.listen(port, () => console.log("Server started on port " + port));
+https.createServer({
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+}, app)
+.listen(port, () => console.log("Server started on port " + port));
+

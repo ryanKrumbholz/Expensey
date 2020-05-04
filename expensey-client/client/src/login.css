@@ -68,8 +68,6 @@ body {
     height: 0;
 }
 
-
-
 @media only screen and (max-width: 1080px) {
     .login {
         width: 50%;
