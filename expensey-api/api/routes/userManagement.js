@@ -58,12 +58,6 @@ async function getUser(email) {
      return await userObj;
   }
   
-function updateUser(email) {
-    //TODO write remaining needed code and test function
-    User.findByIdAndUpdate({email : email});
-    
-  }
-  
 function delUser(email) {
     //TODO test function
     User.findByIdAndDelete({email : email});
@@ -96,6 +90,42 @@ async function authUser(email, pword, res) {
     }
   }
 
+async function getExpenses(user, res) {
+  var currUser = await user;
+  res.json(currUser.expenses);
+}
+
+async function addExpense(info, res) {
+  var currUser = await getUser(info.email);
+  console.log(info);
+  var query = currUser._id;
+  var newExpense = 
+    {
+      id: info.id,
+      date: info.date,
+      merchant: info.merchant,
+      amount: info.amount,
+      category: info.category,
+      description: info.description,
+      tag: info.tag,
+      receiptImgLink: info.link
+    };
+
+  currUser.expenses.push(newExpense);
+
+  User.findByIdAndUpdate(query, currUser, function(err, doc) {
+    if (err){
+      console.log(err);
+      res.json('Expense failed to save.');
+    } 
+    else{
+      res.json('Expense saved successfully.');
+    }
+    
+  });
+
+}
+
 router.post('/', function(req, res, next) {
     getAllUsers().then(x => {
       res.json(x);
@@ -111,7 +141,7 @@ router.post('/user', function(req, res, next) {
 });
 
 //TODO get email from post request from react
-router.post('/deluser', function(req, res, next, email) {
+router.post('/del_user', function(req, res, next, email) {
   delUser(email).then(x => {
     res.json(x);
   });
@@ -167,5 +197,19 @@ router.post('/adduser', async function(req, res, next) {
     var user = req.body;
     authUser(user.email, user.password, res);
 });
+
+router.post('/expenses', function(req, res, next) {
+  var email = req.body.email;
+  var user = getUser(email);
+  getExpenses(user, res);
+});
+
+router.post('/expenses/add_expense', function(req, res, next) {
+  var expenseInfo = req.body;
+  addExpense(expenseInfo, res);
+});
+
+
+
   
 module.exports = router;

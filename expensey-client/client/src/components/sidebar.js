@@ -36,11 +36,44 @@ const sidebar = props => {
     }
   }();
 
+  function delCookies() {
+    function eraseCookie(name) {
+      var d = new Date();
+      d.setTime(d.getTime()+(-1*24*60*60*1000));
+      document.cookie = name+"= ;" +"  expires=" + d + ";";
+    }
+    var cookies = document.cookie.split(";");
+    for (var i = 0; i < cookies.length; i++)
+      eraseCookie(cookies[i].split("=")[0]);
+  }
+
+  var logout = () => {
+    delCookies();
+    window.location.reload();
+    window.localStorage.clear();
+  }
+
+  var getCookie = cname => {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
   //if statements to set userImg to default for testing
   if (userData.getUserImg() == null) {
-    var uimg = sessionStorage.getItem('uimg');
+    var uimg = getCookie('uimg');
     if (uimg){
-      userData.setUserImg(sessionStorage.getItem('uimg'));
+      userData.setUserImg(uimg);
     }
     else {
       userData.setUserImg(userData.getDefaultImg());
@@ -50,22 +83,26 @@ const sidebar = props => {
 
   //if statement to set userImg to default for testing
   if (userData.getName() == null) {
-    userData.setName(sessionStorage.getItem('name'));
+    userData.setName(getCookie("name"));
   }
 
   //if statement to set uid to default for testing
   if (userData.getUid() == null) {
-    userData.setUid(sessionStorage.getItem('uid'));
+    userData.setUid(getCookie("uid"));
   }
+
 
   return (
       <div className="Sidebar">
         <img src={userData.getUserImg()}></img>
         <a href="expensey.app/account+">{userData.getName()}</a>
         <div class="links">
-          <a href="expensey.app/expenses+">Expenses</a>
-          <a href="expensey.app/reports+">Reports</a>
-          <a href="expensey.app/settings+">Settings</a>
+          <a href="https://expensey.app">Expenses</a>
+          <a href="https://expensey.app/reports">Reports</a>
+          <a href="https://expensey.app/settings">Settings</a>
+        </div>
+        <div class="logout">
+          <a href="" onClick={logout}>Sign out</a>
         </div>
       </div>
   )
