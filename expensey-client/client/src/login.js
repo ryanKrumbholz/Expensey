@@ -58,7 +58,7 @@ const Login = (props) => {
       })};
 
       if (newAccountValidation(email, emailConf,  pword, pwordConf)) {
-        fetch('https://ec2-52-14-88-124.us-east-2.compute.amazonaws.com/users/adduser',requestOptions) 
+        fetch('https://api.expensey.app/users/adduser',requestOptions) 
           .then(res => res.json())
           .then (data => 
             {
@@ -83,7 +83,7 @@ const Login = (props) => {
         password: pword
       })};
 
-    fetch('https://ec2-52-14-88-124.us-east-2.compute.amazonaws.com/users/login',requestOptions) 
+    fetch('https://api.expensey.app/users/login',requestOptions) 
           .then(res => res.json())
           .then (data => 
             {
