@@ -25,11 +25,33 @@ const new_expense = props => {
         var eid = Date.now();
         var date = document.getElementsByClassName("date")[0].value;
         var merchant = document.getElementsByClassName("merchant")[0].value;
-        var amt = parseFloat(document.getElementsByClassName("amt")[0].value);
+        var amt = document.getElementsByClassName("amt")[0].value;
         var cat = document.getElementsByClassName("cat")[0].value;
         var desc = document.getElementsByClassName("desc")[0].value;
         var tag = "";
         var link = "";
+
+        function checkFields() {
+            if (userEmail  == "")  {
+                return false;
+            }
+            if (merchant  == "")  {
+                return false;
+            }
+            if (amt  == "")  {
+                return false;
+            }
+            if (!parseFloat(amt)){
+                return false;
+            }
+            if (cat  == "")  {
+                return false;
+            }
+            if (desc == "")  {
+                return false;
+            }
+            return true;
+        }
         
         const requestOptions =
         {
@@ -42,7 +64,7 @@ const new_expense = props => {
             id: eid,
             date: date,
             merchant: merchant,
-            amount: amt,
+            amount: parseFloat(amt),
             category: cat,
             description: desc,
             tag: tag,
@@ -50,6 +72,7 @@ const new_expense = props => {
             status : "unreported"
             })};
     
+        if (checkFields()==true) {
           fetch('https://api.expensey.app/users/expenses/add_expense',requestOptions) 
               .then(res => res.json())
               .then (data => 
@@ -63,6 +86,10 @@ const new_expense = props => {
                 })
               .catch(error => console.log(error));
           }
+        else {
+            console.log("Field missing");
+        }
+    }
        
 
     return (
