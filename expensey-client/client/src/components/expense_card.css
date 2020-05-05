@@ -1,6 +1,7 @@
 .Card {
     display: flex;
     background-color: white ;
+    
     border-bottom: rgba(87, 87, 87, 0.74);
     border-width: .1vh;
     border-bottom-style: solid;
@@ -21,10 +22,34 @@
 
 .Card p {
     margin: auto;
+    margin-left: 2vw;
+    width: 15vw;
 }
 
-.amount {
-    margin: auto;
+.amountp {
+    margin-right: 8vw;
+    width: 8vw;
     display: flex;
     flex-direction: row;
+}
+
+.statusp {
+    border-radius: 20px;
+    text-align: left;
+    color: black;
+    width: 100px;
+    user-select: none;
+    display: flex;
+    width: 120px;
+    height: 3vh;
+    background-color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: -6vw;
+    margin-right: 4vw;
+}
+
+.statusp p {
+    margin: auto;
+    text-align: center;
 }

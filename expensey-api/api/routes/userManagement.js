@@ -108,7 +108,8 @@ async function addExpense(info, res) {
       category: info.category,
       description: info.description,
       tag: info.tag,
-      receiptImgLink: info.link
+      receiptImgLink: info.link,
+      status : info.status
     };
 
   currUser.expenses.push(newExpense);

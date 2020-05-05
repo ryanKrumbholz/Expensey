@@ -8,7 +8,8 @@ const expenseSchema = new mongoose.Schema({
     category: String,
     description: String,
     tag: String,
-    receiptImgLink: String
+    receiptImgLink: String,
+    status : String
   });
 
 const userSchema = new mongoose.Schema({

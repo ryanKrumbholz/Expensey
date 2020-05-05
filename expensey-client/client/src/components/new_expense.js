@@ -46,7 +46,8 @@ const new_expense = props => {
             category: cat,
             description: desc,
             tag: tag,
-            receiptImgLink: link
+            receiptImgLink: link,
+            status : "unreported"
             })};
     
           fetch('https://api.expensey.app/users/expenses/add_expense',requestOptions) 
