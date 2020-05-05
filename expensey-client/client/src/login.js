@@ -144,7 +144,9 @@ const Login = (props) => {
   }
     return (
       <div class="body">
+      <a href="https://expensey.app">
         <h1 class="title">Expensey</h1>
+        </a>
           <div class="login">
             <p class="errorMessage"></p> 
               <h2>Email Address</h2>
