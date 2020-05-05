@@ -25,7 +25,7 @@ const new_expense = props => {
         var eid = Date.now();
         var date = document.getElementsByClassName("date")[0].value;
         var merchant = document.getElementsByClassName("merchant")[0].value;
-        var amt = parseInt(document.getElementsByClassName("amt")[0].value);
+        var amt = parseFloat(document.getElementsByClassName("amt")[0].value);
         var cat = document.getElementsByClassName("cat")[0].value;
         var desc = document.getElementsByClassName("desc")[0].value;
         var tag = "";
