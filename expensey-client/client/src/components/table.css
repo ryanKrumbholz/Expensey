@@ -74,8 +74,27 @@
 }
 
 .theader li {
-    margin: auto;
     text-align: left;   
+}
+
+.dateli {
+    margin-right: 5.5vw;
+}
+
+.statusli {
+    margin-right: 9.1vw;
+}
+
+.merchli {
+    margin-right: 10.5vw;
+}
+
+.amountli {
+    margin-right: 12.5vw;
+}
+
+.catli {
+    margin-right: 10.5vw;
 }
 
 .table {

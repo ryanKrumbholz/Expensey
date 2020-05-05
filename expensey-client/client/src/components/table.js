@@ -206,7 +206,8 @@ function populateExpenseCards (expenses) {
   if (expenses) {
     var numCards = expenses.length;
     for (var i = 0; i < numCards; i++) {
-      expenseCardList.push(<ExpenseCard data = {[expenses[i].date, expenses[i].merchant, expenses[i].amount, expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink]}/>)
+      console.log(expenses[i].status)
+      expenseCardList.push(<ExpenseCard data = {[expenses[i].date, expenses[i].merchant, expenses[i].amount, expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink, expenses[i].status]}/>)
     }
     props.setCardLs(expenseCardList);
   }
@@ -217,11 +218,12 @@ function populateExpenseCards (expenses) {
     return(
       <div class="table">
         <ul class="theader">
-          <li>Date</li>
-          <li>Merchant</li>
-          <li>Amount</li>
-          <li>Category</li>
-          <li>Description</li>
+          <li class="dateli">Date</li>
+          <li class="statusli">Status</li>
+          <li class="merchli">Merchant</li>
+          <li class="amountli">Amount</li>
+          <li class="catli">Category</li>
+          <li class="descli">Description</li>
         </ul>
         <div class="tbody">
         {(props.currCardLs != 0) ? props.currCardLs : emptyCardLsContent }

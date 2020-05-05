@@ -45,6 +45,12 @@ const Expense_card   = props => {
       getReceiptImg : function () {
         return receiptImg;
       },
+      getStatus : function() {
+        return status;
+      },
+      setStatus : function (newStatus) {
+        status = newStatus;
+      },
       setDate : function (newDate) {
         date = newDate;
       },
@@ -80,6 +86,7 @@ const Expense_card   = props => {
     cardData.setCategory(props.data[3]);
     cardData.setTag(props.data[5]);
     cardData.setComments(props.data[4]);
+    cardData.setStatus(props.data[7]);
   };
 
 
@@ -93,14 +100,17 @@ const Expense_card   = props => {
 
   return (
       <div className="Card">
-        <p>{cardData.getDate()}</p>
-        <p>{cardData.getDescrip()}</p>
-        <div class="amount">
-          <p>{cardData.getAmount()}</p>
+        <p class="datep">{cardData.getDate()}</p>
+        <div class="statusp">
+          <p>{cardData.getStatus()}</p>
+        </div>
+        <p class="merchantp">{cardData.getDescrip()}</p>
+        <div class="amountp">
+          <p>${cardData.getAmount()}</p>
           <img src={cardData.getReceiptImg()}></img>
         </div>
-        <p>{cardData.getCategory()}</p>
-        <p>{cardData.getComments()}</p>
+        <p class="catp">{cardData.getCategory()}</p>
+        <p class="commentsp">{cardData.getComments()}</p>
       </div>
   )
 }
