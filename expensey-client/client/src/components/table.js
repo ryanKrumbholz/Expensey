@@ -206,7 +206,6 @@ function populateExpenseCards (expenses) {
   if (expenses) {
     var numCards = expenses.length;
     for (var i = 0; i < numCards; i++) {
-      console.log(expenses[i].status)
       expenseCardList.push(<ExpenseCard data = {[expenses[i].date, expenses[i].merchant, expenses[i].amount, expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink, expenses[i].status]}/>)
     }
     props.setCardLs(expenseCardList);
