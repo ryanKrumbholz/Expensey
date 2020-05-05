@@ -42,11 +42,13 @@
     display: flex;
     width: 120px;
     height: 3vh;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     margin-top: auto;
     margin-bottom: auto;
     margin-left: -6vw;
     margin-right: 4vw;
+    border: 
+    solid 1px;
 }
 
 .statusp p {

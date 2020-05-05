@@ -79,25 +79,25 @@ const new_expense = props => {
                         <h3>Merchant</h3>
                         <form onSubmit="">
                             <label>
-                            <input class="merchant" type="text" onChange="" placeholder="Type your email address" />
+                            <input class="merchant" type="text" onChange="" placeholder="ex. Expensey" />
                             </label>
                         </form>
                         <h3>Amount</h3>
                         <form onSubmit="">
                             <label>
-                            <input class="amt" type="text" onChange="" placeholder="Type your email address" />
+                            <input class="amt" type="text" onChange="" placeholder="ex. 9.99" />
                             </label>
                         </form>
                         <h3>Category</h3>
                         <form onSubmit="">
                             <label>
-                            <input class="cat" type="text" onChange="" placeholder="Type your email address" />
+                            <input class="cat" type="text" onChange="" placeholder="ex. Food" />
                             </label>
                         </form>
                         <h3>Description</h3>
                         <form onSubmit="">
                             <label>
-                            <input class="desc" type="text" onChange="" placeholder="Type your email address" />
+                            <input class="desc" type="text" onChange="" placeholder="Stuff about the expense goes here!" />
                             </label>
                         </form>
                     </div>
