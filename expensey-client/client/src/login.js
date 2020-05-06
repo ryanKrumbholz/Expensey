@@ -115,7 +115,8 @@ const Login = (props) => {
       "Either the email address or password are incorrect. Please retry.",
       "Account already exist with this email address.",
       "Please check to make sure the email addresses and passwords match!",
-     "One or more fields are empty."
+     "One or more fields are empty.",
+     "The email address entered is incorrect."
     ];
     var elem = document.getElementsByClassName("errorMessage")[0];
 
@@ -125,22 +126,29 @@ const Login = (props) => {
   }
 
   function newAccountValidation(email, emailConf,  pword, pwordconf) {
+    function validateEmail(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    }
+
     if (email  != emailConf  || pword != pwordconf){
       displayErrMsg(2);
       return false;
     }
-    else if (email == "" || pword == "") {
+    if (email == "" || pword == "") {
       displayErrMsg(3);
       return false;
     }
-    else if (/* call to see if account with email address already exist*/  1==2){
+    if (validateEmail(email) == false) {
+      displayErrMsg(4);
+      return false;
+    }
+    if (/* call to see if account with email address already exist*/  1==2){
       //uncomment when elseif works
       displayErrMsg(1);
       return false;
     }
-    else{
       return true;
-    }
   }
     return (
       <div class="body">
