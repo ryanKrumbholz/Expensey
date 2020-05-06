@@ -3,13 +3,12 @@ Expensey is an expense management system for personal and business use. Expensey
 
 ## Updates to come
  * Expense page
-  * Filters
-  * Uploading expense receipts
-  * Being able to edit & delete expenses
+   * Filters
+   * Uploading expense receipts
+   * Being able to edit & delete expenses
  * Reports page
  * Account page
  * Settings page
  
-
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
