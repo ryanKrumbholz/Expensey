@@ -3,7 +3,8 @@ Expensey is an expense management system for personal and business use. Expensey
 
 ## Updates to come
 
- Markup : * Working filters
+ Markup : 
+ * Working filters
  * Reports page
  * Account page
  * Settings page
