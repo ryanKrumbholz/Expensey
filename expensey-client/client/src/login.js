@@ -104,7 +104,7 @@ const Login = (props) => {
                 document.cookie = "email="+data[1][2]+"; expires=" + d.toUTCString() + ";";
               }
               else {
-                console.log(data);
+                displayErrMsg(0);
               }
             })
           .catch(error => console.log(error));
