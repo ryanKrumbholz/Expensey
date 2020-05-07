@@ -3,8 +3,6 @@ import './settings_body.css';
 
 const settings_body = props => {
 
-  var checked = false;
-
   var getCookie = cname => {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -28,9 +26,11 @@ const settings_body = props => {
 
       if (dkModeStatus == 'true') {
         dkModeStatus = 'false';
+        document.cookie = "dkModeStatus="+'false';
       }
       else {
         dkModeStatus = 'true';
+        document.cookie = "dkModeStatus="+'true';
       }
       const requestOptions =
         {
@@ -47,10 +47,8 @@ const settings_body = props => {
               .then(res => res.json())
               .then (data => 
                 {
-                  console.log("Dark mode stauts updated");
                 })
-              .catch(error => console.log(error));
-
+              .catch(error => console.log(error));  
     }
 
   return (

@@ -25,14 +25,16 @@ class App extends Component {
 toggleWindow = () => {
     this.setState({
       seen: !this.state.seen
-    });
-    console.log("Window Toggled");
+    },
+    console.log("Window Toggled"))
   }
 
 toggledkMode =  () => {
   this.setState({
     dkmode: !this.state.dkmode
-  });
+  },
+  () => console.log("Dark Mode toggled")
+  )
 };
 
 getCookie = cname => {
@@ -52,7 +54,8 @@ getCookie = cname => {
 }
 
 setCardLs = cardLs => {
-  this.setState({cardLs : cardLs});
+  this.setState({cardLs : cardLs},
+    console.log("cardls updated"));
 }
 
 
@@ -86,7 +89,8 @@ getViewMode = () => {
           body: JSON.stringify({
             email : this.getCookie('email')
             })};
-          
+
+          if (!this.getCookie('dkModeStatus')){
           fetch('https://api.expensey.app/users/user',requestOptions) 
               .then(res => res.json())
               .then (data => 
@@ -94,6 +98,7 @@ getViewMode = () => {
                   document.cookie = "dkModeStatus="+data.dkModeStatus;
                 })
               .catch(error => console.log(error));
+          }
 }
 
   getDarkModeStatus();
@@ -130,9 +135,24 @@ getViewMode = () => {
   }
 }
 
+componentDidMount() {
+  var mode = false;
+  if (this.getCookie('dkModeStatus') != mode){
+  if (this.getCookie('dkModeStatus') == 'true'){
+    mode = true
+  }
+}
+  this.setState({
+    dkmode: mode
+  });
+}
+
+componentDidUpdate() {
+  console.log("component updated")
+}
+
 
   render () {
-    {console.log('testing infinite loop')}
     if(this.getCookie("status") == "true"){
       return(
         <div class="App">
