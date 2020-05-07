@@ -18,7 +18,8 @@ class App extends Component {
 
   state = {
     seen: false,
-    cardLs: []
+    cardLs: [],
+    dkmode: false
   };
 
 toggleWindow = () => {
@@ -27,6 +28,12 @@ toggleWindow = () => {
     });
     console.log("Window Toggled");
   }
+
+toggledkMode =  () => {
+  this.setState({
+    dkmode: !this.state.dkmode
+  });
+};
 
 getCookie = cname => {
   var name = cname + "=";
@@ -98,7 +105,6 @@ getViewMode = () => {
     cardColor = dkCard;
   }
 
-  console.log(settings)
   if (settings) {
     settings.style.color = txtColor;
     settings.style.backgroundColor = bgColor;
@@ -124,7 +130,9 @@ getViewMode = () => {
   }
 }
 
+
   render () {
+    {console.log('testing infinite loop')}
     if(this.getCookie("status") == "true"){
       return(
         <div class="App">
@@ -141,6 +149,7 @@ getViewMode = () => {
               <Route path="/reports" exact component={Construction}>
               </Route>
               <Route path="/settings" exact component={Settings}>
+              <Settings dkModeStatus = {this.state.dkmode} toggledkmode = {this.toggledkMode}/>
               </Route>
               <Route path="/account" exact component={Construction}>
               </Route>
