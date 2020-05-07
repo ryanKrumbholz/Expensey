@@ -46,7 +46,7 @@ const settings_body = props => {
             dkModeStatus : dkModeStatus
             })};
           
-          fetch('https://api.expensey.app/users/user/update',requestOptions) 
+          fetch('https://api.expensey.app/users/user/dkmode',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {
