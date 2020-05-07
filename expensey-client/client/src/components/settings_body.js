@@ -3,6 +3,8 @@ import './settings_body.css';
 
 const settings_body = props => {
 
+  var dkModeStatus = getCookie('dkModeStatus');
+
   var getCookie = cname => {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -21,12 +23,36 @@ const settings_body = props => {
 
   var checked = '';
   
-  if (getCookie('dkModeStatus') == 'true') {
+  if (dkModeStatus == 'true') {
     checked = 'false';
   }
 
     var toggleDarkMode = () => {
-        //call to db to update user dkmode status
+
+      if (dkModeStatus == 'true') {
+        dkModeStatus = 'false';
+      }
+      else {
+        dkModeStatus = 'true';
+      }
+      const requestOptions =
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email : this.getCookie('email'),
+            dkModeStatus : dkModeStatus
+            })};
+          
+          fetch('https://api.expensey.app/users/user/update',requestOptions) 
+              .then(res => res.json())
+              .then (data => 
+                {
+                  console.log("Dark mode stauts updated");
+                })
+              .catch(error => console.log(error));
 
     }
 
