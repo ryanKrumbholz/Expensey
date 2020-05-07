@@ -69,7 +69,7 @@ getViewMode = () => {
   var expenseCard = document.getElementsByClassName('Card');
 
   //get dkmode status from db
-  var getDarkModeStatus = (dkmodeStatus) => {
+  var getDarkModeStatus = () => {
     const requestOptions =
         {
           method: 'POST',
@@ -87,17 +87,18 @@ getViewMode = () => {
                   document.cookie = "dkModeStatus="+data.dkModeStatus;
                 })
               .catch(error => console.log(error));
-    dkmodeStatus = this.getCookie('dkModeStatus');
 }
 
-  getDarkModeStatus(dkmodeStatus);
+  getDarkModeStatus();
+  dkmodeStatus = this.getCookie('dkModeStatus');
 
-  if (dkmodeStatus == true) {
+  if (dkmodeStatus  == 'true') {
     txtColor = dktxt;
     bgColor = dkmode;
     cardColor = dkCard;
   }
 
+  console.log(settings)
   if (settings) {
     settings.style.color = txtColor;
     settings.style.backgroundColor = bgColor;
@@ -127,6 +128,7 @@ getViewMode = () => {
     if(this.getCookie("status") == "true"){
       return(
         <div class="App">
+        {this.getViewMode()}
           {/* Construction is temp for production*/}
           {/* <Construction/> */}
           <Sidebar/>
@@ -139,14 +141,12 @@ getViewMode = () => {
               <Route path="/reports" exact component={Construction}>
               </Route>
               <Route path="/settings" exact component={Settings}>
-                <Settings toggleDarkMode = {this.toggleDarkMode} dkMode = {this.getDarkMode}/>
               </Route>
               <Route path="/account" exact component={Construction}>
               </Route>
             </Switch>
           </Router>
           <Footer/>
-          {this.getViewMode()}
         </div>
     );}
     else{

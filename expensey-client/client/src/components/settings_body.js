@@ -3,10 +3,33 @@ import './settings_body.css';
 
 const settings_body = props => {
 
+  var getCookie = cname => {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  var checked = '';
+  
+  if (getCookie('dkModeStatus') == 'true') {
+    checked = 'false';
+  }
+
     var toggleDarkMode = () => {
         //call to db to update user dkmode status
 
     }
+
 
   return (
       <div class="settings_body">
@@ -18,7 +41,7 @@ const settings_body = props => {
         <div class="dkmode">
             <p>Dark Mode</p>
                 <label class="switch">
-                <input type="checkbox" onClick={toggleDarkMode()}/>
+                <input type="checkbox" onClick={toggleDarkMode()} checked={checked} />
                 <span class="slider round"></span>
                 </label>
         </div>
