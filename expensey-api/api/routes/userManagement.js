@@ -148,11 +148,25 @@ router.post('/del_user', function(req, res, next, email) {
   });
 });
 
-//TODO get email from post request from react
-router.post('/user', function(req, res, next, email) {
-  updateUser(email).then(x => {
-    res.json(x);
+router.post('/user/dkmode', function(req, res, next) {
+  var user = req.body
+  var updateUser = getUser(user.email).then(data => {
+    var query = data._id;
+    data.dkModeStatus =  user.dkModeStatus;
+    User.findByIdAndUpdate(query, data, function(err, doc) {
+      if (err){
+        console.log(err);
+        res.json('Dark mode failed to update.');
+      } 
+      else{
+        res.json('Dark mode status updated.');
+      }
+      
+    });
   });
+  
+  
+  
 });
 
 //TODO create user from post request from react
