@@ -79,6 +79,8 @@ getViewMode = () => {
   var reports = document.getElementsByClassName('reports_body')[0];
   var account = document.getElementsByClassName('account_body')[0];
   var expenseCard = document.getElementsByClassName('Card');
+  var emptyCardList = document.getElementsByClassName('emptyCardList')[0];
+  var newExpense = document.getElementsByClassName('window')[0];
 
   //get dkmode status from db
   var getDarkModeStatus = () => {
@@ -122,6 +124,9 @@ getViewMode = () => {
     //checks if expenses is defined (sees if it is currently displayed)
     expenses.style.color = txtColor;
     expenses.style.backgroundColor = bgColor;
+    if (emptyCardList) {
+    emptyCardList.style.backgroundColor = cardColor;
+  }
     if (expenseCard) {
       for (var i = 0; i < expenseCard.length; i++) {
         //changing style of each card elem
@@ -140,6 +145,11 @@ getViewMode = () => {
     //checks if account is defined (sees if it is currently displayed)
   account.style.color = txtColor;
   account.style.backgroundColor = bgColor;
+  }
+
+  if (newExpense) {
+    newExpense.style.color = txtColor;
+    newExpense.style.backgroundColor = bgColor;
   }
 }
 
