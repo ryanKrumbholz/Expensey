@@ -69,6 +69,28 @@ getViewMode = () => {
   var expenseCard = document.getElementsByClassName('Card');
 
   //get dkmode status from db
+  var getDarkModeStatus = (dkmodeStatus) => {
+    const requestOptions =
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email : this.getCookie('email')
+            })};
+          
+          fetch('https://api.expensey.app/users/user',requestOptions) 
+              .then(res => res.json())
+              .then (data => 
+                {
+                  document.cookie = "dkModeStatus="+data.dkModeStatus;
+                })
+              .catch(error => console.log(error));
+    dkmodeStatus = this.getCookie('dkModeStatus');
+}
+
+  getDarkModeStatus(dkmodeStatus);
 
   if (dkmodeStatus == true) {
     txtColor = dktxt;
@@ -99,7 +121,6 @@ getViewMode = () => {
   account.style.color = txtColor;
   account.style.backgroundColor = bgColor;
   }
-
 }
 
   render () {

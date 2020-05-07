@@ -40,7 +40,8 @@ function createUser(user) {
         last_name: user.last_name,
         email: user.email,
         password: hash,
-        imageLink: ''
+        imageLink: '',
+        dkModeStatus: false
       }));
     });
   }
@@ -134,7 +135,6 @@ router.post('/', function(req, res, next) {
 });
 
 router.post('/user', function(req, res, next) {
-  res.json('');
   var user = req.body;
   getUser(user.email).then(x => {
     res.json(x);

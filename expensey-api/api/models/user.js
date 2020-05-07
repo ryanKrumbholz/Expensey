@@ -19,7 +19,8 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String,
     imageLink: String,
-    expenses: [expenseSchema]
+    expenses: [expenseSchema],
+    dkModeStatus : Boolean
   });  
 
 const User = mongoose.model('user', userSchema);
