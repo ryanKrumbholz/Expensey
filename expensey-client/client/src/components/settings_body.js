@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './settings_body.css';
 
 const settings_body = props => {
 
-  var dkModeStatus = getCookie('dkModeStatus');
+  var checked = false;
 
   var getCookie = cname => {
     var name = cname + "=";
@@ -21,13 +21,10 @@ const settings_body = props => {
     return "";
   }
 
-  var checked = '';
-  
-  if (dkModeStatus == 'true') {
-    checked = 'false';
-  }
+  var dkModeStatus = getCookie('dkModeStatus');
 
     var toggleDarkMode = () => {
+      props.toggledkmode();
 
       if (dkModeStatus == 'true') {
         dkModeStatus = 'false';
@@ -42,7 +39,7 @@ const settings_body = props => {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            email : this.getCookie('email'),
+            email : getCookie('email'),
             dkModeStatus : dkModeStatus
             })};
           
@@ -56,7 +53,6 @@ const settings_body = props => {
 
     }
 
-
   return (
       <div class="settings_body">
       <div class="settings_header">
@@ -67,7 +63,7 @@ const settings_body = props => {
         <div class="dkmode">
             <p>Dark Mode</p>
                 <label class="switch">
-                <input type="checkbox" onClick={toggleDarkMode()} checked={checked} />
+                <input type="checkbox" onClick={toggleDarkMode} checked={props.dkModeStatus}/>
                 <span class="slider round"></span>
                 </label>
         </div>
