@@ -4,7 +4,7 @@ import './footer.css';
 const footer = props => {
   return (
       <div className="Footer">
-        <a href="expensey.app">expensey.app</a>
+        <a href="/">expensey.app</a>
       </div>
   )
 }

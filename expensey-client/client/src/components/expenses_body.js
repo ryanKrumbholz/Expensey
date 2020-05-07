@@ -10,7 +10,6 @@ const expenses_body = props => {
       <div className="ExpensesBody">
         <Header toggleWindow = {props.toggleWindow}/>
         <Table toggleWindow = {props.toggleWindow} currCardLs = {props.currCardLs} setCardLs = {props.setCardLs}/>
-        <Footer />
       </div>
   )
 }
