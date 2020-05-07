@@ -15,29 +15,31 @@ import Settings from './components/settings_body';
 import Footer from './components/footer';
 
 class App extends Component {
-
   state = {
-    seen: false,
-    cardLs: [],
-    dkmode: false
+    seen: false, //state for new expense window
+    cardLs: [], //state for card list
+    dkmode: false //state for dark mode
   };
 
 toggleWindow = () => {
+  //toggles new expense window
     this.setState({
-      seen: !this.state.seen
+      seen: !this.state.seen //sets seen to the opposite state
     },
     console.log("Window Toggled"))
   }
 
 toggledkMode =  () => {
+  //toggles dark mode
   this.setState({
-    dkmode: !this.state.dkmode
+    dkmode: !this.state.dkmode //sets dkmode  to the opposite state
   },
   () => console.log("Dark Mode toggled")
   )
 };
 
 getCookie = cname => {
+  //gets cookie of given type
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
   var ca = decodedCookie.split(';');
@@ -91,6 +93,7 @@ getViewMode = () => {
             })};
 
           if (!this.getCookie('dkModeStatus')){
+            //if dkmode cookie doesn't exist, checks db for user preference
           fetch('https://api.expensey.app/users/user',requestOptions) 
               .then(res => res.json())
               .then (data => 
@@ -111,14 +114,17 @@ getViewMode = () => {
   }
 
   if (settings) {
+    //checks if settings is defined (sees if it is currently displayed)
     settings.style.color = txtColor;
     settings.style.backgroundColor = bgColor;
   }
   if (expenses) {
+    //checks if expenses is defined (sees if it is currently displayed)
     expenses.style.color = txtColor;
     expenses.style.backgroundColor = bgColor;
     if (expenseCard) {
       for (var i = 0; i < expenseCard.length; i++) {
+        //changing style of each card elem
         expenseCard[i].style.backgroundColor = cardColor;
         expenseCard[i].style.color = txtColor;
       }
@@ -126,10 +132,12 @@ getViewMode = () => {
     
   }
   if (reports) {
+    //checks if reports is defined (sees if it is currently displayed)
     reports.style.color = txtColor;
     reports.style.backgroundColor = bgColor;
   }
   if  (account) {
+    //checks if account is defined (sees if it is currently displayed)
   account.style.color = txtColor;
   account.style.backgroundColor = bgColor;
   }
@@ -138,9 +146,10 @@ getViewMode = () => {
 componentDidMount() {
   var mode = false;
   if (this.getCookie('dkModeStatus') != mode){
-  if (this.getCookie('dkModeStatus') == 'true'){
-    mode = true
-  }
+    //if  cookie exist; prevents from having to wait on db query
+      if (this.getCookie('dkModeStatus') == 'true'){
+        mode = true
+      }
 }
   this.setState({
     dkmode: mode
