@@ -211,6 +211,8 @@ function populateExpenseCards (expenses) {
     props.setCardLs(expenseCardList);
   }
   }
+
+  fetchExpenses();
   
 
   function table (){
@@ -231,7 +233,6 @@ function populateExpenseCards (expenses) {
     );
   }
 
-  fetchExpenses();
   return (
     <div>
       {filters()}
