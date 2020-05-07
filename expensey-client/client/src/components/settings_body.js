@@ -22,7 +22,7 @@ const settings_body = props => {
   var dkModeStatus = getCookie('dkModeStatus');
 
     var toggleDarkMode = () => {
-      props.toggledkmode();
+      props.toggledkmode(); //calls dkmode state in App.js
 
       if (dkModeStatus == 'true') {
         dkModeStatus = 'false';

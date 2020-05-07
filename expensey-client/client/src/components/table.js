@@ -213,7 +213,6 @@ function populateExpenseCards (expenses) {
   }
 
   fetchExpenses();
-  
 
   function table (){
     return(
