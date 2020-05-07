@@ -9,6 +9,7 @@ Expensey is an expense management system for personal and business use. Expensey
  * Reports page
  * Account page
  * Settings page
- 
+   * Dark mode
+ * Genereal commenting and code refactoring
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
