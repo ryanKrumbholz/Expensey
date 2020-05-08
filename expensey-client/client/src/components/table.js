@@ -22,6 +22,10 @@ const Table = props => {
           }
         }
       }
+      if (catList.length > props.catList.length && catList[0]) {
+        //prevents infinite re-rendering
+      props.setCatList(catList)
+      }
     }
 
     function fetchCcList(expenses) {
@@ -36,6 +40,10 @@ const Table = props => {
           }
         }
       }
+      if (ccList.length > props.ccList && ccList[0]){
+        //prevents infinite re-rendering
+      props.setCcList(ccList)
+    }
     }
 
     function fetchTagList(expenses) {
@@ -43,14 +51,18 @@ const Table = props => {
       if (expenses) {
       for (var i = 0; i <= expenses.length; i++) {
         if (expenses[i]){
-          var currExpenseTag = expenses[i].category;
+          var currExpenseTag = expenses[i].tag;
           if (!tagList.includes(currExpenseTag)) {
             tagList.push(currExpenseTag);
           }
         }
       }
     }
+    if (tagList.length > props.tagList && tagList[0]){
+      //prevents infinite re-rendering
+      props.setTagList(tagList)
     }
+  }
     function fetchAllList(expenses) {
       fetchCatList(expenses); 
       fetchCcList(expenses); 
@@ -119,27 +131,24 @@ const Table = props => {
                 </label>
             </form>
           </li>
-            <li>
-              <button>idk rn</button>
-            </li>
           </ul>
           <ul class="categoryTagList">
             <li>
               <select>
               <option value="" disabled selected>Select Category</option>
-                {populateSelectList(listData().getCatList())}
+                {populateSelectList(props.catList)}
               </select>
             </li>
             <li>
               <select>
               <option value="" disabled selected>Select Card</option>
-              {populateSelectList(listData().getCcList())}
+              {populateSelectList(props.ccList)}
               </select>
             </li>
             <li>
               <select>
               <option value="" disabled selected>Select Tag</option>
-              {populateSelectList(listData().getTagList())}
+              {populateSelectList(props.tagList)}
               </select>
             </li>
           </ul>
