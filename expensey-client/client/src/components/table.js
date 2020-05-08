@@ -132,7 +132,6 @@ const Table = props => {
       expensesLocal = await expenses;
       helper()
     }
-    console.log("is this happening?")
     expenseCardList = [];
 
     if (currCat === 'Select Category'){
@@ -221,7 +220,6 @@ const Table = props => {
     function helper() {
       for (var i = 0; i < expensesLocal.length; i++) {
         if (expensesLocal[i].merchant.toUpperCase() === input.toUpperCase()) {
-          console.log(expensesLocal[i])
           sortedExpenses.push(expensesLocal[i])
         }
       }
@@ -229,7 +227,6 @@ const Table = props => {
     var input = document.getElementsByClassName('merchIn')[0].value
     var sortedExpenses = [];
     var expensesLocal = await props.expenses;
-    console.log(expensesLocal.length)
     
     helper()
     
