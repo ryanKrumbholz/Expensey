@@ -125,11 +125,9 @@ const Table = props => {
           </ul>
           <ul class="typeFiltersList">
             <li>
-              <form onSubmit="">
                 <label>
-                  <input type="text" placeholder="Merchant" onChange="" />
+                  <input class="merchIn" type="text" placeholder="Merchant" onChange="" onSubmit="" />
                 </label>
-            </form>
           </li>
           </ul>
           <ul class="categoryTagList">
