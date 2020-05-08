@@ -26,8 +26,11 @@
 }
 
 .submit {
+    position: absolute;
+    background: url('https://image.flaticon.com/icons/svg/751/751463.svg');
+    background-repeat: no-repeat;
     width: 2vw;
-    height: 3vh;
+    height: 3.5vh;
 }
 
 .c1, .c2, .c3, .c4, .c5, .c6, .c7 {

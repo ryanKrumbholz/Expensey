@@ -21,7 +21,8 @@ class App extends Component {
     dkmode: false, //state for dark mode
     catList: [],
     ccList: [],
-    tagList: []
+    tagList: [],
+    expenses: []
   };
 
 toggleWindow = () => {
@@ -76,6 +77,12 @@ setCatList = catList => {
 setCcList = ccList => {
   this.setState({ccList : ccList},
     console.log("CC list updated."));
+}
+
+setExpenses = expenses => {
+  this.setState({
+    expenses: expenses
+  },console.log("Expenses updated."));
 }
 
 
@@ -205,8 +212,8 @@ componentDidUpdate() {
               <Route path="/" exact component={ExpensesBody}>
                 <ExpensesBody toggleWindow = {this.toggleWindow} currSeenState = {this.state.seen} currCardLs = {this.state.cardLs} setCardLs = {this.setCardLs} 
                 dkMode = {this.getDarkMode} catList = {this.state.catList} ccList = {this.state.ccList} tagList = {this.state.tagList}
-                  setCatList = {this.setCatList} setTagList = {this.setTagList} setCcList = {this.setCcList}
-                /> 
+                  setCatList = {this.setCatList} setTagList = {this.setTagList} setCcList = {this.setCcList} expenses={this.state.expenses}
+                   setExpenses = {this.setExpenses}/> 
                 {this.state.seen ? <NewExpense toggleWindow = {this.toggleWindow}/>: null}
 
               </Route>

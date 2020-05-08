@@ -108,6 +108,15 @@ const Table = props => {
   }
 
   var sortByCat = async () => {
+    function helper() {
+      //sorts through expenses and pushes applicable expense to cardLs
+      for (var i = 0; i < expensesLocal.length; i++) {
+        if (expensesLocal[i].category === currCat) {
+          sortedExpenses.push(expensesLocal[i])
+        }
+      }
+    }
+
     var select = document.getElementsByClassName('catList')[0]
     var currCat;
     var sortedExpenses = [];
@@ -115,13 +124,15 @@ const Table = props => {
       //gets current selected category
       currCat = select.options[select.selectedIndex].text
     }
-    var expensesLocal = await expenses;
+    var expensesLocal = await props.expenses;
+
+    helper()
     
-    for (var i = 0; i < expensesLocal.length; i++) {
-      if (expensesLocal[i].category === currCat) {
-        sortedExpenses.push(expensesLocal[i])
-      }
+    if (sortedExpenses.length == 0) {
+      expensesLocal = await expenses;
+      helper()
     }
+    console.log("is this happening?")
     expenseCardList = [];
 
     if (currCat === 'Select Category'){
@@ -131,9 +142,18 @@ const Table = props => {
     else{
       populateExpenseCards(sortedExpenses)
     }
+    props.setExpenses(sortedExpenses)
   }
 
   var sortByCC = async () => {
+    function helper() {
+      for (var i = 0; i < expensesLocal.length; i++) {
+        if (expensesLocal[i].ccData === currCC) {
+          sortedExpenses.push(expensesLocal[i])
+        }
+      }
+    }
+
     var select = document.getElementsByClassName('ccList')[0]
     var currCC;
     var sortedExpenses = [];
@@ -141,13 +161,15 @@ const Table = props => {
         currCC = select.options[select.selectedIndex].text
       }
 
-      var expensesLocal = await expenses;
+      var expensesLocal = await props.expenses;
     
-    for (var i = 0; i < expensesLocal.length; i++) {
-      if (expensesLocal[i].category === currCC) {
-        sortedExpenses.push(expensesLocal[i])
+      helper()
+    
+      if (sortedExpenses.length == 0) {
+        expensesLocal = await expenses;
+        helper()
       }
-    }
+
     expenseCardList = [];
 
     if (currCC === 'Select Category'){
@@ -157,23 +179,32 @@ const Table = props => {
     else{
       populateExpenseCards(sortedExpenses)
     }
-
+    props.setExpenses(sortedExpenses)
   }
 
   var sortByTag = async () => {
+    function helper() {
+      for (var i = 0; i < expensesLocal.length; i++) {
+        if (expensesLocal[i].tag === currTag) {
+          sortedExpenses.push(expensesLocal[i])
+        }
+      }
+    }
     var select = document.getElementsByClassName('tagList')[0]
     var currTag;
     var sortedExpenses = [];
     if (select.options) {
       currTag = select.options[select.selectedIndex].text
     }
-    var expensesLocal = await expenses;
+    var expensesLocal = await props.expenses;
     
-    for (var i = 0; i < expensesLocal.length; i++) {
-      if (expensesLocal[i].category === currTag) {
-        sortedExpenses.push(expensesLocal[i])
-      }
+    helper()
+    
+    if (sortedExpenses.length == 0) {
+      expensesLocal = await expenses;
+      helper()
     }
+    
     expenseCardList = [];
 
     if (currTag === 'Select Tag'){
@@ -183,8 +214,40 @@ const Table = props => {
     else{
       populateExpenseCards(sortedExpenses)
     }
+    props.setExpenses(sortedExpenses)
+  }
 
+  var sortByMerch = async () => {
+    function helper() {
+      for (var i = 0; i < expensesLocal.length; i++) {
+        if (expensesLocal[i].merchant.toUpperCase() === input.toUpperCase()) {
+          console.log(expensesLocal[i])
+          sortedExpenses.push(expensesLocal[i])
+        }
+      }
+    }
+    var input = document.getElementsByClassName('merchIn')[0].value
+    var sortedExpenses = [];
+    var expensesLocal = await props.expenses;
+    console.log(expensesLocal.length)
+    
+    helper()
+    
+    if (sortedExpenses.length == 0) {
+      expensesLocal = await expenses;
+      helper()
+    }
 
+    expenseCardList = [];
+
+    if (input === ''){
+      //resets back to full list of expenses when default option selected
+      populateExpenseCards(expenses)
+    }
+    else{
+      populateExpenseCards(sortedExpenses)
+    }
+    props.setExpenses(sortedExpenses)
   }
 
   function filters () {
@@ -208,6 +271,7 @@ const Table = props => {
             <li>
                 <label>
                   <input class="merchIn" type="text" placeholder="Merchant" onChange="" onSubmit="" />
+                  <button class="submit" onClick={sortByMerch}></button>
                 </label>
           </li>
           </ul>
@@ -330,7 +394,10 @@ async function populateExpenseCards (expenses) {
   if (expenses) {
     var numCards = expenses.length;
     for (var i = 0; i < numCards; i++) {
-      expenseCardList.push(<ExpenseCard data = {[expenses[i].date, expenses[i].merchant, expenses[i].amount, expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink, expenses[i].status]}/>)
+      var arr = expenses[i].date.split('-')
+      var date = arr[2] + '-' + arr[1] + '-' + arr[0]
+      expenseCardList.push(<ExpenseCard data = {[date, expenses[i].merchant, expenses[i].amount,
+       expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink, expenses[i].status]}/>)
     }
   }
   if (expenseCardList != props.currCardLs){
@@ -341,9 +408,15 @@ async function populateExpenseCards (expenses) {
   }
 
   var expenses = fetchExpenses();
+  
+  if (props.expenses.length == 0) {
+    props.setExpenses(expenses);
+  }
+
   if (props.currCardLs.length == 0) {
     populateExpenseCards(expenses);
   }
+
   fetchListData(expenses);
 
   function table (){

@@ -12,7 +12,7 @@ const expenses_body = props => {
         <Table toggleWindow = {props.toggleWindow} currCardLs = {props.currCardLs} setCardLs = {props.setCardLs}
           catList = {props.catList} ccList = {props.ccList} tagList = {props.tagList}
                   setCatList = {props.setCatList} setTagList = {props.setTagList} setCcList = {props.setCcList}
-        />
+                  setExpenses = {props.setExpenses} expenses = {props.expenses}/>
       </div>
   )
 }
