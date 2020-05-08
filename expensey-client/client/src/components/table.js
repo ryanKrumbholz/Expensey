@@ -9,29 +9,54 @@ const Table = props => {
                             <h3>Create new expense</h3>
                           </div>
 
-  //TODO connect database and table and finish writing appropriate functions
-  function fetchListData(databaseVar /* temp var name for whatever I end up passing here */) {
-    function fetchCatList(databaseListItems) {
-      for (var i = 0; i <= databaseListItems.length(); i++) {
-        listData.setCatList(databaseListItems[i]);
+  function fetchListData(expenses) {
+    function fetchCatList(expenses) {
+      var catList = listData().getCatList();
+      if (expenses) {
+        for (var i = 0; i <= expenses.length; i++) {
+          if (expenses[i]){
+            var currExpenseCat = expenses[i].category;
+            if (!catList.includes(currExpenseCat)) {
+              catList.push(currExpenseCat);
+            }
+          }
+        }
       }
     }
-    function fetchCcList(databaseListItems) {
-      for (var i = 0; i <= databaseListItems.length(); i++) {
-        listData.setCctList(databaseListItems[i]);
+
+    function fetchCcList(expenses) {
+      var ccList = listData().getCcList();
+      if (expenses) {
+        for (var i = 0; i <= expenses.length; i++) {
+          if (expenses[i]){
+            var currExpenseCc = expenses[i].ccData;
+            if (!ccList.includes(currExpenseCc)) {
+              ccList.push(currExpenseCc);
+            }
+          }
+        }
       }
     }
-    function fetchTagList(databaseListItems) {
-      for (var i = 0; i <= databaseListItems.length(); i++) {
-        listData.setTagList(databaseListItems[i]);
+
+    function fetchTagList(expenses) {
+      var tagList = listData().getTagList();
+      if (expenses) {
+      for (var i = 0; i <= expenses.length; i++) {
+        if (expenses[i]){
+          var currExpenseTag = expenses[i].category;
+          if (!tagList.includes(currExpenseTag)) {
+            tagList.push(currExpenseTag);
+          }
+        }
       }
     }
-    function fetchAllList() {
-      fetchCatList(); 
-      fetchCcList(); 
-      fetchTagList();
     }
-    fetchAllList();
+    function fetchAllList(expenses) {
+      fetchCatList(expenses); 
+      fetchCcList(expenses); 
+      fetchTagList(expenses);
+    }
+    fetchAllList(expenses);
   }
 
   function listData (){
@@ -49,7 +74,7 @@ const Table = props => {
       setCcList : function (newCcList) {
         ccList = newCcList;
       },
-      getCategoriesList : function () {
+      getCatList : function () {
         return categoriesList;
       },
       getCcList : function () {
@@ -59,6 +84,14 @@ const Table = props => {
         return tagList;
       }
     };
+  }
+
+  var populateSelectList = (ls) => {
+    var selectLs = [];
+    for(var i = 0; i < ls.length; i++) {
+      selectLs.push(<option>{ls[i]}</option>)
+    }
+    return selectLs;
   }
 
   function filters () {
@@ -84,7 +117,6 @@ const Table = props => {
                 <label>
                   <input type="text" placeholder="Merchant" onChange="" />
                 </label>
-                <button class="submit" type="submit">🔍</button>
             </form>
           </li>
             <li>
@@ -94,17 +126,20 @@ const Table = props => {
           <ul class="categoryTagList">
             <li>
               <select>
-                {listData.getCategoriesList}
+              <option value="" disabled selected>Select Category</option>
+                {populateSelectList(listData().getCatList())}
               </select>
             </li>
             <li>
               <select>
-                {listData.getTagList}
+              <option value="" disabled selected>Select Card</option>
+              {populateSelectList(listData().getCcList())}
               </select>
             </li>
             <li>
               <select>
-                {listData.getCcList}
+              <option value="" disabled selected>Select Tag</option>
+              {populateSelectList(listData().getTagList())}
               </select>
             </li>
           </ul>
@@ -200,6 +235,7 @@ const Table = props => {
           .catch(error => console.log(error));
 
       populateExpenseCards(data);
+      fetchListData(data);
       }
 
 function populateExpenseCards (expenses) {
@@ -208,8 +244,12 @@ function populateExpenseCards (expenses) {
     for (var i = 0; i < numCards; i++) {
       expenseCardList.push(<ExpenseCard data = {[expenses[i].date, expenses[i].merchant, expenses[i].amount, expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink, expenses[i].status]}/>)
     }
+  }
+  if (expenses.length > props.currCardLs.length){
+    //if statement prevents infinite re-rendering by only changing state when expenses update
     props.setCardLs(expenseCardList);
   }
+  
   }
 
   fetchExpenses();
