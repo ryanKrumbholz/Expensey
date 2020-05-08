@@ -9,7 +9,8 @@ const expenseSchema = new mongoose.Schema({
     description: String,
     tag: String,
     receiptImgLink: String,
-    status : String
+    status : String, //ex. unreported
+    ccData : String //ex. amex 1234
   });
 
 const userSchema = new mongoose.Schema({
@@ -19,8 +20,8 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String,
     imageLink: String,
-    expenses: [expenseSchema],
-    dkModeStatus : Boolean
+    dkModeStatus : Boolean,
+    expenses: [expenseSchema]
   });  
 
 const User = mongoose.model('user', userSchema);
