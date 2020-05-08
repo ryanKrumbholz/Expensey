@@ -9,9 +9,11 @@ const expenses_body = props => {
   return (
       <div className="ExpensesBody">
         <Header toggleWindow = {props.toggleWindow}/>
-        <Table toggleWindow = {props.toggleWindow} currCardLs = {props.currCardLs} setCardLs = {props.setCardLs}/>
+        <Table toggleWindow = {props.toggleWindow} currCardLs = {props.currCardLs} setCardLs = {props.setCardLs}
+          catList = {props.catList} ccList = {props.ccList} tagList = {props.tagList}
+                  setCatList = {props.setCatList} setTagList = {props.setTagList} setCcList = {props.setCcList}
+        />
       </div>
   )
 }
-
 export default expenses_body;

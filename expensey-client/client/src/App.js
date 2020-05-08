@@ -18,7 +18,10 @@ class App extends Component {
   state = {
     seen: false, //state for new expense window
     cardLs: [], //state for card list
-    dkmode: false //state for dark mode
+    dkmode: false, //state for dark mode
+    catList: [],
+    ccList: [],
+    tagList: []
   };
 
 toggleWindow = () => {
@@ -60,6 +63,21 @@ setCardLs = cardLs => {
     console.log("cardls updated"));
 }
 
+setTagList = tagList => {
+  this.setState({tagList : tagList},
+    console.log("Tag list updated"));
+}
+
+setCatList = catList => {
+  this.setState({catList : catList},
+    console.log("Category list updated"));
+}
+
+setCcList = ccList => {
+  this.setState({ccList : ccList},
+    console.log("CC list updated."));
+}
+
 
 getViewMode = () => {
   var dkmode = '#121212';
@@ -81,6 +99,7 @@ getViewMode = () => {
   var expenseCard = document.getElementsByClassName('Card');
   var emptyCardList = document.getElementsByClassName('emptyCardList')[0];
   var newExpense = document.getElementsByClassName('window')[0];
+  var dropField = document.getElementsByClassName('fileUp')[0];
 
   //get dkmode status from db
   var getDarkModeStatus = () => {
@@ -124,6 +143,7 @@ getViewMode = () => {
     //checks if expenses is defined (sees if it is currently displayed)
     expenses.style.color = txtColor;
     expenses.style.backgroundColor = bgColor;
+    
     if (emptyCardList) {
     emptyCardList.style.backgroundColor = cardColor;
   }
@@ -150,6 +170,7 @@ getViewMode = () => {
   if (newExpense) {
     newExpense.style.color = txtColor;
     newExpense.style.backgroundColor = bgColor;
+    dropField.style.backgroundColor = cardColor;
   }
 }
 
@@ -182,8 +203,12 @@ componentDidUpdate() {
           <Router>
             <Switch>
               <Route path="/" exact component={ExpensesBody}>
-                <ExpensesBody toggleWindow = {this.toggleWindow} currSeenState = {this.state.seen} currCardLs = {this.state.cardLs} setCardLs = {this.setCardLs} dkMode = {this.getDarkMode}/> 
-                {this.state.seen ? <NewExpense toggleWindow = {this.toggleWindow}/> : null}
+                <ExpensesBody toggleWindow = {this.toggleWindow} currSeenState = {this.state.seen} currCardLs = {this.state.cardLs} setCardLs = {this.setCardLs} 
+                dkMode = {this.getDarkMode} catList = {this.state.catList} ccList = {this.state.ccList} tagList = {this.state.tagList}
+                  setCatList = {this.setCatList} setTagList = {this.setTagList} setCcList = {this.setCcList}
+                /> 
+                {this.state.seen ? <NewExpense toggleWindow = {this.toggleWindow}/>: null}
+
               </Route>
               <Route path="/reports" exact component={Construction}>
               </Route>

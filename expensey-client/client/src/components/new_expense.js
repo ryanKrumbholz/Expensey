@@ -90,12 +90,11 @@ const new_expense = props => {
             console.log("Field missing");
         }
     }
-       
-
+    
     return (
         <div className="bg">
             <div className="window">
-                <a href='#' class="toggleButton" onClick={props.toggleWindow}>×</a>
+                <a href='/' class="toggleButton" onClick={props.toggleWindow}>×</a>
                 <div class="windowContents">
                     <div class="textboxes">
                         <h3>Date</h3>
