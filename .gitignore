@@ -1,1 +1,3 @@
 expensify-api/api/.env
+expensey-api/api/server.cert
+expensey-api/api/server.key
