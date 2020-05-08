@@ -104,6 +104,7 @@ async function addExpense(info, res) {
     {
       id: info.id,
       date: info.date,
+      dateNum: info.dateNum,
       merchant: info.merchant,
       amount: info.amount,
       category: info.category,

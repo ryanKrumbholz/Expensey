@@ -24,6 +24,7 @@ const new_expense = props => {
         var userEmail = getCookie('email');
         var eid = Date.now();
         var date = document.getElementsByClassName("date")[0].value;
+        var dateNum = document.getElementsByClassName("date")[0].valueAsNumber;
         var merchant = document.getElementsByClassName("merchant")[0].value;
         var amt = document.getElementsByClassName("amt")[0].value;
         var cat = document.getElementsByClassName("cat")[0].value;
@@ -63,6 +64,7 @@ const new_expense = props => {
             email : userEmail,
             id: eid,
             date: date,
+            dateNum: dateNum,
             merchant: merchant,
             amount: parseFloat(amt),
             category: cat,
