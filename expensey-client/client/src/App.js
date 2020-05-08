@@ -22,7 +22,14 @@ class App extends Component {
     catList: [],
     ccList: [],
     tagList: [],
-    expenses: []
+    expenses: [],
+    c1: true,
+    c2: true,
+    c3: true,
+    c4: true,
+    c5: true,
+    c6: true, 
+    c7: false
   };
 
 toggleWindow = () => {
@@ -41,6 +48,66 @@ toggledkMode =  () => {
   () => console.log("Dark Mode toggled")
   )
 };
+
+togglec1 = () => {
+  this.setState({
+    c1: !this.state.c1 //sets dkmode  to the opposite state
+  },
+  () => console.log("c1 toggled")
+  )
+}
+
+togglec2 = () => {
+  this.setState({
+    c2: !this.state.c2 //sets dkmode  to the opposite state
+  },
+  () => console.log("c2 toggled")
+  )
+}
+
+
+togglec3 = () => {
+  this.setState({
+    c3: !this.state.c3 //sets dkmode  to the opposite state
+  },
+  () => console.log("c3 toggled")
+  )
+}
+
+togglec4 = () => {
+  this.setState({
+    c4: !this.state.c4 //sets dkmode  to the opposite state
+  },
+  () => console.log("c4 toggled")
+  )
+}
+
+togglec5 = () => {
+  this.setState({
+    c5: !this.state.c5 //sets dkmode  to the opposite state
+  },
+  () => console.log("c5 toggled")
+  )
+}
+
+togglec6 = () => {
+  this.setState({
+    c6: !this.state.c6 //sets dkmode  to the opposite state
+  },
+  () => console.log("c6 toggled")
+  )
+}
+
+togglec7 = () => {
+  this.setState({
+    c7: !this.state.c7 //sets dkmode  to the opposite state
+  },
+  () => console.log("c7 toggled")
+  )
+}
+
+
+
 
 getCookie = cname => {
   //gets cookie of given type
@@ -213,7 +280,10 @@ componentDidUpdate() {
                 <ExpensesBody toggleWindow = {this.toggleWindow} currSeenState = {this.state.seen} currCardLs = {this.state.cardLs} setCardLs = {this.setCardLs} 
                 dkMode = {this.getDarkMode} catList = {this.state.catList} ccList = {this.state.ccList} tagList = {this.state.tagList}
                   setCatList = {this.setCatList} setTagList = {this.setTagList} setCcList = {this.setCcList} expenses={this.state.expenses}
-                   setExpenses = {this.setExpenses}/> 
+                   setExpenses = {this.setExpenses} c1 ={this.state.c1} c2 = {this.state.c2} c3 = {this.state.c3} c4 ={this.state.c4} c5 ={this.state.c5}
+                    c6 = {this.state.c6} c7 = {this.state.c7} togglec1 ={this.togglec1} togglec2 ={this.togglec2} togglec3 ={this.togglec3} togglec4 ={this.togglec4}
+                    togglec5 ={this.togglec5} togglec6 ={this.togglec6} togglec7 ={this.togglec7}
+                    /> 
                 {this.state.seen ? <NewExpense toggleWindow = {this.toggleWindow}/>: null}
 
               </Route>
