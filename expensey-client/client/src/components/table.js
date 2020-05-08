@@ -9,7 +9,8 @@ const Table = props => {
                             <h3>Create new expense</h3>
                           </div>
 
-  function fetchListData(expenses) {
+  async function fetchListData(expenses) {
+    var expenses = await expenses;
     function fetchCatList(expenses) {
       var catList = listData().getCatList();
       if (expenses) {
@@ -101,9 +102,89 @@ const Table = props => {
   var populateSelectList = (ls) => {
     var selectLs = [];
     for(var i = 0; i < ls.length; i++) {
-      selectLs.push(<option>{ls[i]}</option>)
+      selectLs.push(<option  class="selectli">{ls[i]}</option>)
     }
     return selectLs;
+  }
+
+  var sortByCat = async () => {
+    var select = document.getElementsByClassName('catList')[0]
+    var currCat;
+    var sortedExpenses = [];
+    if (select.options) {
+      //gets current selected category
+      currCat = select.options[select.selectedIndex].text
+    }
+    var expensesLocal = await expenses;
+    
+    for (var i = 0; i < expensesLocal.length; i++) {
+      if (expensesLocal[i].category === currCat) {
+        sortedExpenses.push(expensesLocal[i])
+      }
+    }
+    expenseCardList = [];
+
+    if (currCat === 'Select Category'){
+      //resets back to full list of expenses when default option selected
+      populateExpenseCards(expenses)
+    }
+    else{
+      populateExpenseCards(sortedExpenses)
+    }
+  }
+
+  var sortByCC = async () => {
+    var select = document.getElementsByClassName('ccList')[0]
+    var currCC;
+    var sortedExpenses = [];
+      if (select.options) {
+        currCC = select.options[select.selectedIndex].text
+      }
+
+      var expensesLocal = await expenses;
+    
+    for (var i = 0; i < expensesLocal.length; i++) {
+      if (expensesLocal[i].category === currCC) {
+        sortedExpenses.push(expensesLocal[i])
+      }
+    }
+    expenseCardList = [];
+
+    if (currCC === 'Select Category'){
+      //resets back to full list of expenses when default option selected
+      populateExpenseCards(expenses)
+    }
+    else{
+      populateExpenseCards(sortedExpenses)
+    }
+
+  }
+
+  var sortByTag = async () => {
+    var select = document.getElementsByClassName('tagList')[0]
+    var currTag;
+    var sortedExpenses = [];
+    if (select.options) {
+      currTag = select.options[select.selectedIndex].text
+    }
+    var expensesLocal = await expenses;
+    
+    for (var i = 0; i < expensesLocal.length; i++) {
+      if (expensesLocal[i].category === currTag) {
+        sortedExpenses.push(expensesLocal[i])
+      }
+    }
+    expenseCardList = [];
+
+    if (currTag === 'Select Tag'){
+      //resets back to full list of expenses when default option selected
+      populateExpenseCards(expenses)
+    }
+    else{
+      populateExpenseCards(sortedExpenses)
+    }
+
+
   }
 
   function filters () {
@@ -132,20 +213,20 @@ const Table = props => {
           </ul>
           <ul class="categoryTagList">
             <li>
-              <select>
-              <option value="" disabled selected>Select Category</option>
+              <select class="catList" onChange={sortByCat}>
+              <option value="" selected>Select Category</option>
                 {populateSelectList(props.catList)}
               </select>
             </li>
             <li>
-              <select>
-              <option value="" disabled selected>Select Card</option>
+              <select class="ccList" onChange={sortByCC}>
+              <option value="" selected>Select Card</option>
               {populateSelectList(props.ccList)}
               </select>
             </li>
             <li>
-              <select>
-              <option value="" disabled selected>Select Tag</option>
+              <select class="tagList" onChange={sortByTag}>
+              <option value="" selected>Select Tag</option>
               {populateSelectList(props.tagList)}
               </select>
             </li>
@@ -241,25 +322,29 @@ const Table = props => {
             })
           .catch(error => console.log(error));
 
-      populateExpenseCards(data);
-      fetchListData(data);
+      return data
       }
 
-function populateExpenseCards (expenses) {
+async function populateExpenseCards (expenses) {
+  var expenses = await expenses;
   if (expenses) {
     var numCards = expenses.length;
     for (var i = 0; i < numCards; i++) {
       expenseCardList.push(<ExpenseCard data = {[expenses[i].date, expenses[i].merchant, expenses[i].amount, expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink, expenses[i].status]}/>)
     }
   }
-  if (expenses.length > props.currCardLs.length){
+  if (expenseCardList != props.currCardLs){
     //if statement prevents infinite re-rendering by only changing state when expenses update
     props.setCardLs(expenseCardList);
   }
   
   }
 
-  fetchExpenses();
+  var expenses = fetchExpenses();
+  if (props.currCardLs.length == 0) {
+    populateExpenseCards(expenses);
+  }
+  fetchListData(expenses);
 
   function table (){
     return(
