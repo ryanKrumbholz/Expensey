@@ -272,6 +272,52 @@ const Table = props => {
 
   }
 
+  var sortByStatus = async () => {
+    function helper() {
+      for (var i = 0; i < expensesLocal.length; i++) {
+        if(expensesLocal[i].status == 'unreported' && props.c1 == false) {
+          sortedExpenses.push(expensesLocal[i])
+        }
+        if(expensesLocal[i].status === open && this.c1 === false) {
+          sortedExpenses.push(expensesLocal[i])
+        }
+        if(expensesLocal[i].status === processing && this.c1 === false) {
+          sortedExpenses.push(expensesLocal[i])
+        }
+        if(expensesLocal[i].status === approved && this.c1 === false) {
+          sortedExpenses.push(expensesLocal[i])
+        }
+        if(expensesLocal[i].status === reimbursed && this.c1 === false) {
+          sortedExpenses.push(expensesLocal[i])
+        }
+        if(expensesLocal[i].status === closed && this.c1 === false) {
+          sortedExpenses.push(expensesLocal[i])
+        }
+        if(expensesLocal[i].status === deleted && this.c1 === false) {
+          sortedExpenses.push(expensesLocal[i])
+        }
+      }
+    }
+
+    var sortedExpenses = [];
+    var expensesLocal = await props.expenses;
+    var unreported = document.getElementsByClassName('c1')[0].text
+    var open = document.getElementsByClassName('c2')[0].text
+    var processing = document.getElementsByClassName('c3')[0].text
+    var approved = document.getElementsByClassName('c4')[0].text
+    var reimbursed = document.getElementsByClassName('c5')[0].text
+    var closed = document.getElementsByClassName('c6')[0].text
+    var deleted = document.getElementsByClassName('c7')[0].text
+
+    helper()
+    if (sortedExpenses.length == 0) {
+      expensesLocal = await expenses;
+      helper()
+    }
+    populateExpenseCards(sortedExpenses)
+    props.setExpenses(sortedExpenses)
+  }
+
   function filters () {
     return(
           <div className="filters">
@@ -321,50 +367,43 @@ const Table = props => {
           <ul class="statusList">
             <li>
                 <label class="c1">
-                  <input type="checkbox" checked="checked"/>
-                  <span class="checkmark"></span>
+                  <input type="checkbox" checked={props.c1} onClick={props.togglec1}/>
                   Unreported
                 </label>
             </li>
             <li>
               <label class="c2">
-                <input type="checkbox" checked="checked"/>
-                <span class="checkmark"></span>
+                <input type="checkbox" checked={props.c2} onClick={props.togglec2}/>
                 Open
               </label>
             </li>
             <li>
               <label class="c3">
-                <input type="checkbox" checked="checked"/>
-                <span class="checkmark"></span>
+                <input type="checkbox" checked={props.c3} onClick={props.togglec3}/>
                 Processing
               </label>
             </li>
             <li>
               <label class="c4">
-                <input type="checkbox" checked="checked"/>
-                <span class="checkmark"></span>
+                <input type="checkbox" checked={props.c4} onClick={props.togglec4}/>
                 Approved
               </label>
             </li>
             <li>
               <label class="c5">
-                <input type="checkbox" checked="checked"/>
-                <span class="checkmark"></span>
+                <input type="checkbox" checked={props.c5} onClick={props.togglec5}/>
                 Reimbursed
               </label>
             </li>
             <li>
               <label class="c6">
-                <input type="checkbox" checked="checked"/>
-                <span class="checkmark"></span>
+                <input type="checkbox" checked={props.c6} onClick={props.togglec6}/>
                 Closed
               </label>
             </li>
             <li>
               <label class="c7">
-                <input type="checkbox"/>
-                <span class="checkmark"></span>
+                <input type="checkbox" checked={props.c7} onClick={props.togglec7}/>
                 Deleted
               </label>
             </li> 
