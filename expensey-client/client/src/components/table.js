@@ -247,6 +247,31 @@ const Table = props => {
     props.setExpenses(sortedExpenses)
   }
 
+  var sortByDate = async () => {
+    function helper() {
+      for (var i = 0; i < expensesLocal.length; i++) {
+        if (expensesLocal[i].dateNum >= lowerBound || expensesLocal[i].dateNum <= upperBound) {
+          sortedExpenses.push(expensesLocal[i])
+        }
+      }
+    }
+    var lowerBound = document.getElementsByClassName('dateFrom')[0].valueAsNumber
+    var upperBound = document.getElementsByClassName('dateTo')[0].valueAsNumber
+    var sortedExpenses = [];
+    var expensesLocal = await props.expenses;
+
+    helper()
+
+    if (sortedExpenses.length == 0) {
+      expensesLocal = await expenses;
+      helper()
+    }
+
+    populateExpenseCards(sortedExpenses)
+    props.setExpenses(sortedExpenses)
+
+  }
+
   function filters () {
     return(
           <div className="filters">
@@ -254,14 +279,15 @@ const Table = props => {
             <li>
               <form action="">
                 <label for="From">From: </label>
-                <input type="date" id="" name=""/>
+                <input class="dateFrom" type="date" id="" name=""/>
               </form>
             </li>
             <li>
               <form action="">
                 <label for="To">To: </label>
-                <input type="date" id="" name=""/>
+                <input class="dateTo" type="date" id="" name=""/>
               </form>
+              <button class="submit" onClick={sortByDate}></button>
             </li>
           </ul>
           <ul class="typeFiltersList">
@@ -392,7 +418,7 @@ async function populateExpenseCards (expenses) {
     var numCards = expenses.length;
     for (var i = 0; i < numCards; i++) {
       var arr = expenses[i].date.split('-')
-      var date = arr[2] + '-' + arr[1] + '-' + arr[0]
+      var date = arr[1] + '-' + arr[2] + '-' + arr[0]
       expenseCardList.push(<ExpenseCard data = {[date, expenses[i].merchant, expenses[i].amount,
        expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink, expenses[i].status]}/>)
     }
