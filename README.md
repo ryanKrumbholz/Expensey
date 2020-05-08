@@ -18,6 +18,6 @@ Expensey is an expense management system for personal and business use. Expensey
    * Billing
  * Settings page:
    * More to come
- * Genereal commenting and code refactoring
+ * General commenting and code refactoring
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
