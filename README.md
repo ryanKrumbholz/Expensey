@@ -18,6 +18,9 @@ Expensey is an expense management system for personal and business use. Expensey
    * Billing
  * Settings page:
    * More to come
+ * Login page:
+   * Account authentication email
+   * Sign in with Apple and Google
  * General commenting and code refactoring
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
