@@ -52,9 +52,14 @@ const Table = props => {
       if (expenses) {
       for (var i = 0; i <= expenses.length; i++) {
         if (expenses[i]){
-          var currExpenseTag = expenses[i].tag;
-          if (!tagList.includes(currExpenseTag)) {
-            tagList.push(currExpenseTag);
+          var currExpenseTags = expenses[i].tags;
+          if (!tagList.includes(currExpenseTags)) {
+            if (tagList.length == 0){
+              tagList = currExpenseTags
+            }
+            else{
+              tagList.concat(currExpenseTags);
+            }
           }
         }
       }
@@ -184,7 +189,7 @@ const Table = props => {
   var sortByTag = async () => {
     function helper() {
       for (var i = 0; i < expensesLocal.length; i++) {
-        if (expensesLocal[i].tag === currTag) {
+        if (expensesLocal[i].tags.includes(currTag)) {
           sortedExpenses.push(expensesLocal[i])
         }
       }
