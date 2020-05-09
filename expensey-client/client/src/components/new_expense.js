@@ -51,6 +51,9 @@ const new_expense = props => {
             if (desc == "")  {
                 return false;
             }
+            if (!dateNum) {
+                return false;
+            }           
             return true;
         }
         

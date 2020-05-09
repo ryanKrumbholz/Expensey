@@ -273,6 +273,7 @@ const Table = props => {
   }
 
   var sortByStatus = async () => {
+    //TODO need to finish this function
     function helper() {
       for (var i = 0; i < expensesLocal.length; i++) {
         if(expensesLocal[i].status == 'unreported' && props.c1 == false) {
