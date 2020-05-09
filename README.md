@@ -3,10 +3,10 @@ Expensey is an expense management system for personal and business use. Expensey
 
 ## Updates to come
  * Expense page:
-   * Filters
    * Uploading expense receipts
    * Being able to edit & delete expenses
    * Receipt scan-to-expense
+   * Being able to change and sort by expense status
  * New expenses:
    * Dark Mode
  * Reports page:
