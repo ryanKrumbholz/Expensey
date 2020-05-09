@@ -31,7 +31,7 @@ const new_expense = props => {
         var desc = document.getElementsByClassName("desc")[0].value;
         var ccNum = document.getElementsByClassName("cardNum")[0].value;
         var ccType = detectCardType(ccNum);
-        var tag = "";
+        var tags = document.getElementsByClassName("tags")[0].value;
         var link = "";
 
         function checkFields() {
@@ -84,7 +84,7 @@ const new_expense = props => {
             category: cat,
             ccData: ccType + ' x ' + getLastFour(ccNum),
             description: desc,
-            tag: tag,
+            tags: tags.split(','),
             receiptImgLink: link,
             status : "unreported"
             })};
@@ -158,9 +158,13 @@ const new_expense = props => {
                             </div>
 
                     <div class="receiptUpload">
-                    <h3>Card Number</h3>
+                        <h3>Card Number</h3>
                                 <label>
                                 <input class="cardNum" type="text" onChange="" placeholder="ex. 1234567890123456" />
+                                </label>
+                        <h3>Tags</h3>
+                                <label>
+                                <input class="tags" type="text" onChange="" placeholder="ex. John Smith, Clients, idk" />
                                 </label>
                         <h3>Receipt</h3>
                         <form class="box" method="post" action="" enctype="multipart/form-data">

@@ -8,7 +8,7 @@ const expenseSchema = new mongoose.Schema({
     amount: String,
     category: String,
     description: String,
-    tag: String,
+    tags: [],
     receiptImgLink: String,
     status : String, //ex. unreported
     ccData : String //ex. amex 1234
