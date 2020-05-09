@@ -84,7 +84,7 @@ const new_expense = props => {
             category: cat,
             ccData: ccType + ' x ' + getLastFour(ccNum),
             description: desc,
-            tags: tags.split(','),
+            tags: tags.split(', '),
             receiptImgLink: link,
             status : "unreported"
             })};
