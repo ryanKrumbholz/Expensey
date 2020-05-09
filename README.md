@@ -7,8 +7,7 @@ Expensey is an expense management system for personal and business use. Expensey
    * Being able to edit & delete expenses
    * Receipt scan-to-expense
    * Being able to change and sort by expense status
- * New expenses:
-   * Dark Mode
+   * Auto generation of expenses from bank accounts and credit cards
  * Reports page:
    * Auto-generated and customizable reports
    * Export to pdf, csv, and .xlsx
@@ -21,6 +20,12 @@ Expensey is an expense management system for personal and business use. Expensey
  * Login page:
    * Account authentication email
    * Sign in with Apple and Google
- * General commenting and code refactoring
+ * General
+    * Commenting and code refactoring
+    * Dark Mode bug fixes
+
+## Suggestions
+Have a suggestion? Shoot me an email @ krumbholz98@gmail.com.
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
