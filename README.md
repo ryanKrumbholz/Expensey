@@ -22,6 +22,7 @@ Expensey is an expense management system for personal and business use. Expensey
    * Sign in with Apple and Google
  * General
     * Commenting and code refactoring
+    * Support for mobile, Safari,  and ie
     * Dark Mode bug fixes
 
 ## Suggestions
