@@ -109,6 +109,7 @@ async function addExpense(info, res) {
       amount: info.amount,
       category: info.category,
       description: info.description,
+      ccData: info.ccData,
       tag: info.tag,
       receiptImgLink: info.link,
       status : info.status

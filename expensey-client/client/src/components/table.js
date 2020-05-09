@@ -276,7 +276,7 @@ const Table = props => {
     //TODO need to finish this function
     function helper() {
       for (var i = 0; i < expensesLocal.length; i++) {
-        if(expensesLocal[i].status == 'unreported' && props.c1 == false) {
+        if(expensesLocal[i].status == unreported && props.c1 == false) {
           sortedExpenses.push(expensesLocal[i])
         }
         if(expensesLocal[i].status === open && this.c1 === false) {

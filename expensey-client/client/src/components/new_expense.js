@@ -29,6 +29,8 @@ const new_expense = props => {
         var amt = document.getElementsByClassName("amt")[0].value;
         var cat = document.getElementsByClassName("cat")[0].value;
         var desc = document.getElementsByClassName("desc")[0].value;
+        var ccNum = document.getElementsByClassName("cardNum")[0].value;
+        var ccType = detectCardType(ccNum);
         var tag = "";
         var link = "";
 
@@ -51,10 +53,19 @@ const new_expense = props => {
             if (desc == "")  {
                 return false;
             }
+            if (ccNum == "")  {
+                return false;
+            }
             if (!dateNum) {
                 return false;
             }           
             return true;
+        }
+
+        function getLastFour(cardNum){
+            var length = cardNum.length
+            var lastFour = "" + cardNum[length-4] + cardNum[length-3] + cardNum[length-2] + cardNum[length-1];
+            return lastFour
         }
         
         const requestOptions =
@@ -71,6 +82,7 @@ const new_expense = props => {
             merchant: merchant,
             amount: parseFloat(amt),
             category: cat,
+            ccData: ccType + ' x ' + getLastFour(ccNum),
             description: desc,
             tag: tag,
             receiptImgLink: link,
@@ -95,6 +107,28 @@ const new_expense = props => {
             console.log("Field missing");
         }
     }
+
+    function detectCardType(number) {
+        var re = {
+            electron: /^(4026|417500|4405|4508|4844|4913|4917)\d+$/,
+            maestro: /^(5018|5020|5038|5612|5893|6304|6759|6761|6762|6763|0604|6390)\d+$/,
+            dankort: /^(5019)\d+$/,
+            interpayment: /^(636)\d+$/,
+            unionpay: /^(62|88)\d+$/,
+            visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
+            mastercard: /^5[1-5][0-9]{14}$/,
+            amex: /^3[47][0-9]{13}$/,
+            diners: /^3(?:0[0-5]|[68][0-9])[0-9]{11}$/,
+            discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/,
+            jcb: /^(?:2131|1800|35\d{3})\d{11}$/
+        }
+    
+        for(var key in re) {
+            if(re[key].test(number)) {
+                return key
+            }
+        }
+    }
     
     return (
         <div className="bg">
@@ -103,36 +137,31 @@ const new_expense = props => {
                 <div class="windowContents">
                     <div class="textboxes">
                         <h3>Date</h3>
-                        <form action="">
                         <label for="From"></label>
                         <input class="date" type="date" id="" name=""/>
-                    </form>
                         <h3>Merchant</h3>
-                        <form onSubmit="">
                             <label>
                             <input class="merchant" type="text" onChange="" placeholder="ex. Expensey" />
                             </label>
-                        </form>
                         <h3>Amount</h3>
-                        <form onSubmit="">
                             <label>
                             <input class="amt" type="text" onChange="" placeholder="ex. 9.99" />
                             </label>
-                        </form>
                         <h3>Category</h3>
-                        <form onSubmit="">
                             <label>
                             <input class="cat" type="text" onChange="" placeholder="ex. Food" />
                             </label>
-                        </form>
                         <h3>Description</h3>
-                        <form onSubmit="">
                             <label>
                             <input class="desc" type="text" onChange="" placeholder="Stuff about the expense goes here!" />
                             </label>
-                        </form>
-                    </div>
+                            </div>
+
                     <div class="receiptUpload">
+                    <h3>Card Number</h3>
+                                <label>
+                                <input class="cardNum" type="text" onChange="" placeholder="ex. 1234567890123456" />
+                                </label>
                         <h3>Receipt</h3>
                         <form class="box" method="post" action="" enctype="multipart/form-data">
                             <div class="box_input">
@@ -141,11 +170,12 @@ const new_expense = props => {
                                     <label for="file"><strong>Choose a file</strong><span class="box__dragndrop"> or drag it here</span>.</label>
                                 </div>
                             </div>
-                            <div class="box_uploading">Uploading&hellip;</div>
+                            {/* <div class="box_uploading">Uploading&hellip;</div>
                             <div class="box_success">Done!</div>
-                            <div class="box_error">Error! <span></span>.</div>
+                            <div class="box_error">Error! <span></span>.</div> */}
                         </form>
                     </div>
+                    
                 </div>
                 <button onClick={createExpense}>Save</button>
             </div>

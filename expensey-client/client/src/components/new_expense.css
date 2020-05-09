@@ -51,9 +51,10 @@
 .textboxes {
     margin-left: 3vw ;
     margin-right: 3vw ;
+    height: 60vh;
 }
 
-.textboxes input{
+.textboxes input, .cardNum{
     width: 15vw;
     height: 3vh;
 }
@@ -64,8 +65,8 @@
 
 .fileUp {
     background-color: white;
-    width: 30vw;
-    height: 20vw;
+    width: 27vw;
+    height: 18vw;
     border-radius: 5px;
     display: flex;
     outline: 2px dashed lightgray;
