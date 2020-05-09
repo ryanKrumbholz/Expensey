@@ -20,10 +20,12 @@ Expensey is an expense management system for personal and business use. Expensey
  * Login page:
    * Account authentication email
    * Sign in with Apple and Google
+   * Ability to upload profile picture on account creation
  * General
     * Commenting and code refactoring
     * Support for mobile, Safari,  and ie
     * Dark Mode bug fixes
+    * Setup s3 image hosting for receipts and profile pictures
 
 ## Suggestions
 Have a suggestion? Shoot me an email @ krumbholz98@gmail.com.
