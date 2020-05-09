@@ -110,7 +110,7 @@ async function addExpense(info, res) {
       category: info.category,
       description: info.description,
       ccData: info.ccData,
-      tag: info.tag,
+      tags: info.tags,
       receiptImgLink: info.link,
       status : info.status
     };
