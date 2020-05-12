@@ -213,25 +213,28 @@ const Table = props => {
         currCC = select.options[select.selectedIndex].text
       }
 
-      var expensesLocal = await props.expenses;
+      var expensesLocal = await props.expenses; //gets list of expenses from state
     
       helper()
     
       if (sortedExpenses.length === 0) {
+        //Allows for changing the current CC info to another by re-assigning back to all expenses
+      // and reruns helper method. 
         expensesLocal = await expenses;
         helper()
       }
 
-    expenseCardList = [];
+    expenseCardList = []; //List of soon to be expense cards which get pushed to in following lines of code.
 
     if (currCC === 'Select Category'){
       //resets back to full list of expenses when default option selected
       populateExpenseCards(expenses)
     }
     else{
+      //populates expenses with given CC info
       populateExpenseCards(sortedExpenses)
     }
-    props.setExpenses(sortedExpenses)
+    props.setExpenses(sortedExpenses) //changes state of current expenses
   }
 
   var sortByTag = async () => {
@@ -239,37 +242,43 @@ const Table = props => {
      * Sorts by the user selected tag.
      */
     function helper() {
+      /**
+       * Sorts through expenses and pushes expense with matching tag to cardLs.
+       */
       for (var i = 0; i < expensesLocal.length; i++) {
         if (expensesLocal[i].tags.includes(currTag)) {
           sortedExpenses.push(expensesLocal[i])
         }
       }
     }
-    var select = document.getElementsByClassName('tagList')[0]
-    var currTag;
+    var select = document.getElementsByClassName('tagList')[0]  //gets list of dropdown options.
+    var currTag; //To be assigned to currently tag.
     var sortedExpenses = []; //list of expenses with given Tag. Gets pushed to in helper function.
     if (select.options) {
       currTag = select.options[select.selectedIndex].text
     }
-    var expensesLocal = await props.expenses;
+    var expensesLocal = await props.expenses; //gets list of expenses from state
     
     helper()
     
     if (sortedExpenses.length === 0) {
+      //Allows for changing the current tag to another by re-assigning back to all expenses
+      // and reruns helper method. 
       expensesLocal = await expenses;
       helper()
     }
     
-    expenseCardList = [];
+    expenseCardList = []; //List of soon to be expense cards which get pushed to in following lines of code.
 
     if (currTag === 'Select Tag'){
       //resets back to full list of expenses when default option selected
       populateExpenseCards(expenses)
     }
     else{
+      
       populateExpenseCards(sortedExpenses)
     }
-    props.setExpenses(sortedExpenses)
+    props.setExpenses(sortedExpenses) //changes state of current expenses
   }
 
   var sortByMerch = async () => {
@@ -277,33 +286,39 @@ const Table = props => {
      * Sorts by the user selected merchant.
      */
     function helper() {
+      /**
+       * Sorts through expenses and pushes expense with matching merchant to cardLs.
+       */
       for (var i = 0; i < expensesLocal.length; i++) {
         if (expensesLocal[i].merchant.toUpperCase() === input.toUpperCase()) {
           sortedExpenses.push(expensesLocal[i])
         }
       }
     }
-    var input = document.getElementsByClassName('merchIn')[0].value
+    var input = document.getElementsByClassName('merchIn')[0].value  //gets value typed by user.
     var sortedExpenses = []; //list of expenses with given Merchant. Gets pushed to in helper function.
-    var expensesLocal = await props.expenses;
+    var expensesLocal = await props.expenses; //gets list of expenses from state
     
     helper()
     
     if (sortedExpenses.length === 0) {
+      //Allows for changing the current merchant to another by re-assigning back to all expenses
+      // and reruns helper method. 
       expensesLocal = await expenses;
       helper()
     }
 
-    expenseCardList = [];
+    expenseCardList = []; //List of soon to be expense cards which get pushed to in following lines of code.
 
     if (input === ''){
       //resets back to full list of expenses when default option selected
       populateExpenseCards(expenses)
     }
     else{
+      //populates expenses with given merchant
       populateExpenseCards(sortedExpenses)
     }
-    props.setExpenses(sortedExpenses)
+    props.setExpenses(sortedExpenses) //changes state of current expenses
   }
 
   var sortByDate = async () => {
@@ -311,35 +326,42 @@ const Table = props => {
      * Sorts by the user selected date range
      */
     function helper() {
+      /**
+       * Sorts through expenses and pushes expense with dates in between upper and lower bounds.
+       */
       for (var i = 0; i < expensesLocal.length; i++) {
         if (expensesLocal[i].dateNum >= lowerBound || expensesLocal[i].dateNum <= upperBound) {
           sortedExpenses.push(expensesLocal[i])
         }
       }
     }
-    var lowerBound = document.getElementsByClassName('dateFrom')[0].valueAsNumber
-    var upperBound = document.getElementsByClassName('dateTo')[0].valueAsNumber
-    var sortedExpenses = [];
-    var expensesLocal = await props.expenses;
+    var lowerBound = document.getElementsByClassName('dateFrom')[0].valueAsNumber //number value of 'from' date
+    var upperBound = document.getElementsByClassName('dateTo')[0].valueAsNumber//number value of 'to' date
+    var sortedExpenses = []; //List of soon to be expense cards which get pushed to in following lines of code.
+    var expensesLocal = await props.expenses; //gets list of expenses from state
 
     helper()
 
     if (sortedExpenses.length === 0) {
+      //Allows for changing the current date range to another by re-assigning back to all expenses
+      // and reruns helper method. 
       expensesLocal = await expenses;
       helper()
     }
 
-    populateExpenseCards(sortedExpenses)
-    props.setExpenses(sortedExpenses)
+    populateExpenseCards(sortedExpenses) //populates expenses between date range
+    props.setExpenses(sortedExpenses) //changes state of current expenses
 
   }
 
-  var sortByStatus = async () => {
+  var sortByStatus = async () => { //TODO need to finish this function
     /**
      * Sorts by the user selected statuses
      */
-    //TODO need to finish this function
     function helper() {
+      /**
+       * Checks each of checkboxes. If a checkbox is checked and expense status matches checkbox status the expense gets pushed to list.
+       */
       for (var i = 0; i < expensesLocal.length; i++) {
         if(expensesLocal[i].status === unreported && props.c1 === false) {
           sortedExpenses.push(expensesLocal[i])
@@ -365,23 +387,26 @@ const Table = props => {
       }
     }
 
-    var sortedExpenses = [];
-    var expensesLocal = await props.expenses;
-    var unreported = document.getElementsByClassName('c1')[0].text
-    var open = document.getElementsByClassName('c2')[0].text
-    var processing = document.getElementsByClassName('c3')[0].text
-    var approved = document.getElementsByClassName('c4')[0].text
-    var reimbursed = document.getElementsByClassName('c5')[0].text
-    var closed = document.getElementsByClassName('c6')[0].text
-    var deleted = document.getElementsByClassName('c7')[0].text
+    var sortedExpenses = [];  //To be populated later by helper method; List of expenses sorted by status
+    var expensesLocal = await props.expenses; //gets list of expenses from state
+    var unreported = document.getElementsByClassName('c1')[0].text //String "unreported"
+    var open = document.getElementsByClassName('c2')[0].text //String "open"
+    var processing = document.getElementsByClassName('c3')[0].text //String "processing"
+    var approved = document.getElementsByClassName('c4')[0].text //String "approved"
+    var reimbursed = document.getElementsByClassName('c5')[0].text //String "reimbursed"
+    var closed = document.getElementsByClassName('c6')[0].text //String "closed"
+    var deleted = document.getElementsByClassName('c7')[0].text //String "deleted"
 
     helper()
+
     if (sortedExpenses.length === 0) {
+      //Allows for changing the current checked statuses to another by re-assigning back to all expenses
+      // and reruns helper method.
       expensesLocal = await expenses;
       helper()
     }
-    populateExpenseCards(sortedExpenses)
-    props.setExpenses(sortedExpenses)
+    populateExpenseCards(sortedExpenses) //populates expenses with checked statuses
+    props.setExpenses(sortedExpenses)  //changes state of current expenses
   }
 
   var getCookie = cname => {
@@ -433,12 +458,12 @@ async function populateExpenseCards (expenses) {
   /**
      * Populates expenseCardList with expense card components with given expenses.
      */
-  var expenses = await expenses;
+  var expenses = await expenses; //expenses from API
   if (expenses) {
     var numCards = expenses.length;
     for (var i = 0; i < numCards; i++) {
       var arr = expenses[i].date.split('-')
-      var date = arr[1] + '-' + arr[2] + '-' + arr[0]
+      var date = arr[1] + '-' + arr[2] + '-' + arr[0] //string with rearranged date into dd-mm-yyyy format
       expenseCardList.push(<ExpenseCard data = {[date, expenses[i].merchant, expenses[i].amount,
        expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink, expenses[i].status]}/>)
     }
@@ -447,16 +472,17 @@ async function populateExpenseCards (expenses) {
     //if statement prevents infinite re-rendering by only changing state when expenses update
     props.setCardLs(expenseCardList);
   }
-  
   }
 
   var expenses = fetchExpenses();
   
   if (props.expenses.length === 0) {
+    //changes expenses state if empty
     props.setExpenses(expenses);
   }
 
   if (props.currCardLs.length === 0) {
+    //if expense cards are empty populate expenseCards
     populateExpenseCards(expenses);
   }
 
