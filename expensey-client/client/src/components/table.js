@@ -4,64 +4,90 @@ import App from '../App';
 import './table.css';
 
 const Table = props => {
-  var expenseCardList =  [];
-  var emptyCardLsContent = <div class="emptyCardList" onClick={props.toggleWindow}>
-                            <h3>Create new expense</h3>
-                          </div>
+  var expenseCardList =  []; //list of expenseCard components; gathered in function 'populateExpenseCards'
+  var emptyCardLsContent = //Element that displays when expenseCardList is empty
+  <div class="emptyCardList" onClick={props.toggleWindow}>
+    <h3>Create new expense</h3>
+  </div>
 
   async function fetchListData(expenses) {
+    /**
+     * Fetches filters list data for search drop downs and search boxes.
+     */
     var expenses = await expenses;
+
     function fetchCatList(expenses) {
-      var catList = listData().getCatList();
+      /**
+       * Fetches category from each expense and adds them to a list
+       * that is displayed as a dropdown selector.
+       */
+      var catList = listData().getCatList(); //Assigned to current list of categories, which should be empty on start.
+      var catMap = new Map(); //Hashmap of categories for checking if the category has already been added to the list. Also allows to maintain better runtime.
       if (expenses) {
         for (var i = 0; i <= expenses.length; i++) {
           if (expenses[i]){
-            var currExpenseCat = expenses[i].category;
-            if (!catList.includes(currExpenseCat)) {
-              catList.push(currExpenseCat);
+            var currExpenseCat = expenses[i].category; //current expense category
+            if (!catMap.has(currExpenseCat)){ 
+              //checking if category is not in the hashmap.
+              catMap.set(currExpenseCat); //add category to hashmap.
+              catList.push(currExpenseCat); //add category to list.
             }
           }
         }
       }
       if (catList.length > props.catList.length && catList[0]) {
-        //prevents infinite re-rendering
+        //prevents infinite re-rendering by checking only changing state when categories are updated
       props.setCatList(catList)
       }
     }
 
     function fetchCcList(expenses) {
-      var ccList = listData().getCcList();
+      /**
+       * Fetches credit card display info from each expense and adds them to a list
+       * that is displayed as a dropdown selector.
+       */
+      var ccList = listData().getCcList(); //Assigned to current list of credit cards, which should be empty on start.
+      var ccMap = new Map(); //Hashmap of credit cards for checking if the category has already been added to the list. Also allows to maintain better runtime.
       if (expenses) {
         for (var i = 0; i <= expenses.length; i++) {
           if (expenses[i]){
-            var currExpenseCc = expenses[i].ccData;
-            if (!ccList.includes(currExpenseCc)) {
+            var currExpenseCc = expenses[i].ccData; //current credit card info
+            if (!ccMap.has(currExpenseCc)) {
+              //checking if credit card data is not already in the map.
+              ccMap.set(currExpenseCc);
               ccList.push(currExpenseCc);
             }
           }
         }
       }
       if (ccList.length > props.ccList && ccList[0]){
-        //prevents infinite re-rendering
+        //prevents infinite re-rendering by checking only changing state when credit cards are updated
       props.setCcList(ccList)
     }
     }
 
     function fetchTagList(expenses) {
-      var tagList = listData().getTagList();
+      /**
+       * Fetches tags list from each expense and adds them to a list
+       * that is displayed as a dropdown selector.
+       */
+      var tagList = listData().getTagList(); //Assigned to current list of credit cards, which should be empty on start.
       if (expenses) {
       for (var i = 0; i <= expenses.length; i++) {
         if (expenses[i]){
-          var currExpenseTags = expenses[i].tags;
-          if (!tagList.includes(currExpenseTags)) {
-            if (tagList.length == 0){
+          var currExpenseTags = expenses[i].tags; //current list of tags
+            if (tagList.length === 0){
+              //if tag list is empty, assign it to the current tag list
               tagList = currExpenseTags
             }
             else{
-              tagList.concat(currExpenseTags);
+              tagList.push(currExpenseTags);
             }
-          }
+
         }
+      }
+      for (var i = 0; i <= tagList.length; i++) {
+        //write code to find dupe and remove it
       }
     }
     if (tagList.length > props.tagList && tagList[0]){
@@ -70,6 +96,9 @@ const Table = props => {
     }
   }
     function fetchAllList(expenses) {
+      /**
+       * Calls all fetch functions
+       */
       fetchCatList(expenses); 
       fetchCcList(expenses); 
       fetchTagList(expenses);
@@ -78,6 +107,9 @@ const Table = props => {
   }
 
   function listData (){
+    /**
+     * Encapsulates table filters lists
+     */
     var tagList = [];
     var categoriesList = [];
     var ccList = [];
@@ -105,7 +137,10 @@ const Table = props => {
   }
 
   var populateSelectList = (ls) => {
-    var selectLs = [];
+    /**
+     * Populate selector dropdown list with given array.
+     */
+    var selectLs = []; //init empty array of option elements to be returned with items from the array
     for(var i = 0; i < ls.length; i++) {
       selectLs.push(<option  class="selectli">{ls[i]}</option>)
     }
@@ -113,8 +148,13 @@ const Table = props => {
   }
 
   var sortByCat = async () => {
+    /**
+     * Sorts by user selected category.
+     */
     function helper() {
-      //sorts through expenses and pushes applicable expense to cardLs
+      /**
+       * Sorts through expenses and pushes expense with given category to cardLs.
+       */
       for (var i = 0; i < expensesLocal.length; i++) {
         if (expensesLocal[i].category === currCat) {
           sortedExpenses.push(expensesLocal[i])
@@ -122,35 +162,43 @@ const Table = props => {
       }
     }
 
-    var select = document.getElementsByClassName('catList')[0]
-    var currCat;
-    var sortedExpenses = [];
+    var select = document.getElementsByClassName('catList')[0] //gets list of dropdown options.
+    var currCat; //To be assigned to currently selected category
+    var sortedExpenses = []; //list of expenses with given category. Gets pushed to in helper function.
     if (select.options) {
-      //gets current selected category
-      currCat = select.options[select.selectedIndex].text
+      currCat = select.options[select.selectedIndex].text //assigned to user selected category
     }
-    var expensesLocal = await props.expenses;
+    var expensesLocal = await props.expenses; //gets list of expenses from state
 
     helper()
     
-    if (sortedExpenses.length == 0) {
+    if (sortedExpenses.length === 0) {
+      //Allows for changing the current category to another by re-assigning back to all expenses
+      // and reruns helper method. 
       expensesLocal = await expenses;
       helper()
     }
-    expenseCardList = [];
+    expenseCardList = []; //List of soon to be expense cards which get pushed to in following lines of code.
 
     if (currCat === 'Select Category'){
       //resets back to full list of expenses when default option selected
       populateExpenseCards(expenses)
     }
     else{
+      //populates expenses with given category
       populateExpenseCards(sortedExpenses)
     }
-    props.setExpenses(sortedExpenses)
+    props.setExpenses(sortedExpenses) //changes state of current expenses
   }
 
   var sortByCC = async () => {
+    /**
+     * Sorts by the user selected credit card
+     */
     function helper() {
+      /**
+       * Sorts through expenses and pushes expense with matching CC info to cardLs.
+       */
       for (var i = 0; i < expensesLocal.length; i++) {
         if (expensesLocal[i].ccData === currCC) {
           sortedExpenses.push(expensesLocal[i])
@@ -158,9 +206,9 @@ const Table = props => {
       }
     }
 
-    var select = document.getElementsByClassName('ccList')[0]
-    var currCC;
-    var sortedExpenses = [];
+    var select = document.getElementsByClassName('ccList')[0]; //gets list of dropdown options.
+    var currCC; //To be assigned to currently selected CC info
+    var sortedExpenses = []; //list of expenses with given CC info. Gets pushed to in helper function.
       if (select.options) {
         currCC = select.options[select.selectedIndex].text
       }
@@ -169,7 +217,7 @@ const Table = props => {
     
       helper()
     
-      if (sortedExpenses.length == 0) {
+      if (sortedExpenses.length === 0) {
         expensesLocal = await expenses;
         helper()
       }
@@ -187,6 +235,9 @@ const Table = props => {
   }
 
   var sortByTag = async () => {
+    /**
+     * Sorts by the user selected tag.
+     */
     function helper() {
       for (var i = 0; i < expensesLocal.length; i++) {
         if (expensesLocal[i].tags.includes(currTag)) {
@@ -196,7 +247,7 @@ const Table = props => {
     }
     var select = document.getElementsByClassName('tagList')[0]
     var currTag;
-    var sortedExpenses = [];
+    var sortedExpenses = []; //list of expenses with given Tag. Gets pushed to in helper function.
     if (select.options) {
       currTag = select.options[select.selectedIndex].text
     }
@@ -204,7 +255,7 @@ const Table = props => {
     
     helper()
     
-    if (sortedExpenses.length == 0) {
+    if (sortedExpenses.length === 0) {
       expensesLocal = await expenses;
       helper()
     }
@@ -222,6 +273,9 @@ const Table = props => {
   }
 
   var sortByMerch = async () => {
+    /**
+     * Sorts by the user selected merchant.
+     */
     function helper() {
       for (var i = 0; i < expensesLocal.length; i++) {
         if (expensesLocal[i].merchant.toUpperCase() === input.toUpperCase()) {
@@ -230,12 +284,12 @@ const Table = props => {
       }
     }
     var input = document.getElementsByClassName('merchIn')[0].value
-    var sortedExpenses = [];
+    var sortedExpenses = []; //list of expenses with given Merchant. Gets pushed to in helper function.
     var expensesLocal = await props.expenses;
     
     helper()
     
-    if (sortedExpenses.length == 0) {
+    if (sortedExpenses.length === 0) {
       expensesLocal = await expenses;
       helper()
     }
@@ -253,6 +307,9 @@ const Table = props => {
   }
 
   var sortByDate = async () => {
+    /**
+     * Sorts by the user selected date range
+     */
     function helper() {
       for (var i = 0; i < expensesLocal.length; i++) {
         if (expensesLocal[i].dateNum >= lowerBound || expensesLocal[i].dateNum <= upperBound) {
@@ -267,7 +324,7 @@ const Table = props => {
 
     helper()
 
-    if (sortedExpenses.length == 0) {
+    if (sortedExpenses.length === 0) {
       expensesLocal = await expenses;
       helper()
     }
@@ -278,10 +335,13 @@ const Table = props => {
   }
 
   var sortByStatus = async () => {
+    /**
+     * Sorts by the user selected statuses
+     */
     //TODO need to finish this function
     function helper() {
       for (var i = 0; i < expensesLocal.length; i++) {
-        if(expensesLocal[i].status == unreported && props.c1 == false) {
+        if(expensesLocal[i].status === unreported && props.c1 === false) {
           sortedExpenses.push(expensesLocal[i])
         }
         if(expensesLocal[i].status === open && this.c1 === false) {
@@ -316,7 +376,7 @@ const Table = props => {
     var deleted = document.getElementsByClassName('c7')[0].text
 
     helper()
-    if (sortedExpenses.length == 0) {
+    if (sortedExpenses.length === 0) {
       expensesLocal = await expenses;
       helper()
     }
@@ -324,7 +384,84 @@ const Table = props => {
     props.setExpenses(sortedExpenses)
   }
 
+  var getCookie = cname => {
+    /**
+     * Gets data of local cookie of given cname
+     */
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  async function fetchExpenses() {
+    /**
+     * Fetches expenses of given user from API.
+     */
+    var userEmail = getCookie("email");
+    const requestOptions =
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email : userEmail
+      })};
+
+      var data = await fetch('https://api.expensey.app/users/expenses',requestOptions) 
+          .then(res => res.json())
+          .then (data => 
+            {
+              return data
+            })
+          .catch(error => console.log(error));
+
+      return data
+      }
+
+async function populateExpenseCards (expenses) {
+  /**
+     * Populates expenseCardList with expense card components with given expenses.
+     */
+  var expenses = await expenses;
+  if (expenses) {
+    var numCards = expenses.length;
+    for (var i = 0; i < numCards; i++) {
+      var arr = expenses[i].date.split('-')
+      var date = arr[1] + '-' + arr[2] + '-' + arr[0]
+      expenseCardList.push(<ExpenseCard data = {[date, expenses[i].merchant, expenses[i].amount,
+       expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink, expenses[i].status]}/>)
+    }
+  }
+  if (expenseCardList != props.currCardLs){
+    //if statement prevents infinite re-rendering by only changing state when expenses update
+    props.setCardLs(expenseCardList);
+  }
+  
+  }
+
+  var expenses = fetchExpenses();
+  
+  if (props.expenses.length === 0) {
+    props.setExpenses(expenses);
+  }
+
+  if (props.currCardLs.length === 0) {
+    populateExpenseCards(expenses);
+  }
+
   function filters () {
+    //Filters element
     return(
           <div className="filters">
             <ul class="datesFiltersList">
@@ -418,76 +555,8 @@ const Table = props => {
     )
   }
 
-  var getCookie = cname => {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
-  }
-
-  async function fetchExpenses() {
-    var userEmail = getCookie("email");
-    const requestOptions =
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email : userEmail
-      })};
-
-      var data = await fetch('https://api.expensey.app/users/expenses',requestOptions) 
-          .then(res => res.json())
-          .then (data => 
-            {
-              return data
-            })
-          .catch(error => console.log(error));
-
-      return data
-      }
-
-async function populateExpenseCards (expenses) {
-  var expenses = await expenses;
-  if (expenses) {
-    var numCards = expenses.length;
-    for (var i = 0; i < numCards; i++) {
-      var arr = expenses[i].date.split('-')
-      var date = arr[1] + '-' + arr[2] + '-' + arr[0]
-      expenseCardList.push(<ExpenseCard data = {[date, expenses[i].merchant, expenses[i].amount,
-       expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink, expenses[i].status]}/>)
-    }
-  }
-  if (expenseCardList != props.currCardLs){
-    //if statement prevents infinite re-rendering by only changing state when expenses update
-    props.setCardLs(expenseCardList);
-  }
-  
-  }
-
-  var expenses = fetchExpenses();
-  
-  if (props.expenses.length == 0) {
-    props.setExpenses(expenses);
-  }
-
-  if (props.currCardLs.length == 0) {
-    populateExpenseCards(expenses);
-  }
-
-  fetchListData(expenses);
-
   function table (){
+    // Table element
     return(
       <div class="table">
         <ul class="theader">
@@ -504,6 +573,8 @@ async function populateExpenseCards (expenses) {
       </div>
     );
   }
+
+  fetchListData(expenses);
 
   return (
     <div>
