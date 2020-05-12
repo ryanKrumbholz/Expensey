@@ -71,6 +71,23 @@ const Table = props => {
        * Fetches tags list from each expense and adds them to a list
        * that is displayed as a dropdown selector.
        */
+      function removeDups(ls) {
+         /**
+       * Removes duplicate items in list.
+       */
+      var seenTags = new Map(); //Hashmap of seen list items
+      for (var i = 0; i < ls.length; i++){
+        var currTag = ls[i]; //current tag in tagList
+        if (!seenTags.has(currTag)){
+          //if item is not dupe, add to seenTags
+          seenTags.set(currTag)
+        }
+        else {
+          //removes item from tagList if  dupe
+          ls.splice(i,1)
+        }
+      }
+      }
       var tagList = listData().getTagList(); //Assigned to current list of credit cards, which should be empty on start.
       if (expenses) {
       for (var i = 0; i <= expenses.length; i++) {
@@ -81,13 +98,13 @@ const Table = props => {
               tagList = currExpenseTags
             }
             else{
-              tagList.push(currExpenseTags);
+              tagList = tagList.concat(currExpenseTags);
             }
 
         }
       }
       for (var i = 0; i <= tagList.length; i++) {
-        //write code to find dupe and remove it
+        removeDups(tagList);
       }
     }
     if (tagList.length > props.tagList && tagList[0]){
