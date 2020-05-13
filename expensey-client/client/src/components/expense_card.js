@@ -87,7 +87,11 @@ const Expense_card   = props => {
     cardData.setTag(props.data[5]);
     cardData.setComments(props.data[4]);
     cardData.setStatus(props.data[7]);
-  };
+  }
+
+  var toggleReceiptImg = () => {
+    props.toggleReceiptImg(cardData.getReceiptImg());
+  }
 
 
   if (cardData.getReceiptImgLink() != null) {
@@ -107,7 +111,7 @@ const Expense_card   = props => {
         <p class="merchantp">{cardData.getDescrip()}</p>
         <div class="amountp">
           <p>${cardData.getAmount()}</p>
-          <img src={cardData.getReceiptImg()}></img>
+          <img src={cardData.getReceiptImg()} onClick={toggleReceiptImg}></img>
         </div>
         <p class="catp">{cardData.getCategory()}</p>
         <p class="commentsp">{cardData.getComments()}</p>

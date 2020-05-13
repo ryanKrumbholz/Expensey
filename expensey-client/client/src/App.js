@@ -13,10 +13,13 @@ import './App.css';
 import Construction from './components/construction';
 import Settings from './components/settings_body';
 import Footer from './components/footer';
+import ReceiptWindow from './components/receiptWindow';
 
 class App extends Component {
   state = {
-    seen: false, //state for new expense window
+    seenNewExpense: false,
+    seenReceiptImg: false,
+    currReceiptImg: null, //state for new expense window
     cardLs: [], //state for card list
     dkmode: false, //state for dark mode
     catList: [],
@@ -35,7 +38,7 @@ class App extends Component {
 toggleWindow = () => {
   //toggles new expense window
     this.setState({
-      seen: !this.state.seen //sets seen to the opposite state
+      seenNewExpense: !this.state.seenNewExpense //sets seen to the opposite state
     },
     console.log("Window Toggled"))
   }
@@ -47,6 +50,14 @@ toggledkMode =  () => {
   },
   () => console.log("Dark Mode toggled")
   )
+};
+
+toggleReceiptWindow = img => {
+  this.setState({
+    seenReceiptImg: !this.state.seenReceiptImg, //sets seen to the opposite state
+    currReceiptImg: img
+  },
+  console.log("Window Toggled"))
 };
 
 togglec1 = () => {
@@ -282,9 +293,11 @@ componentDidUpdate() {
                   setCatList = {this.setCatList} setTagList = {this.setTagList} setCcList = {this.setCcList} expenses={this.state.expenses}
                    setExpenses = {this.setExpenses} c1 ={this.state.c1} c2 = {this.state.c2} c3 = {this.state.c3} c4 ={this.state.c4} c5 ={this.state.c5}
                     c6 = {this.state.c6} c7 = {this.state.c7} togglec1 ={this.togglec1} togglec2 ={this.togglec2} togglec3 ={this.togglec3} togglec4 ={this.togglec4}
-                    togglec5 ={this.togglec5} togglec6 ={this.togglec6} togglec7 ={this.togglec7}
+                    togglec5 ={this.togglec5} togglec6 ={this.togglec6} togglec7 ={this.togglec7} toggleReceiptImg = {this.toggleReceiptWindow}
+
                     /> 
-                {this.state.seen ? <NewExpense toggleWindow = {this.toggleWindow}/>: null}
+                {this.state.seenNewExpense ? <NewExpense toggleWindow = {this.toggleWindow}/>: null}
+                {this.state.seenReceiptImg  ? <ReceiptWindow toggleReceiptImg = {this.toggleReceiptWindow} currReceiptImg = {this.state.currReceiptImg}/>: null}
 
               </Route>
               <Route path="/reports" exact component={Construction}>
