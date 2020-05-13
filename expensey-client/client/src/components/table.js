@@ -371,7 +371,7 @@ const Table = props => {
 
   }
 
-  var sortByStatus = async () => { //TODO need to finish this function
+  var sortByStatus = async () => { //TODO need to finish props function
     /**
      * Sorts by the user selected statuses
      */
@@ -380,41 +380,35 @@ const Table = props => {
        * Checks each of checkboxes. If a checkbox is checked and expense status matches checkbox status the expense gets pushed to list.
        */
       for (var i = 0; i < expensesLocal.length; i++) {
-        if(expensesLocal[i].status === unreported && props.c1 === false) {
+        if(expensesLocal[i].status === 'unreported' && props.c1 === true) {
           sortedExpenses.push(expensesLocal[i])
         }
-        if(expensesLocal[i].status === open && this.c1 === false) {
+        if(expensesLocal[i].status === 'open' && props.c2 === true) {
           sortedExpenses.push(expensesLocal[i])
         }
-        if(expensesLocal[i].status === processing && this.c1 === false) {
+        if(expensesLocal[i].status === 'processing' && props.c3 === true) {
           sortedExpenses.push(expensesLocal[i])
         }
-        if(expensesLocal[i].status === approved && this.c1 === false) {
+        if(expensesLocal[i].status === 'approved' && props.c4 === true) {
           sortedExpenses.push(expensesLocal[i])
         }
-        if(expensesLocal[i].status === reimbursed && this.c1 === false) {
+        if(expensesLocal[i].status === 'reimbursed' && props.c5 === true) {
           sortedExpenses.push(expensesLocal[i])
         }
-        if(expensesLocal[i].status === closed && this.c1 === false) {
+        if(expensesLocal[i].status === 'closed' && props.c6 === true) {
           sortedExpenses.push(expensesLocal[i])
         }
-        if(expensesLocal[i].status === deleted && this.c1 === false) {
+        if(expensesLocal[i].status === 'deleted' && props.c7 === true) {
           sortedExpenses.push(expensesLocal[i])
         }
       }
     }
 
+    
     var sortedExpenses = [];  //To be populated later by helper method; List of expenses sorted by status
     var expensesLocal = await props.expenses; //gets list of expenses from state
-    var unreported = document.getElementsByClassName('c1')[0].text //String "unreported"
-    var open = document.getElementsByClassName('c2')[0].text //String "open"
-    var processing = document.getElementsByClassName('c3')[0].text //String "processing"
-    var approved = document.getElementsByClassName('c4')[0].text //String "approved"
-    var reimbursed = document.getElementsByClassName('c5')[0].text //String "reimbursed"
-    var closed = document.getElementsByClassName('c6')[0].text //String "closed"
-    var deleted = document.getElementsByClassName('c7')[0].text //String "deleted"
-
     helper()
+
 
     if (sortedExpenses.length === 0) {
       //Allows for changing the current checked statuses to another by re-assigning back to all expenses
@@ -491,18 +485,6 @@ async function populateExpenseCards (expenses) {
   }
   }
 
-  var expenses = fetchExpenses();
-  
-  if (props.expenses.length === 0) {
-    //changes expenses state if empty
-    props.setExpenses(expenses);
-  }
-
-  if (props.currCardLs.length === 0) {
-    //if expense cards are empty populate expenseCards
-    populateExpenseCards(expenses);
-  }
-
   function filters () {
     //Filters element
     return(
@@ -553,43 +535,43 @@ async function populateExpenseCards (expenses) {
           <ul class="statusList">
             <li>
                 <label class="c1">
-                  <input type="checkbox" checked={props.c1} onClick={props.togglec1}/>
+                  <input type="checkbox" checked={props.c1} onClick={() => {sortByStatus(); props.togglec1();}}/>
                   Unreported
                 </label>
             </li>
             <li>
               <label class="c2">
-                <input type="checkbox" checked={props.c2} onClick={props.togglec2}/>
+                <input type="checkbox" checked={props.c2} onClick={() => {sortByStatus(); props.togglec2()}}/>
                 Open
               </label>
             </li>
             <li>
               <label class="c3">
-                <input type="checkbox" checked={props.c3} onClick={props.togglec3}/>
+                <input type="checkbox" checked={props.c3} onClick={() => {sortByStatus();props.togglec3()}}/>
                 Processing
               </label>
             </li>
             <li>
               <label class="c4">
-                <input type="checkbox" checked={props.c4} onClick={props.togglec4}/>
+                <input type="checkbox" checked={props.c4} onClick={() => {sortByStatus(); props.togglec4();}}/>
                 Approved
               </label>
             </li>
             <li>
               <label class="c5">
-                <input type="checkbox" checked={props.c5} onClick={props.togglec5}/>
+                <input type="checkbox" checked={props.c5} onClick={() => {sortByStatus(); props.togglec5();}}/>
                 Reimbursed
               </label>
             </li>
             <li>
               <label class="c6">
-                <input type="checkbox" checked={props.c6} onClick={props.togglec6}/>
+                <input type="checkbox" checked={props.c6} onClick={() => {sortByStatus(); props.togglec6()}}/>
                 Closed
               </label>
             </li>
             <li>
               <label class="c7">
-                <input type="checkbox" checked={props.c7} onClick={props.togglec7}/>
+                <input type="checkbox" checked={props.c7} onClick={() => {sortByStatus(); props.togglec7();}}/>
                 Deleted
               </label>
             </li> 
@@ -617,7 +599,19 @@ async function populateExpenseCards (expenses) {
     );
   }
 
-  fetchListData(expenses);
+  var expenses = fetchExpenses();
+  
+  if (props.expenses.length === 0) {
+    //if expenses is not set, set expenses
+    props.setExpenses(expenses);
+  }
+
+  if (props.currCardLs.length === 0) {
+    //if cards are not populated, populate cards.
+    populateExpenseCards(expenses);
+  }
+
+  fetchListData(expenses); //populates selectable list for sorting.
 
   return (
     <div>
