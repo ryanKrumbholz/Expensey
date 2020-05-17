@@ -165,7 +165,7 @@ function uploadImg(file, folder) {
     ContentType: type.mime,
     Key: `${name}.${type.ext}`
   };
-  s3.upload(params);
+  // s3.upload(params);
   return "";
 }
 
