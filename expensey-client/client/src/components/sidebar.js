@@ -98,7 +98,6 @@ const sidebar = props => {
         <a href="/account">{userData.getName()}</a>
         <div class="links">
           <a href="/">Expenses</a>
-          <a href="/reports">Reports</a>
           <a href="/settings">Settings</a>
         </div>
         <div class="logout">

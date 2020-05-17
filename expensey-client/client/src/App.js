@@ -14,6 +14,7 @@ import Construction from './components/construction';
 import Settings from './components/settings_body';
 import Footer from './components/footer';
 import ReceiptWindow from './components/receiptWindow';
+import {createStore} from 'redux';
 
 class App extends Component {
   state = {

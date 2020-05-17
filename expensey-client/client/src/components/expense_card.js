@@ -93,9 +93,8 @@ const Expense_card   = props => {
     props.toggleReceiptImg(cardData.getReceiptImg());
   }
 
-
-  if (cardData.getReceiptImgLink() != null) {
-    cardData.setReceiptImg(cardData.getReceiptImgLink());
+  if (props.data[6] != null) {
+    cardData.setReceiptImg(props.data[6]);
   } else {
     cardData.setReceiptImg(cardData.getReceiptIcon());
   }

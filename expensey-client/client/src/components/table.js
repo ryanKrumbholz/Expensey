@@ -569,12 +569,6 @@ async function populateExpenseCards (expenses) {
                 Closed
               </label>
             </li>
-            <li>
-              <label class="c7">
-                <input type="checkbox" checked={props.c7} onClick={() => {sortByStatus(); props.togglec7();}}/>
-                Deleted
-              </label>
-            </li> 
           </ul>
         </div>
     )
