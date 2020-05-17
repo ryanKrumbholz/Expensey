@@ -32,8 +32,11 @@ const new_expense = props => {
         var ccNum = document.getElementsByClassName("cardNum")[0].value;
         var ccType = detectCardType(ccNum);
         var tags = document.getElementsByClassName("tags")[0].value;
-        var link = "";
-
+        var files = document.getElementsByClassName("fileUp")[0].files;
+        var file = null;
+        if (files) {
+            file =  files[0];
+        }
         function checkFields() {
             if (userEmail  == "")  {
                 return false;
@@ -85,7 +88,7 @@ const new_expense = props => {
             ccData: ccType + ' x ' + getLastFour(ccNum),
             description: desc,
             tags: tags.split(', '),
-            receiptImgLink: link,
+            receiptImg: file,
             status : "unreported"
             })};
     

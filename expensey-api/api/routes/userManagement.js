@@ -2,6 +2,27 @@ const express = require('express');
 var router = express.Router();
 var password = require('password-hash-and-salt');
 const User = require('../models/user');
+require('dotenv').config();
+const S3_BUCKET = process.env.S3_BUCKET;
+const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+const AWS = require('aws-sdk');
+const fs = require('fs');
+const fileType = require('file-type');
+const bluebird = require('bluebird');
+const multiparty = require('multiparty');
+
+// configure the keys for accessing AWS
+AWS.config.update({
+  accessKeyId: AWS_ACCESS_KEY_ID,
+  secretAccessKey: AWS_SECRET_ACCESS_KEY
+});
+
+// configure AWS to work with promises
+AWS.config.setPromisesDependency(bluebird);
+
+// create S3 instance
+const s3 = new AWS.S3();
 
 function sleep(ms) {
     //Need to  use async await for this  to  work
@@ -100,6 +121,7 @@ async function addExpense(info, res) {
   var currUser = await getUser(info.email);
   console.log(info);
   var query = currUser._id;
+  var link = uploadImg(info.file, "receipts");
   var newExpense = 
     {
       id: info.id,
@@ -111,7 +133,7 @@ async function addExpense(info, res) {
       description: info.description,
       ccData: info.ccData,
       tags: info.tags,
-      receiptImgLink: info.link,
+      receiptImgLink: link,
       status : info.status
     };
 
@@ -128,6 +150,23 @@ async function addExpense(info, res) {
     
   });
 
+}
+
+function uploadImg(file, folder) {
+  const path = file.path;
+  const buffer = fs.readFileSync(path);
+  const type = fileType(buffer);
+  const timestamp = Date.now().toString();
+  const name = folder+`/${timestamp}-lg`;
+  const params = {
+    ACL: 'public-read',
+    Body: buffer,
+    Bucket: S3_BUCKET,
+    ContentType: type.mime,
+    Key: `${name}.${type.ext}`
+  };
+  s3.upload(params);
+  return s3Client.getResourceUrl(S3_BUCKET, name);
 }
 
 router.post('/', function(req, res, next) {
