@@ -5,21 +5,13 @@ Expensey is an expense management system for personal and business use. Expensey
  * Expense page:
    * Uploading expense receipts
    * Being able to edit & delete expenses
-   * Receipt scan-to-expense
    * Being able to change and sort by expense status
-   * Auto generation of expenses from bank accounts and credit cards
- * Reports page:
-   * Auto-generated and customizable reports
-   * Export to pdf, csv, and .xlsx
  * Account page:
    * Change password
    * Change email address
-   * Billing
  * Settings page:
    * More to come
  * Login page:
-   * Account authentication email
-   * Sign in with Apple and Google
    * Ability to upload profile picture on account creation
  * General
     * Commenting and code refactoring
