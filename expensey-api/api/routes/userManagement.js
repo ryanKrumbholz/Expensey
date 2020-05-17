@@ -121,7 +121,7 @@ async function addExpense(info, res) {
   var currUser = await getUser(info.email);
   console.log(info);
   var query = currUser._id;
-  var link = uploadImg(info.receiptImg, "receipts");
+  // var link = uploadImg(info.receiptImg, "receipts");
   var newExpense = 
     {
       id: info.id,
@@ -133,7 +133,7 @@ async function addExpense(info, res) {
       description: info.description,
       ccData: info.ccData,
       tags: info.tags,
-      receiptImgLink: link,
+      receiptImgLink: "",
       status : info.status
     };
 
