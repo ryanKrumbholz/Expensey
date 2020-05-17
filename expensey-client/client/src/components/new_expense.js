@@ -32,11 +32,12 @@ const new_expense = props => {
         var ccNum = document.getElementsByClassName("cardNum")[0].value;
         var ccType = detectCardType(ccNum);
         var tags = document.getElementsByClassName("tags")[0].value;
-        var files = document.getElementsByClassName("fileUp")[0].files;
+        var files = document.getElementsByClassName("box_file")[0].files;
         var file = null;
         if (files) {
             file =  files[0];
         }
+        console.log(file)
         function checkFields() {
             if (userEmail  == "")  {
                 return false;
