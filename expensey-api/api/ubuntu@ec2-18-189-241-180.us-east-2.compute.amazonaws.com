@@ -1,0 +1,4 @@
+DB_CONNECT=mongodb+srv://RAK100598:l6CJKwngRzUw6Jcw@expenseycluster-prt5l.mongodb.net/userData?retryWrites=true&w=majority
+S3_BUCKET=expensey
+AWS_ACCESS_KEY_ID=AKIAI5D2MNDNA67PHORQ
+AWS_SECRET_ACCESS_KEY=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

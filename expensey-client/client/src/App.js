@@ -282,6 +282,7 @@ componentDidUpdate() {
     if(this.getCookie("status") == "true"){
       return(
         <div class="App">
+        <h1>Site currently under construction</h1>
         {this.getViewMode()}
           {/* Construction is temp for production*/}
           {/* <Construction/> */}
