@@ -121,7 +121,8 @@ async function addExpense(info, res) {
   var currUser = await getUser(info.email);
   console.log(info);
   var query = currUser._id;
-  var link = uploadImg(info.receiptImg, "receipts");
+  // uploadImg(info.receiptImg, "receipts");
+  var link = info.receiptImg
   var newExpense = 
     {
       id: info.id,
@@ -165,8 +166,8 @@ function uploadImg(file, folder) {
     ContentType: type.mime,
     Key: `${name}.${type.ext}`
   };
-  // s3.upload(params);
-  return "";
+  s3.upload(params);
+  return s3Client.getResourceUrl(S3_BUCKET, name);
 }
 
 router.post('/', function(req, res, next) {
