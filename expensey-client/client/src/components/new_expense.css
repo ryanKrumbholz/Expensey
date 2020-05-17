@@ -64,14 +64,12 @@
 }
 
 .fileUp {
+    margin-left: ;
     background-color: white;
     width: 27vw;
     height: 15vw;
     border-radius: 5px;
     display: flex;
-    outline: 2px dashed lightgray;
-    outline-offset: -10px;
-    transition: all 0.1s;
     color: gray;
 }
 
@@ -83,9 +81,4 @@
 .box_file {
     visibility: hidden;
     width: 0;
-}
-
-.fileUp:hover {
-    transition: all 0.1s;
-    outline-offset: -15px;
 }

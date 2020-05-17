@@ -171,17 +171,10 @@ const new_expense = props => {
                                 <input class="tags" type="text" onChange="" placeholder="ex. John Smith, Clients, idk" />
                                 </label>
                         <h3>Receipt</h3>
-                        <form class="box" method="post" action="" enctype="multipart/form-data">
-                            <div class="box_input">
-                                <div class="fileUp" onClick="action_page.php">
+                                <button class="fileUp" onClick="action_page.php">
                                 <input class="box_file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
-                                    <label for="file"><strong>Choose a file</strong><span class="box__dragndrop"> or drag it here</span>.</label>
-                                </div>
-                            </div>
-                            {/* <div class="box_uploading">Uploading&hellip;</div>
-                            <div class="box_success">Done!</div>
-                            <div class="box_error">Error! <span></span>.</div> */}
-                        </form>
+                                    <label for="file"><strong>Choose a file</strong></label>
+                                </button>
                     </div>
                     
                 </div>

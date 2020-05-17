@@ -532,7 +532,7 @@ async function populateExpenseCards (expenses) {
               </select>
             </li>
           </ul>
-          <ul class="statusList">
+          {/* <ul class="statusList">
             <li>
                 <label class="c1">
                   <input type="checkbox" checked={props.c1} onClick={() => {sortByStatus(); props.togglec1();}}/>
@@ -569,7 +569,7 @@ async function populateExpenseCards (expenses) {
                 Closed
               </label>
             </li>
-          </ul>
+          </ul> */}
         </div>
     )
   }
