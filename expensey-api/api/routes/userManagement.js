@@ -122,12 +122,12 @@ async function addExpense(info, res) {
   console.log(info);
   var query = currUser._id;
   var link;
-  if (info.receiptImg) {
-    link = uploadImg(info.receiptImg, "receipts");
-  }
-  else {
+  // if (info.receiptImg) {
+  //   link = uploadImg(info.receiptImg, "receipts");
+  // }
+  // else {
     link = "";
-  }
+  // }
   var newExpense = 
     {
       id: info.id,
