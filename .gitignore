@@ -1,4 +1,4 @@
-expensey-api/api/.env
+# expensey-api/api/.env
 expensey-api/api/host.cert
 expensey-api/api/host.key
 expensey-api/api/dockerfile
