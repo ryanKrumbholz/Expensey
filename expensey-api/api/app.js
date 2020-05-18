@@ -31,9 +31,10 @@ app.get('/api', (req,res) => {
   res.send();
 });
 
-https.createServer({
-  key: fs.readFileSync('host.key'),
-  cert: fs.readFileSync('host.cert')
-}, app)
-.listen(port, () => console.log("Server started on port " + port));
+// https.createServer({
+//   key: fs.readFileSync('host.key'),
+//   cert: fs.readFileSync('host.cert')
+// }, app)
+// .listen(port, () => console.log("Server started on port " + port));
 
+app.listen(port, () => console.log("Server started on port " + port));
