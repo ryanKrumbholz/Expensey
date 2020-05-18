@@ -454,7 +454,7 @@ const Table = props => {
         email : userEmail
       })};
 
-      var data = await fetch('https://localhost:9000/users/expenses',requestOptions) 
+      var data = await fetch('https://api.expensey.app/users/expenses',requestOptions) 
           .then(res => res.json())
           .then (data => 
             {

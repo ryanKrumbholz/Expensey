@@ -98,7 +98,7 @@ const new_expense = props => {
         };
     
         if (checkFields()==true) {
-          fetch('https://localhost:9000/users/expenses/add_expense',requestOptions) 
+          fetch('https://api.expensey.app/users/expenses/add_expense',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {
