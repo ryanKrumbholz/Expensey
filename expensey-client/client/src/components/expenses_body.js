@@ -14,7 +14,7 @@ const expenses_body = props => {
                   setCatList = {props.setCatList} setTagList = {props.setTagList} setCcList = {props.setCcList}
                   setExpenses = {props.setExpenses} expenses = {props.expenses}
                   c1 ={props.c1} c2 = {props.c2} c3 = {props.c3} c4 ={props.c4} c5 ={props.c5}
-                    c6 = {props.c6} c7 = {props.c7} togglec1 ={props.togglec1} togglec2 ={props.togglec2} togglec3 ={props.togglec3} togglec4 ={props.togglec4}
+                    c6 = {props.c6} c7 = {props.c7} togglec1 ={props.togglec1} togglec2 ={props.togglec2} togglec3 ={props.togglec3} togglec4 ={props.togglec4} toggleReceiptImg ={props.toggleReceiptImg}
                   />
       </div>
   )

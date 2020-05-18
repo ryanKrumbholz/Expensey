@@ -15,6 +15,7 @@ import Settings from './components/settings_body';
 import Footer from './components/footer';
 import ReceiptWindow from './components/receiptWindow';
 import {createStore} from 'redux';
+import account_body from './components/account_body';
 
 class App extends Component {
   state = {
@@ -306,7 +307,7 @@ componentDidUpdate() {
               <Route path="/settings" exact component={Settings}>
               <Settings dkModeStatus = {this.state.dkmode} toggledkmode = {this.toggledkMode}/>
               </Route>
-              <Route path="/account" exact component={Construction}>
+              <Route path="/account" exact component={account_body}>
               </Route>
             </Switch>
           </Router>

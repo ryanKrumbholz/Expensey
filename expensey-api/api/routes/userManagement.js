@@ -281,6 +281,16 @@ router.post('/expenses/add_expense', function(req, res, next) {
   addExpense(req, res);
 });
 
+router.post('/expenses/del_expense', function(req, res, next) {
+  var id = req.body
+  delExpense(id, res);
+});
+
+router.post('/expenses/update_expense', function(req, res, next) {
+  var id = req.body
+  updateExpense(id, res);
+});
+
 
 
   
