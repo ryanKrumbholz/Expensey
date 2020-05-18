@@ -117,13 +117,17 @@ async function getExpenses(user, res) {
   res.json(currUser.expenses);
 }
 
-async function addExpense(info, res) {
-  var currUser = await getUser(info.email);
-  console.log(info);
-  var query = currUser._id;
+async function addExpense(req, res) {
+  const form = new multiparty.Form();
+  form.parse(req, async (error, fields, files) => {
+    if (error) throw new Error(error);
+    try { 
+      var info = JSON.parse(fields.expense[0]);
+      var currUser = await getUser(info.email);
+      var query = currUser._id;
   var link;
   if (info.receiptImg) {
-    link = uploadImg(info.receiptImg, "receipts");
+    link = await uploadImg(files, "receipts");
   }
   else {
     link = "";
@@ -156,14 +160,20 @@ async function addExpense(info, res) {
     
   });
 
+  }
+    catch(error) {
+      console.log(error)
+    }
+  })
 }
 
-function uploadImg(file, folder) {
+async function uploadImg(files, folder) {
+  const file = files.file[0];
   const path = file.path;
   const buffer = fs.readFileSync(path);
-  const type = fileType(buffer);
+  const type = await fileType.fromBuffer(buffer);
   const timestamp = Date.now().toString();
-  const name = folder+`/${timestamp}-lg`;
+  const name = `${folder}/${timestamp}-lg`;
   const params = {
     ACL: 'public-read',
     Body: buffer,
@@ -171,8 +181,8 @@ function uploadImg(file, folder) {
     ContentType: type.mime,
     Key: `${name}.${type.ext}`
   };
-  s3.upload(params);
-  return s3Client.getResourceUrl(S3_BUCKET, name);
+  s3.upload(params).promise();
+  return `https://expensey.s3.us-east-2.amazonaws.com/${name}.jpg`;
 }
 
 router.post('/', function(req, res, next) {
@@ -267,8 +277,8 @@ router.post('/expenses', function(req, res, next) {
 });
 
 router.post('/expenses/add_expense', function(req, res, next) {
-  var expenseInfo = req.body;
-  addExpense(expenseInfo, res);
+  // var expenseInfo = req
+  addExpense(req, res);
 });
 
 

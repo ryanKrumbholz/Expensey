@@ -2,7 +2,7 @@ const express = require('express');
 require('dotenv').config();
 const mongoose = require('mongoose');
 const app = express();
-const port = 3000;
+const port = 9000;
 const dbCon = process.env.DB_CONNECT;
 var bodyParser = require('body-parser');
 var cors = require("cors");
@@ -32,8 +32,8 @@ app.get('/api', (req,res) => {
 });
 
 https.createServer({
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('server.cert')
+  key: fs.readFileSync('host.key'),
+  cert: fs.readFileSync('host.cert')
 }, app)
 .listen(port, () => console.log("Server started on port " + port));
 

@@ -37,7 +37,6 @@ const new_expense = props => {
         if (files) {
             file =  files[0];
         }
-        console.log(file)
         function checkFields() {
             if (userEmail  == "")  {
                 return false;
@@ -71,14 +70,9 @@ const new_expense = props => {
             var lastFour = "" + cardNum[length-4] + cardNum[length-3] + cardNum[length-2] + cardNum[length-1];
             return lastFour
         }
-        
-        const requestOptions =
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
+
+        const formData = new FormData();
+        const expenseData = JSON.stringify({
             email : userEmail,
             id: eid,
             date: date,
@@ -91,10 +85,20 @@ const new_expense = props => {
             tags: tags.split(', '),
             receiptImg: file,
             status : "unreported"
-            })};
+            })
+        formData.append('file', file);
+        formData.append('expense',expenseData);
+
+        const requestOptions =
+        {
+          method: 'POST',
+          headers: {
+          },
+          body: formData
+        };
     
         if (checkFields()==true) {
-          fetch('https://api.expensey.app/users/expenses/add_expense',requestOptions) 
+          fetch('https://localhost:9000/users/expenses/add_expense',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {
@@ -103,7 +107,6 @@ const new_expense = props => {
                         props.toggleWindow();
                         window.location.reload();
                     }
-                    
                 })
               .catch(error => console.log(error));
           }
@@ -172,7 +175,7 @@ const new_expense = props => {
                                 </label>
                         <h3>Receipt</h3>
                                 <button class="fileUp" onClick="action_page.php">
-                                <input class="box_file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
+                                <input class="box_file" type="file" name="file" id="file" data-multiple-caption="{count} files selected" multiple />
                                     <label for="file"><strong>Choose a file</strong></label>
                                 </button>
                     </div>
