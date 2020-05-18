@@ -92,14 +92,14 @@ const new_expense = props => {
         const requestOptions =
         {
           method: 'POST',
-          headers: {
-          },
+          headers: {},
           body: formData
         };
     
         if (checkFields()==true) {
-          fetch('https://api.expensey.app/users/expenses/add_expense',requestOptions) 
-              .then(res => res.json())
+          fetch('http://api.expensey.app/users/expenses/add_expense',requestOptions) 
+              .then(res => res.json
+                ())
               .then (data => 
                 {
                     console.log(data);
