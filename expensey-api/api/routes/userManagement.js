@@ -204,6 +204,8 @@ router.post('/del_user', function(req, res, next, email) {
     res.json(x);
   });
 });
+router.post('/update_user', function(req, res, next, email) {
+});
 
 router.post('/user/dkmode', function(req, res, next) {
   var user = req.body

@@ -22,6 +22,17 @@ var account_body = () => {
         }
         return "";
       }
+
+      function delCookies() {
+        function eraseCookie(name) {
+          var d = new Date();
+          d.setTime(d.getTime()+(-1*24*60*60*1000));
+          document.cookie = name+"= ;" +"  expires=" + d + ";";
+        }
+        var cookies = document.cookie.split(";");
+        for (var i = 0; i < cookies.length; i++)
+          eraseCookie(cookies[i].split("=")[0]);
+      }
     
     var email = getCookie('email');
 
@@ -37,12 +48,12 @@ var account_body = () => {
             newEmail: newEmail
           })
         };
-          fetch('https://api.expensey.app/users/expenses/del_expense',requestOptions) 
+          fetch('https://api.expensey.app/users/expenses/update_user',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {
                     console.log(data);
-                    if (data == 'Expense deleted successfully.'){
+                    if (data == 'User updated successfully.'){
                         window.location.reload();
                     }
                 })
@@ -66,12 +77,12 @@ var account_body = () => {
             newPwAuth: newPwAuth
           })
         };
-          fetch('https://api.expensey.app/users/expenses/del_expense',requestOptions) 
+          fetch('https://api.expensey.app/users/expenses/update_user',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {
                     console.log(data);
-                    if (data == 'Expense deleted successfully.'){
+                    if (data == 'User updated successfully.'){
                         window.location.reload();
                     }
                 })
@@ -88,13 +99,15 @@ var account_body = () => {
             email: email
           })
         };
-          fetch('https://api.expensey.app/users/expenses/del_expense',requestOptions) 
+          fetch('https://api.expensey.app/users/expenses/del_user',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {
                     console.log(data);
-                    if (data == 'Expense deleted successfully.'){
+                    if (data == 'User deleted successfully.'){
+                        delCookies();
                         window.location.reload();
+                        window.localStorage.clear();
                     }
                 })
               .catch(error => console.log(error));
@@ -105,17 +118,17 @@ var account_body = () => {
         <div id="changeEmail">
             <h2>Change Email</h2>
             <input type="text" placeholder="Enter new email address." id="newEmail"></input>
-            <button>Update Email</button>
+            <button onClick={changeEmail}>Update Email</button>
         </div>
         <div id="resetPw">
             <h2>Change Password</h2>
             <input type="text" placeholder="Enter current password." id="currPw"></input>
             <input type="text" placeholder="Enter new password." id="newPw"></input>
             <input type="text" placeholder="Confirm password." id="newPwAuth"></input>
-            <button>Update password</button>
+            <button onClick={changePw}>Update password</button>
         </div>
         <h2>Delete Account</h2>
-        <button id="delAccount">Delete Account</button>
+        <button id={delAccount}>Delete Account</button>
         </div>
     )
 }
