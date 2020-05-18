@@ -3,7 +3,7 @@ Expensey is an expense management system for personal and business use. Expensey
 
 ## Updates to come
  * Expense page:
-   * Uploading expense receipts on creation of new expense
+   * Fix cors error preventing uploading of receipts (works locally)
    * Being able to edit & delete expenses
    * Being able to change and sort by expense status
  * Account page:

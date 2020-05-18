@@ -476,7 +476,7 @@ async function populateExpenseCards (expenses) {
       var arr = expenses[i].date.split('-')
       var date = arr[1] + '-' + arr[2] + '-' + arr[0] //string with rearranged date into dd-mm-yyyy format
       expenseCardList.push(<ExpenseCard data = {[date, expenses[i].merchant, expenses[i].amount,
-       expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink, expenses[i].status]} toggleReceiptImg = {props.toggleReceiptImg}/>)
+       expenses[i].category,expenses[i].description, expenses[i].tag, expenses[i].receiptImgLink, expenses[i].status, i]} toggleReceiptImg = {props.toggleReceiptImg} />)
     }
   }
   if (expenseCardList != props.currCardLs){

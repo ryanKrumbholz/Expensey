@@ -89,6 +89,8 @@ const Expense_card   = props => {
     cardData.setStatus(props.data[7]);
   }
 
+  var cardNum = props.data[8]
+
   var toggleReceiptImg = () => {
     props.toggleReceiptImg(cardData.getReceiptImg());
   }
@@ -99,10 +101,24 @@ const Expense_card   = props => {
     cardData.setReceiptImg(cardData.getReceiptIcon());
   }
 
+  var toggleDeleteButton = () => {
+    var buttons  = document.getElementById(`updateButtons${cardNum}`)
+    buttons.style.visibility = 'visible';
+    buttons.style.width = "fit-content"
+  }
+
+  var updateExp = () => {
+
+  }
+
+  var delExp = () => {
+
+  }
+
   setExpense_card();
 
   return (
-      <div className="Card">
+      <div className="Card" onDoubleClick={toggleDeleteButton}>
         <p class="datep">{cardData.getDate()}</p>
         <div class="statusp">
           <p>{cardData.getStatus()}</p>
@@ -114,6 +130,10 @@ const Expense_card   = props => {
         </div>
         <p class="catp">{cardData.getCategory()}</p>
         <p class="commentsp">{cardData.getComments()}</p>
+        <div class="updateButtons" id={`updateButtons${cardNum}`}>
+          <button id="updateExp" onClick={updateExp}>Update</button>
+          <button id="delExp" onClick={delExp}>delete</button>
+        </div>
       </div>
   )
 }

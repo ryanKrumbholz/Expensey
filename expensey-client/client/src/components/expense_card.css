@@ -55,6 +55,11 @@
     text-align: center;
 }
 
+.updateButtons {
+    width: 0;
+    visibility: hidden;
+}
+
 @media only screen and (max-width: 1080px) {
   .statusp {
       visibility: hidden;
