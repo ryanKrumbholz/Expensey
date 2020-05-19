@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import './account_body.css';
 
 
 var account_body = () => {
@@ -32,12 +32,12 @@ var account_body = () => {
         var cookies = document.cookie.split(";");
         for (var i = 0; i < cookies.length; i++)
           eraseCookie(cookies[i].split("=")[0]);
-      }
+      } 
     
     var email = getCookie('email');
 
     var changeEmail = () => {
-        var newEmail = document.getElementById('newEmail');
+        var newEmail = document.getElementById('newEmail').textContent;
         const requestOptions =
         {
           method: 'POST',
@@ -48,7 +48,7 @@ var account_body = () => {
             newEmail: newEmail
           })
         };
-          fetch('https://api.expensey.app/users/expenses/update_user',requestOptions) 
+          fetch('https://api.expensey.app/users/update_user',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {
@@ -61,9 +61,9 @@ var account_body = () => {
     }
 
     var changePw = () => {
-        var currPw = document.getElementById('currPw');
-        var newPw = document.getElementById('newPw');
-        var newPwAuth = document.getElementById('newPwAuth');
+        var currPw = document.getElementById('currPw').textContent;
+        var newPw = document.getElementById('newPw').textContent;
+        var newPwAuth = document.getElementById('newPwAuth').textContent;
 
         const requestOptions =
         {
@@ -77,7 +77,7 @@ var account_body = () => {
             newPwAuth: newPwAuth
           })
         };
-          fetch('https://api.expensey.app/users/expenses/update_user',requestOptions) 
+          fetch('https://api.expensey.app/users/update_user',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {
@@ -93,18 +93,19 @@ var account_body = () => {
         const requestOptions =
         {
           method: 'POST',
-          headers: {
+          headers:  {
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             email: email
           })
         };
-          fetch('https://api.expensey.app/users/expenses/del_user',requestOptions) 
+          fetch('https://api.expensey.app/users/del_user',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {
                     console.log(data);
-                    if (data == 'User deleted successfully.'){
+                    if (data == 'User deleted successfully'){
                         delCookies();
                         window.location.reload();
                         window.localStorage.clear();
@@ -128,7 +129,7 @@ var account_body = () => {
             <button onClick={changePw}>Update password</button>
         </div>
         <h2>Delete Account</h2>
-        <button id={delAccount}>Delete Account</button>
+        <button id="delAccount" onClick={delAccount}>Delete Account</button>
         </div>
     )
 }

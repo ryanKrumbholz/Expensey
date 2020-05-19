@@ -80,9 +80,16 @@ async function getUser(email) {
      return await userObj;
   }
   
-function delUser(email) {
-    //TODO test function
-    User.findByIdAndDelete({email : email});
+async function delUser(email, res) {
+  console.log(email)
+    User.findOneAndDelete({email: email}, () => {
+      res.json("User deleted successfully");
+    });
+
+    if (await getUser(email)) {
+      res.json("User failed to delete");
+    }
+      
   }
   
 async function authUser(email, pword, res) {
@@ -167,6 +174,14 @@ async function addExpense(req, res) {
   })
 }
 
+function delExpense () {
+
+}
+
+function updateExpense () {
+  
+}
+
 async function uploadImg(files, folder) {
   const file = files.file[0];
   const path = file.path;
@@ -199,13 +214,44 @@ router.post('/user', function(req, res, next) {
 });
 
 //TODO get email from post request from react
-router.post('/del_user', function(req, res, next, email) {
-  delUser(email).then(x => {
-    res.json(x);
-  });
+router.post('/del_user', async function(req, res, next) {
+  data = req.body
+
+  delUser(data.email, res);
 });
-router.post('/update_user', function(req, res, next, email) {
-});
+
+router.post('/update_user', function(req, res, next) {
+  var user = req.body
+  var updateUser = getUser(user.email).then(data => {
+
+    var query = data._id;
+
+    if (user.email) {
+      data.email =  user.email;
+    } 
+
+    if (user.newPw) {
+      password.hash(function(error, hash) {
+        if(error) {
+            throw new Error('Something went wrong!');
+      }
+        data.password = hash;
+    });
+      
+    User.findByIdAndUpdate(query, data, function(err, doc) {
+      if (err){
+        console.log(err);
+        res.json('User failed to update.');
+      } 
+      else{
+        res.json('User updated successfully.');
+      }
+      
+    });
+}
+})
+})
+
 
 router.post('/user/dkmode', function(req, res, next) {
   var user = req.body
@@ -292,8 +338,5 @@ router.post('/expenses/update_expense', function(req, res, next) {
   var id = req.body
   updateExpense(id, res);
 });
-
-
-
   
 module.exports = router;
