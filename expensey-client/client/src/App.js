@@ -202,7 +202,7 @@ getViewMode = () => {
 
           if (!this.getCookie('dkModeStatus')){
             //if dkmode cookie doesn't exist, checks db for user preference
-          fetch('https://api.expensey.app/users/user',requestOptions) 
+          fetch('https://limitless-bayou-59789.herokuapp.com/users/user',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {

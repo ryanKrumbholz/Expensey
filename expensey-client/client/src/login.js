@@ -58,7 +58,7 @@ const Login = (props) => {
       })};
 
       if (newAccountValidation(email, emailConf,  pword, pwordConf)) {
-        fetch('https://api.expensey.app/users/adduser',requestOptions) 
+        fetch('https://limitless-bayou-59789.herokuapp.com/users/adduser',requestOptions) 
           .then(res => res.json())
           .then (data => 
             {
@@ -83,7 +83,7 @@ const Login = (props) => {
         password: pword
       })};
 
-    fetch('https://api.expensey.app/users/login',requestOptions) 
+    fetch('https://limitless-bayou-59789.herokuapp.com/users/login',requestOptions) 
 
           .then(res => res.json())
           .then (data => 

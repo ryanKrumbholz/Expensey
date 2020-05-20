@@ -12,6 +12,7 @@ const fileType = require('file-type');
 const bluebird = require('bluebird');
 const multiparty = require('multiparty');
 
+
 // configure the keys for accessing AWS
 AWS.config.update({
   accessKeyId: AWS_ACCESS_KEY_ID,
@@ -174,12 +175,74 @@ async function addExpense(req, res) {
   })
 }
 
-function delExpense () {
+async function delExpense (data, res) {
+  var email = data.email
+  var id = data.id
+  var currUser = await getUser(email);
+  var query = currUser._id;
+  var expenses = currUser.expenses;
+  for (var i = 0; i < expenses.length; i++) {
+    var expense = expenses[i]
+    if (expense.id == id) {
+      var tempArr = expenses.splice(i, 1);
+      expenses = tempArr;
+      break;
+    }
+  }
 
+  User.findByIdAndUpdate(query, currUser, function(err, doc) {
+    if (err){
+      console.log(err);
+      res.json('Expense failed to delete.');
+    } 
+    else{
+      res.json('Expense deleted successfully.');
+    }
+    
+  });
 }
 
-function updateExpense () {
-  
+async function updateExpense (req, res) {
+      var info = req.body;
+      var currUser = await getUser(info.email);
+      var query = currUser._id;
+      var expenses = currUser.expenses;
+      var newExpense = 
+    {
+      id: info.id,
+      date: null,
+      dateNum: null,
+      merchant: info.merchant,
+      amount: info.amount,
+      category: info.category,
+      description: info.description,
+      ccData: null,
+      tags: null,
+      receiptImgLink: null,
+      status : info.status
+    };
+      for (var i = 0; i < expenses.length; i++) {
+        var expense = expenses[i]
+        if (expense.id == newExpense.id) {
+          newExpense.date = expense.date
+          newExpense.dateNum = expense.dateNum
+          newExpense.ccData = expense.ccData
+          newExpense.tags = expense.tags
+          newExpense.receiptImgLink = expense.receiptImgLink
+          expenses[i] = newExpense;
+          break;
+        }
+      }
+
+      User.findByIdAndUpdate(query, currUser, function(err, doc) {
+        if (err){
+          console.log(err);
+          res.json('Expense failed to update.');
+        } 
+        else{
+          res.json('Expense updated successfully.');
+        }
+      });
 }
 
 async function uploadImg(files, folder) {
@@ -220,25 +283,32 @@ router.post('/del_user', async function(req, res, next) {
   delUser(data.email, res);
 });
 
-router.post('/update_user', function(req, res, next) {
+router.post('/update_user', async function(req, res, next) {
   var user = req.body
-  var updateUser = getUser(user.email).then(data => {
+  var currUser = await getUser(user.email);
+  var query = currUser._id;
+  console.log(currUser, user)
 
-    var query = data._id;
-
-    if (user.email) {
-      data.email =  user.email;
+    if (user.newEmail) {
+      currUser.email =  user.newEmail;
     } 
 
     if (user.newPw) {
-      password.hash(function(error, hash) {
-        if(error) {
+      password(user.currPW).verifyAgainst(currUser.password,function(error, verified) {
+        if(error)
             throw new Error('Something went wrong!');
+      if (verified) {
+        password(user.newPw).hash(function(error, hash) {
+          if(error) {
+              throw new Error('Something went wrong!');
+        }
+        currUser.password = hash;
+      });
       }
-        data.password = hash;
-    });
-      
-    User.findByIdAndUpdate(query, data, function(err, doc) {
+    })
+  }
+
+    User.findByIdAndUpdate(query, currUser, function(err, doc) {
       if (err){
         console.log(err);
         res.json('User failed to update.');
@@ -248,8 +318,6 @@ router.post('/update_user', function(req, res, next) {
       }
       
     });
-}
-})
 })
 
 
@@ -330,13 +398,12 @@ router.post('/expenses/add_expense', function(req, res, next) {
 });
 
 router.post('/expenses/del_expense', function(req, res, next) {
-  var id = req.body
-  delExpense(id, res);
+  var data = req.body
+  delExpense(data, res);
 });
 
 router.post('/expenses/update_expense', function(req, res, next) {
-  var id = req.body
-  updateExpense(id, res);
+  updateExpense(req, res);
 });
   
 module.exports = router;

@@ -37,22 +37,22 @@ var account_body = () => {
     var email = getCookie('email');
 
     var changeEmail = () => {
-        var newEmail = document.getElementById('newEmail').textContent;
+        var newEmail = document.getElementById('newEmail').value;
         const requestOptions =
         {
           method: 'POST',
           headers: {
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             email: email,
             newEmail: newEmail
           })
         };
-          fetch('https://api.expensey.app/users/update_user',requestOptions) 
+          fetch('https://limitless-bayou-59789.herokuapp.com/users/update_user',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {
-                    console.log(data);
                     if (data == 'User updated successfully.'){
                         window.location.reload();
                     }
@@ -61,32 +61,36 @@ var account_body = () => {
     }
 
     var changePw = () => {
-        var currPw = document.getElementById('currPw').textContent;
-        var newPw = document.getElementById('newPw').textContent;
-        var newPwAuth = document.getElementById('newPwAuth').textContent;
+        var currPw = document.getElementById('currPw').value;
+        var newPw = document.getElementById('newPw').value;
+        var newPwAuth = document.getElementById('newPwAuth').value;
 
         const requestOptions =
         {
           method: 'POST',
           headers: {
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             email: email,
             currPw: currPw,
-            newPw: newPw,
-            newPwAuth: newPwAuth
+            newPw: newPw
           })
         };
-          fetch('https://api.expensey.app/users/update_user',requestOptions) 
+        if (newPw === newPwAuth) {
+          fetch('https://limitless-bayou-59789.herokuapp.com/users/update_user',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {
-                    console.log(data);
                     if (data == 'User updated successfully.'){
                         window.location.reload();
                     }
                 })
               .catch(error => console.log(error));
+        } 
+        else {
+          console.log("Passwords do not match");
+        }   
     }
 
     var delAccount = () => {
@@ -100,11 +104,10 @@ var account_body = () => {
             email: email
           })
         };
-          fetch('https://api.expensey.app/users/del_user',requestOptions) 
+          fetch('https://limitless-bayou-59789.herokuapp.com/users/del_user',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {
-                    console.log(data);
                     if (data == 'User deleted successfully'){
                         delCookies();
                         window.location.reload();
@@ -123,9 +126,9 @@ var account_body = () => {
         </div>
         <div id="resetPw">
             <h2>Change Password</h2>
-            <input type="text" placeholder="Enter current password." id="currPw"></input>
-            <input type="text" placeholder="Enter new password." id="newPw"></input>
-            <input type="text" placeholder="Confirm password." id="newPwAuth"></input>
+            <input type="password" placeholder="Enter current password." id="currPw"></input>
+            <input type="password" placeholder="Enter new password." id="newPw"></input>
+            <input type="password" placeholder="Confirm password." id="newPwAuth"></input>
             <button onClick={changePw}>Update password</button>
         </div>
         <h2>Delete Account</h2>

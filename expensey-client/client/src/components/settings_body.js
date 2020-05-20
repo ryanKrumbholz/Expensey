@@ -43,7 +43,7 @@ const settings_body = props => {
             dkModeStatus : dkModeStatus
             })};
           
-          fetch('https://api.expensey.app/users/user/dkmode',requestOptions) 
+          fetch('https://limitless-bayou-59789.herokuapp.com/users/user/dkmode',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {

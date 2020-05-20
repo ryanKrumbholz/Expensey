@@ -17,7 +17,7 @@ function estDB() {
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function() {
     // we're connected!
-  });
+  }); 
 }
 
 estDB();
@@ -37,4 +37,4 @@ app.get('/api', (req,res) => {
 // }, app)
 // .listen(port, () => console.log("Server started on port " + port));
 
-app.listen(port, () => console.log("Server started on port " + port));
+app.listen(process.env.PORT || port, () => console.log("Server started on port " + port));

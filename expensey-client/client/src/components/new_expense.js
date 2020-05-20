@@ -98,7 +98,7 @@ const new_expense = props => {
         };
     
         if (checkFields()==true) {
-          fetch('https://api.expensey.app/users/expenses/add_expense',requestOptions) 
+          fetch('https://limitless-bayou-59789.herokuapp.com/users/expenses/add_expense',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {

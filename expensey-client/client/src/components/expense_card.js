@@ -5,6 +5,25 @@ const Expense_card   = props => {
 
   const [editable, setEditable] = useState(false);
 
+  var getCookie = cname => {
+    /**
+     * Gets data of local cookie of given cname
+     */
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
   //function encapsulates card data
   var cardData = function () {
     var date = null;
@@ -117,6 +136,7 @@ const Expense_card   = props => {
   var updateExp = () => {
     var id = props.data[9];
     var date = cardData.getDate();
+    var email = getCookie('email')
     var status = document.getElementsByClassName("statusp")[0];
     if (status) {
       status = status.textContent;
@@ -127,20 +147,20 @@ const Expense_card   = props => {
     }
     var amount = document.getElementsByClassName("amountp")[0];
     if (amount) {
-      amount = amount.textContent;
+      amount = amount.textContent.replace('$', '');
     }
     var category = document.getElementsByClassName("catp")[0];
     if (category) {
       category = category.textContent;
     }
-    var description = document.getElementsByClassName("descp")[0];
+    var description = document.getElementsByClassName("commentsp")[0];
     if (description) {
       description = description.textContent;
     }
 
     const expense = JSON.stringify({
-      id: id,
-      date: date, 
+      email: email,
+      id: id, 
       status: status,
       merchant: merchant,
       amount: amount,
@@ -148,24 +168,20 @@ const Expense_card   = props => {
       description: description
     });
 
-    var formData = new FormData();
-
-    formData.append('expense', expense);
-    // formData.append('file', img);
-
    const requestOptions =
         {
           method: 'POST',
           headers: {
+            'Content-Type': 'application/json'
           },
-          body: FormData
+          body: expense
           }
-          fetch('https://api.expensey.app/users/expenses/del_expense',requestOptions) 
+          fetch('https://limitless-bayou-59789.herokuapp.com/users/expenses/update_expense',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {
                     console.log(data);
-                    if (data == 'Expense deleted successfully.'){
+                    if (data == 'Expense updated successfully.'){
                         window.location.reload();
                     }
                 })
@@ -175,22 +191,25 @@ const Expense_card   = props => {
 
   var delExp = () => {
     var id = props.data[9];
+    var email = getCookie('email');
 
    const requestOptions =
         {
           method: 'POST',
           headers: {
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
+            email: email,
             id: id
           })
         };
-          fetch('https://api.expensey.app/users/expenses/update_expense',requestOptions) 
+          fetch('https://limitless-bayou-59789.herokuapp.com/users/expenses/del_expense',requestOptions) 
               .then(res => res.json())
               .then (data => 
                 {
                     console.log(data);
-                    if (data == 'Expense updated successfully.'){
+                    if (data == 'Expense deleted successfully.'){
                         window.location.reload();
                     }
                 })
