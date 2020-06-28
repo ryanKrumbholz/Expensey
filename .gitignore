@@ -1,3 +1,4 @@
 expensey-api/api/.env
 expensey-api/api/dockerfile
 expensey-api/api/Procfile
+.DS_Store
