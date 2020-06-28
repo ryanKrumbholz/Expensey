@@ -2,21 +2,10 @@
 Expensey is an expense management system for personal and business use. Expensey is currently being built with the MERN(Mongo, Express, React, and Node) stack.
 
 ## Updates to come
- * Expense page:
-   * Fix cors error preventing uploading of receipts (works locally)
-   * Being able to edit & delete expenses
-   * Being able to change and sort by expense status
  * Account page:
-   * Change password
-   * Change email address
-   * Uploading profile picture
- * Login page:
-   * Account authentication email
-   * Being able to recover account
+   * Ability to change user image.
  * General
-    * Commenting and code refactoring
     * Support for mobile, Safari,  and ie
-    * Dark Mode bug fixes
     * Migrate to redux
     
 
